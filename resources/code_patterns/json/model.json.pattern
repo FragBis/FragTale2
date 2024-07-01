@@ -1,0 +1,29 @@
+{
+	"columns": {
+		"{columnName}": {
+			"type": "{'int', 'string', 'datetime', 'float', 'bool', 'time'}",
+			"length": 0,
+			"nullable": true,
+			"default": null
+		}
+	},
+	"primary_key": [
+		"{columnName}",
+		"{any_other_columName_if_composite_key}"
+	],
+	"auto_increment": "{columName}",
+	"foreign_keys": {
+		"fk_index": {
+			"referenced_table": "{referenced_table_name}",
+			"referenced_keys": {
+				"{columName}": "{referenced_key}"
+			}
+		}
+	},
+	"uniques": {
+		"uq_index": [
+			"{columnName1}",
+			"{columnName2}"
+		]
+	}
+}

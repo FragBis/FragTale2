@@ -1,0 +1,13 @@
+<?php
+
+namespace %namespace%;
+
+use FragTale\Application\Model\T_;
+
+/**
+ * "%tableName%" table fields
+ *  Auto generated. Do not modify.
+ */
+abstract class T_%entityName% extends T_ {
+%fields%
+}

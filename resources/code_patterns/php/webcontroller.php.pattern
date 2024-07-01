@@ -1,0 +1,66 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*useWeb*/;
+
+class /*class*/ extends WebController {
+	
+	/**
+	 * 
+	 */
+	function __construct() {
+		parent::__construct ();
+	}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at first (top) position.
+	 *
+	 */
+	protected function executeOnTop(): void {
+		$this->getTemplate ()->setTitle ( _('Set your page title here') );
+	}
+
+	/**
+	 * Instructions executed before HTTP request method handler.
+	 * It will be executed before any request method (GET, POST, PUT etc.), but not in console.
+	 *
+	 */
+	protected function executeBeforeHttpRequestMethod(): void {
+		// You can remove functions you don't need
+	}
+
+	/**
+	 * Instructions executed when HTTP client sends request method GET
+	 *
+	 */
+	protected function executeOnHttpRequestMethodGet(): void {
+		// Test displayed variables
+		$this->getTemplate ()->setVar ( 'text', _ ( 'Hello World!' ) )->setVar ( 'info', sprintf ( _ ( 'You have requested %s' ), __CLASS__ ) );
+	}
+
+	/**
+	 * Instructions executed when HTTP client sends request method POST
+	 *
+	 */
+	protected function executeOnHttpRequestMethodPost(): void {
+		// You can remove functions you don't need
+	}
+
+	/**
+	 * Instructions executed after HTTP request has been handled.
+	 * It will be executed after any request method (GET, POST, PUT etc.), but not in console.
+	 *
+	 */
+	protected function executeAfterHttpRequestMethod(): void {
+		// You can remove functions you don't need
+	}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at the very last
+	 *
+	 */
+	protected function executeOnBottom(): void {
+		// You can remove functions you don't need
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"Controller": {},
+	"Model": {},
+	"resources": {},
+	"Service": {},
+	"Controller.php": "resources/code_patterns/php/projectcontroller.php.pattern?namespace&templateFormatId&layoutPath",
+	"Service.php": "resources/code_patterns/php/service.php.pattern?namespace"
+}

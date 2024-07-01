@@ -1,0 +1,82 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*useController*/;
+use /*useEntity*/;
+
+/**
+ * Forms uses AJAX request methods "POST", "PUT" or "DELETE" to respectively "insert", "update" or "delete" a database row
+ */
+class /*Class*/ extends WebController {
+	protected /*Entity*/ $Entity;
+
+	/**
+	 */
+	function __construct() {
+		parent::__construct ();
+		$templatePath = $this->getSuperServices ()->getProjectService ()->getTemplatesDir () . '//*templatePath*/';
+		$this->getTemplate ()->setPath ( $templatePath ); // This JS source is required for AJAX requests
+
+		// Loading entity: if you want to load data without primary key defined for your table, then it's up to you to change this code.
+		// We strongly recommend to use primary keys (or at least unique keys)
+		$this->Entity = new /*Entity*/ ();
+	}
+
+	/**
+	 * Paginator can handle any request method (you can use POST or GET to pass parameters)
+	 */
+	protected function executeOnTop(): void {
+		$RequestService = $this->getSuperServices ()->getHttpRequestService ();
+		// Paginator
+		$totalRows = $this->Entity->getTotalRowCount ();
+		$pageNum = ( int ) $RequestService->getParamValue ( 'page' );
+		if ($pageNum < 1)
+			$pageNum = 1;
+		$nbDisplayedRows = ( int ) $RequestService->getParamValue ( 'nb_rows' );
+		if (! $nbDisplayedRows)
+			$nbDisplayedRows = 10;
+		$pageCount = ( int ) ($totalRows / $nbDisplayedRows);
+		if (($pageCount * $nbDisplayedRows) < $totalRows)
+			$pageCount ++;
+		if ($pageCount && $pageNum > $pageCount)
+			$pageNum = $pageCount;
+		$limMin = ($pageNum - 1) * $nbDisplayedRows;
+		$limMax = $limMin + $nbDisplayedRows;
+		$order = $RequestService->getParamValue ( 'order' );
+		if (! $order)
+			$order = 1;
+		$orderDirection = ( string ) $RequestService->getParamValue ( 'direction' );
+		if (! in_array ( strtoupper ( $orderDirection ), [ 
+				'ASC',
+				'DESC'
+		] ))
+			$orderDirection = 'ASC';
+		// Load data
+		$this->Entity->selectAs ( 'T1', '*' )
+			->orderBy ( [ 
+				$order => $orderDirection
+		] )
+			->limit ( [ 
+				$limMin,
+				$limMax
+		] )
+			->execute ();
+		// Set template variables
+		$this->getTemplate ()
+			->setVar ( 'Data', $this->Entity->getCollection () )
+			->setVar ( 'totalRows', $totalRows )
+			->setVar ( 'pageNum', $pageNum )
+			->setVar ( 'nbDisplayedRows', $nbDisplayedRows )
+			->setVar ( 'order', $order )
+			->setVar ( 'direction', $orderDirection )
+			->setVar ( 'pageCount', $pageCount )
+			->setVar ( 'primaryKeys', $this->Entity->getPrimaryKey () );
+	}
+
+	/**
+	 * Instructions executed in any case, on controller run, at the very end, just before web page rendering
+	 */
+	protected function executeOnBottom(): void {
+	}
+}

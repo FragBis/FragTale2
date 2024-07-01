@@ -1,0 +1,37 @@
+<?php
+
+namespace /*namespace*/;
+
+use FragTale\Application\Controller as SuperController;
+
+/**
+ * This is the top controller of your project.
+ * All other controller classes must extend this controller (or a parent extending this one).
+ * You can override certain methods or create new functions that will be inherited.
+ * All your custom controllers will be placed in your Project\{MyProject}\Controller\{Web|Cli|Block} namespace.
+ * You can create specific folders in your project folder to create or import a PHP library that follow rules set by autoloaders (folders' tree and namespaces must match).
+ */
+class Controller extends SuperController {
+
+	/**
+	 *
+	 */
+	function __construct() {
+		parent::__construct();
+	}
+
+	/**
+	 * Custom services are services you created in your project's Service folder.
+	 * It is mainly a "getter". For example, you have created a class named "AnyWay" that extends "AbstractService" (or any class that already extends from "AbstractService").
+	 * Then, you can create a getter function into your top custom Service:<br>
+	 * public function getAnyWayService(): AnyWay { return $this->createSingleInstance ( AnyWay::class ); }
+	 * <br>
+	 * All services follow Singleton design pattern.
+	 *
+	 * @return Service Instance of /*namespace*/\Service
+	 */
+	public function getCustomServices(): Service {
+		// It is the instance of /*namespace*/\Service
+		return $this->getSuperServices ()->createSingleInstance ( Service::class );
+	}
+}

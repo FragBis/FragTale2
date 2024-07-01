@@ -1,0 +1,33 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*use*/;
+
+class /*class*/ extends Controller {
+	
+	/**
+	 * 
+	 */
+	function __construct() {
+		parent::__construct ();
+	}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at first (top) position.
+	 *
+	 */
+	protected function executeOnTop(): void {}
+
+	/**
+	 * Instructions executed only if application is launched via CLI
+	 *
+	 */
+	protected function executeOnConsole(): void {}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at the very last
+	 *
+	 */
+	protected function executeOnBottom(): void {}
+}

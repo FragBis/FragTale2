@@ -1,0 +1,23 @@
+## Check Apache conf in <Directory> section that "AllowOverride" parameter is set to a value
+## that allows following parameters to be overrided.
+## Here is the simplest example in Debian-like virtualhost configuration file in "/etc/apache2/sites-available/000-default.conf":
+# <Directory /var/www/fragtale2/public>
+#	Options -Indexes +FollowSymLinks +MultiViews
+#	AllowOverride All
+#	Require all granted
+# </Directory>
+
+AddDefaultCharset UTF-8
+
+# Defining rules for URL rewrite
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php?_route_index=$1 [L,QSA]
+</IfModule>
+
+## Apache2 mod deflate
+<IfModule mod_deflate.c>
+	SetOutputFilter DEFLATE
+</IfModule>

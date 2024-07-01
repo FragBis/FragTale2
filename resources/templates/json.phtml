@@ -1,0 +1,12 @@
+<?php
+$FrontMessageService = $View->getSuperServices ()->getFrontMessageService ();
+$Template = $View->Template;
+// Reassign objects in vars
+foreach ( $Template->getObjects () as $key => $Obj ) {
+	if (! $Template->getVar ( $key ))
+		$Template->setVar ( $key, $Obj );
+	else
+		$Template->setVar ( 'json_parsing_error_' . substr ( md5 ( microtime () . rand ( 0, 1000 ) ), 0, 8 ), "While returning JSON result: key '$key' used both in vars and objects. Object one excleded." );
+}
+$Template->setVar ( 'exceptions', $FrontMessageService->getMessages () );
+echo $Template->getVars ()->toJsonString ( $Template->isPrettyPrint () );

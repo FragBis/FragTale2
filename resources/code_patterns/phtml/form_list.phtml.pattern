@@ -1,0 +1,95 @@
+<?php
+use FragTale\DataCollection;
+use /*useAction*/;
+
+$actionUrl = $View->getSuperServices ()->getRouteService ()->getControllerUrl(Action::class);
+
+if (($Data = $View->Template->getVar('Data')) && $Data instanceof DataCollection && $Data->count ()) {
+	$orderColumn = $View->Template->getVar('order');
+	$pageCount = $View->Template->getVar('pageCount');
+	$totalRows = $View->Template->getVar('totalRows');
+	$orderDirection = $View->Template->getVar('direction');
+	$pageNum = $View->Template->getVar('pageNum');
+	$nbDisplayedRows = $View->Template->getVar('nbDisplayedRows');
+	
+	$formId = 'paginator_form_' . substr(md5(time().rand()), 0, 8);
+	$primaryKeys = $View->Template->getVar('primaryKeys');?>
+
+<form method="GET" id="<?=$formId?>">
+	<table>
+		<thead>
+			<tr>
+			<?php foreach ($Data->findAt(0)->keys() as $columnName){?>
+				<th style="cursor: pointer;"
+					onclick="
+						document.getElementById('paginator_order').value = '<?=$columnName?>';
+						document.getElementById('paginator_direction').value = '<?=$columnName === $orderColumn && strtoupper($orderDirection) === 'ASC' ? 'DESC' : 'ASC'?>';
+						document.getElementById('<?=$formId?>').submit();
+					">
+					<?= $columnName . ( $columnName === $orderColumn ? (strtoupper($orderDirection) === 'DESC' ? ' &darr;' : ' &uarr;' ) : '' ) ?>
+				</th>
+			<?php } ?>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($Data as $Row) {
+			$pkParams = [];
+			foreach ($primaryKeys as $pk)
+				$pkParams[] = "$pk=" . $Row->findByKey($pk);?>
+			<tr style="cursor: pointer;"
+				onclick="document.location.href = '<?=$actionUrl.'?'.implode('&', $pkParams)?>';">
+			<?php $Row->forEach(function ($key, $value){
+				$value = trim(html_entity_decode(strip_tags((string)$value)));
+				$maxLen = 50;
+				if (strlen($value) > $maxLen && strpos($value, ' ')){
+					$value = substr($value, 0, $maxLen);
+					$value = substr($value, 0, strrpos($value, ' ')) . '...';
+				}?>
+				<td><?= $value ?></td>
+			<?php });?>
+			</tr>
+		<?php } ?>
+		</tbody>
+	</table>
+	<div id="paginator">
+		<input type="hidden" name="order" id="paginator_order" value="<?=$orderColumn?>" />
+		<input type="hidden" name="direction" id="paginator_direction" value="<?=$orderDirection?>" />
+		<input type="hidden" name="page" id="paginator_page" value="<?=$pageNum?>" />
+		<div><?=sprintf(_('Total rows: %s'), $totalRows)?></div>
+		<div>
+			<label for="nb_rows"><?=_('Display lines:')?></label>
+			<select name="nb_rows" onchange="document.getElementById('<?=$formId?>').submit();">
+				<?php foreach ([10, 20, 50, 100] as $number){?>
+				<option value="<?=$number?>" <?=$number == $nbDisplayedRows ? 'selected' : ''?>><?=$number?></option>
+				<?php }?>
+			</select>
+		</div>
+		<?php if ($pageCount > 1) {?>
+		<div style="text-align: center;">
+			<?php for ($i = 1; $i <= $pageCount; $i++) { ?>
+			<div
+				style="display: inline-block; padding: 0 4px; <?=$i == $pageNum ? 'border: 1px solid black;' : 'cursor: pointer;';?>"
+				<?php if ($i != $pageNum){?>
+				onclick="
+					document.getElementById('paginator_page').value = <?=$i?>;
+					document.getElementById('<?=$formId?>').submit();
+				"<?php } ?>>
+				<?=$i?>
+			</div>
+			<?php } ?>
+		</div>
+		<?php }?>
+		<div>
+			<a href="<?=$actionUrl?>"><?=_('Add new')?></a>
+		</div>
+	</div>
+</form>
+<?php
+} else { ?>
+<div><?= _('No data') ?></div>
+<br>
+<div>
+	<a href="<?=$actionUrl?>"><?=_('Add new')?></a>
+</div>
+<?php
+}

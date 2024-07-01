@@ -1,0 +1,11 @@
+<h2>The /*projectName*/ Project</h2>
+<div style="display: flex; flex-wrap: wrap; padding: 2%;"><?php
+	// Displays all template variables (a DataCollection).
+	// Note that you can use classical "foreach ($View->Template->getVars () as $key => $element)", since DataCollection is iterable.
+	$View->Template->getVars ()->forEach ( function ($key, $element) { ?>
+	<div style="flex-direction: row; width: 40%;">
+		<h4><?=$key?></h4>
+		<pre style="white-space: pre-wrap;"><?=$element?></pre>
+	</div>
+<?php });?>
+</div>

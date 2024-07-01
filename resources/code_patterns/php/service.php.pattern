@@ -1,0 +1,22 @@
+<?php
+
+namespace /*namespace*/;
+
+use FragTale\Service as SuperService;
+
+/**
+ * This service mainly aim to index your other custom services.
+ */
+class Service extends SuperService {
+	/**
+	 * Custom services are services you created in your project's Service folder.
+	 * It is mainly a "getter". For example, you have created a class named "AnyWay" that extends "AbstractService" (or any class that already extends from éAbstractService").
+	 * Then, you can create a getter function into your top custom Service:<br>
+	 * public function getAnyWayService(): AnyWay { return $this->createSingleInstance ( AnyWay::class ); }
+	 * <br>
+	 * All services follow Singleton design pattern.
+	 */
+	public function getCustomServices(): self {
+		return $this->getService ( self::class );
+	}
+}

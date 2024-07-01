@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title><?=$View->Template->getTitle()?></title>
+		<?=$View->Template->getCssSourceTags()?>
+	</head>
+	<body>
+		<div class="page">
+			<section class="header">
+				<?php include 'header.phtml'?>
+			</section>
+			<section class="content">
+				<?php // A phtml layout MUST ALWAYS contains the following variable $View ?>
+				<?=$View?>
+			</section>
+			<section class="footer">
+				<?php include 'footer.phtml'?>
+			</section>
+		</div>
+		<?=$View->Template->getJsSourceTags()?>
+	</body>
+</html>

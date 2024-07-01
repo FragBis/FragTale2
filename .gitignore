@@ -1,0 +1,8 @@
+*~
+.settings
+.project
+.buildpath
+Module/*
+Project/*
+logs/*
+resources/configuration/*

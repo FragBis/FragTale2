@@ -1,0 +1,16 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*use*/;
+
+/**
+ * Custom Maintenance page
+ *
+ */
+class Maintenance extends Controller {
+	function __construct() {
+		parent::__construct();
+		$this->getTemplate ()->setPath ( $this->getSuperServices ()->getProjectService ()->getViewsDir() . '/maintenance.phtml' );
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"FragTaleCms": {
+		"repository": "https://fragtale.net/git/FragTaleCms.git",
+		"target_folder": "FragTaleCms",
+		"description": {
+			"en_US": "/!\\ In development, not available yet /!\\ This module is required to rewrite URL and to bind specified URI to a controller. You can also define custom fields for determined pages.",
+			"fr_FR": "/!\\ En développement, indisponible pour le moment /!\\ Ce module est requis pour pouvoir réécrire les URL d'un contrôleur donné. Vous pouvez également définir des champs (type input, div etc...) spécifiques à une page Web donnée."
+		},
+		"requirements": [],
+		"dependencies": []
+	}
+}

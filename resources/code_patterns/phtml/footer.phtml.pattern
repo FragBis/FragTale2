@@ -1,0 +1,3 @@
+<h4>
+	<?= $View->Template->getVar('footer_text') ? $View->Template->getVar('footer_text') : _('Footer') ?>
+</h4>

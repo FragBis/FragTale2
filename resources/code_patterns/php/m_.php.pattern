@@ -1,0 +1,22 @@
+<?php
+namespace %namespace%;
+
+use FragTale\Application\Model;
+use FragTale\DataCollection;
+
+/**
+ *  Superclass of "E_%entityName%".
+ *  Auto generated. Do not modify.
+ */
+abstract class M_%entityName% extends Model {
+	
+	protected string $tableName = '%tableName%';
+	
+	function __construct(?string $connectorId = null) {
+		parent::__construct ( $connectorId );
+	}
+	
+	public function getColumns(): DataCollection {
+		return T_%entityName%::getConstants ();
+	}
+}

@@ -1,0 +1,27 @@
+<h1><?=$View->Template->getVar('header_title')?></h1>
+<div id="sysinfo"><?php
+use FragTale\DataCollection;
+use FragTale\Constant\MessageType;
+
+$View->getSuperServices ()->getFrontMessageService ()->getMessages()->forEach ( function ($msgType, $Messages) {
+	if ($Messages instanceof DataCollection && $Messages->count ()) {
+		$css = '';
+		switch ($msgType) {
+			case MessageType::ERROR :
+			case MessageType::FATAL_ERROR :
+				$css = 'color: red; font-weight: bold';
+				break;
+			case MessageType::SUCCESS :
+				$css = 'color: green; font-weight: bold';
+				break;
+			case MessageType::WARNING :
+			case MessageType::DEBUG :
+				$css = 'color: orange; font-weight: bold';
+				break;
+		}
+		$Messages->forEach ( function ($ix, $message) use ($css) {?>
+			<div class="sysinfo" style="<?=$css?>"><?=$message?></div><?php
+		} );
+	}
+} );?>
+</div>

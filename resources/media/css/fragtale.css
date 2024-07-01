@@ -1,0 +1,235 @@
+/** CSS optional base file integrated in FragTale 2 framework **/
+.FragTale-loading {
+	cursor: wait;
+}
+
+#FragTale-layer {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background: rgba(0, 0, 0, .2);
+}
+
+.FragTale-fadeOut {
+	opacity: 0 !important;
+	transition: opacity .2s;
+}
+
+.FragTale-fadeIn {
+	opacity: 1 !important;
+	transition: opacity .2s;
+}
+
+.FragTale-popin {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2em;
+	max-width: 100em;
+	background: white;
+	box-shadow: 5px 5px 10px lightgrey;
+	opacity: 0;
+	transition: opacity .2s;
+}
+
+.FragTale-popin-text {
+	text-align: left;
+	margin: 1em;
+}
+
+.FragTale-success {
+	color: green;
+}
+
+.FragTale-error {
+	color: red;
+}
+
+.entity-form {
+	display: table;
+	border-spacing: 0 1.5em;
+	width: 99%;
+}
+
+.entity-field {
+	display: table-row;
+	margin-bottom: 1.7em;
+}
+
+.entity-field-prop {
+	display: table-cell;
+	margin: 0;
+	padding: 0;
+	padding-right: 1em;
+	vertical-align: middle;
+	height: 3.5em;
+	width: 50%;
+}
+
+.entity-field-prop.column {
+	text-align: right;
+}
+
+.checkbox-container {
+	display: inline-block;
+	width: 95%;
+	text-align: left;
+}
+
+.checkbox-label {
+	display: inline-block;
+	text-align: left;
+	min-width: 100px
+}
+
+.entity-field label {
+	display: inline-block;
+}
+
+.entity-field label, label.checkbox-label {
+	cursor: pointer;
+}
+
+.entity-field.bit label, .entity-field-prop.bit label:not(.checkbox-label)
+	{
+	cursor: default;
+}
+
+.debug_button, .debug_displayer, .debug_button_closer {
+	position: absolute;
+	bottom: 0;
+	background: white;
+	border: 1px solid grey;
+	font-size: 12px;
+	color: black;
+	text-align: left;
+	transition: all .2s;
+}
+
+.debug_button {
+	display: block;
+	left: 0;
+	font-style: italic;
+	padding: 3px 10px;
+	text-decoration: none;
+	opacity: 0.2;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+	max-width: 80px;
+}
+
+.debug_displayer {
+	display: none;
+	left: 0;
+	padding: 5px;
+	z-index: 10000;
+	width: 94%;
+	max-height: 95%;
+	overflow: hidden;
+	opacity: 0.98;
+}
+
+.debug_button_closer {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: auto;
+	height: 13px;
+	padding: 5px;
+	cursor: pointer;
+	background: white;
+	color: black;
+	font-weight: bold;
+}
+
+.debug_button:hover, .debug_button_closer:hover {
+	background: black;
+	border: 1px solid black;
+	color: white;
+	opacity: 1;
+}
+
+.debug_displayer pre {
+	overflow: auto;
+	max-height: 535px;
+	background: black;
+	color: white;
+	padding: 5px;
+	margin: 0;
+	margin-top: 5px;
+}
+
+.debug_uri {
+	font-weight: bold;
+	font-size: 14px;
+	padding: 7px;
+	z-index: 10000;
+}
+
+.debug_block{
+	border-bottom: 1px solid rgba(200, 200, 200, .15);
+	font-size: 14px;
+}
+.debug_block div{
+	margin: 0;
+	padding: 0;
+}
+.debug_block .debug_block_title{
+	font-weight: bold;
+	color: white;
+	padding: 10px 5px;
+	border-bottom: 1px solid black;
+	background: rgb(35, 35, 35);
+	cursor: pointer;
+}
+.debug_block .debug_block_title:before{
+	content: '+	';
+}
+.debug_block .debug_block_title.isExpanded{
+	background: rgb(200, 200, 200);
+	color: black;
+}
+.debug_block .debug_block_title.isExpanded:before{
+	content: '-	';
+}
+.debug_block .debug_block_title:hover{
+	background: rgb(100, 100, 100);
+	color: black;
+}
+.debug_block .debug_block_content{
+	display: none;
+	color: white;
+	margin-left: 25px;
+	border-left: 1px solid rgb(40, 40, 40);
+}
+.debug_block .debug_block_content.isExpanded{
+	display: block;
+}
+.debug_block .debug_block_result{
+	color: white;
+	padding: 10px 5px;
+}
+
+@media ( max-width : 600px) {
+	.entity-form, .entity-field, .entity-field-prop, .entity-field-prop.column
+		{
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+	.entity-field {
+		margin-bottom: 2.2em;
+	}
+	.entity-field-prop {
+		height: initial;
+		margin-bottom: 0.5em;
+	}
+}

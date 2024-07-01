@@ -1,0 +1,48 @@
+{
+	"databases": {
+		"default_mongo": {
+			"driver": "mongodb",
+			"host": "localhost",
+			"port": "27017",
+			"database": "",
+			"user": "",
+			"password": "",
+			"charset": ""
+		},
+		"default_sql": {
+			"driver": "mysql",
+			"host": "localhost",
+			"port": "3306",
+			"database": "",
+			"user": "root",
+			"password": "",
+			"charset": "utf8"
+		}
+	},
+	"environments": {
+		"production": {
+			"default_sql_connector_id": "default_sql",
+			"default_mongo_connector_id": "default_mongo",
+			"default_layout_path": "",
+			"default_template_path": "",
+			"default_template_format_id": 1,
+			"locale": "en_US",
+			"encoding": "UTF-8",
+			"debug": false,
+			"parameters": {}
+		},
+		"development": {
+			"default_sql_connector_id": "default_sql",
+			"default_mongo_connector_id": "default_mongo",
+			"default_layout_path": "",
+			"default_template_path": "",
+			"default_template_format_id": 1,
+			"locale": "en_US",
+			"encoding": "UTF-8",
+			"debug": true,
+			"parameters": {}
+		},
+		"default": "production"
+	},
+	"parameters": {}
+}

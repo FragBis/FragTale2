@@ -1,0 +1,57 @@
+{
+	"Controller": {
+		"Block": {
+			"Header.php": "resources/code_patterns/php/headercontroller.php.pattern?namespace&use",
+			"Footer.php": "resources/code_patterns/php/footercontroller.php.pattern?namespace&use"
+		},
+		"Cli": {},
+		"Web": {
+			"Home.php": "resources/code_patterns/php/webcontroller.php.pattern?namespace&useWeb&class",
+			"Media.php": "resources/code_patterns/php/media.php.pattern?namespace"
+		},
+		"Maintenance.php": "resources/code_patterns/php/maintenance.php.pattern?namespace&use",
+		"Page404.php": "resources/code_patterns/php/page404.php.pattern?namespace&use"
+	},
+	"Library": {},
+	"Model": {},
+	"resources": {
+		"configuration": {},
+		"locales": {
+			"?locale": {
+				"LC_MESSAGES": {
+					"messages.po": "resources/code_patterns/po/messages.po.pattern?projectName&dateTime&locale"
+				}
+			}
+		},
+		"media": {
+			"css": {
+				"main.css": "resources/media/css/main.css"
+			},
+			"img": {
+				"404.jpg": "resources/media/img/404.jpg"
+			},
+			"js": {
+				"fragtale.js": "resources/media/js/fragtale.js"
+			}
+		},
+		"templates": {
+			"blocks": {
+				"header.phtml": "resources/code_patterns/phtml/header.phtml.pattern",
+				"footer.phtml": "resources/code_patterns/phtml/footer.phtml.pattern"
+			},
+			"layouts": {
+				"default.phtml": "resources/code_patterns/phtml/layout.phtml.pattern?namespace&projectName"
+			},
+			"views": {
+				"404.phtml": "resources/code_patterns/phtml/404.phtml.pattern",
+				"home.phtml": "resources/code_patterns/phtml/home.phtml.pattern?projectName",
+				"maintenance.phtml": "resources/code_patterns/phtml/maintenance.phtml.pattern",
+				"default.phtml": "resources/code_patterns/phtml/view.phtml.pattern"
+			}
+		}
+	},
+	"Service": {},
+	"Controller.php": "resources/code_patterns/php/projectcontroller.php.pattern?namespace",
+	"Service.php": "resources/code_patterns/php/service.php.pattern?namespace",
+	"WebController.php": "resources/code_patterns/php/defaultwebcontroller.php.pattern?namespace"
+}

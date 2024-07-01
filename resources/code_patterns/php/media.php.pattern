@@ -1,0 +1,37 @@
+<?php
+
+namespace /*namespace*/;
+
+use FragTale\Application\Controller\Media as SuperMedia;
+
+/**
+ * This controller handles all requests on media resources (img, js, css, any file placed in "Project/YourProjectName/resources/media" folder).
+ * All requests on images, videos or any media content are handled here.
+ * You can implement your access rules or define a default picture in case of a targetted media no more exists...
+ * For example, the default 404.jpg file will be sent if an image does not exist.
+ */
+class Media extends SuperMedia {
+
+	/**
+	 * Cache life time in seconds
+	 * (30 days)
+	 * You can change this value
+	 * 
+	 * @var integer
+	 */
+	protected int $cachetime = 2592000;
+	
+	/**
+	 * By default "public".
+	 * Can be "public|private"
+	 * @var string
+	 */
+	protected string $cachecontrol = 'public';
+
+	/**
+	 * 
+	 */
+	function __construct() {
+		parent::__construct ();
+	}	
+}

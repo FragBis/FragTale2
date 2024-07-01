@@ -1,0 +1,80 @@
+<?php
+use Project\/*projectName*/\Controller\Block\Header;
+use Project\/*projectName*/\Controller\Block\Footer;
+use FragTale\DataCollection;
+use FragTale\Constant\MessageType;
+
+/**
+ * Note about the "$View" variable used in all template files:
+ * It is an object of View instantiated in function: FragTale\Application\View::generateContent(), in which this template is included
+ * "$View" is used instead of "$this" to avoid confusion.
+ * Since "$View" is also globally declared in "main.php" file, your IDE should work with auto-completion
+ */ ?>
+<!DOCTYPE html>
+<html lang="<?= $View->getSuperServices ()->getProjectService ()->getLocaleAdditionalProperties()->findByKey('long_code') ?>">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title><?= $View->Template->getTitle() ?></title>
+		<!-- CSS sources -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+		<link href="<?= BASE_URL ?>/media/css/main.css" rel="stylesheet">
+		<link href="<?= BASE_URL ?>/media/css/fragtale.css" rel="stylesheet">
+<?php	// Including CSS sources set in the controller  ?>
+		<?=$View->Template->getCssSourceTags()?>
+		
+	</head>
+	<body>
+		<section class="header">
+<?php		// Including Header block ?>
+			<?= $View->getBlock ( Header::class ) ?>
+		</section>
+		<section class="content">
+<?php		// Print the body content ?>
+			<div class="body">
+				<div class="body-margin">
+					<?=$View?>
+				</div>
+			</div>
+			<section class="footer">
+<?php			// Including Footer block ?>
+				<?= $View->getBlock ( Footer::class ) ?>
+			</section>
+		</section>
+<?php	// Including JS sources set in the controller ?>
+		<?= $View->Template->getJsSourceTags() ?>
+		
+<?php	// Error, warn or success messages
+		$FrontMessages = $View->getSuperServices ()->getFrontMessageService ()->getMessages ();
+		if ($FrontMessages->count()) { ?>
+		<div id="sysinfo">
+			<span class="sysinfo-close-btn" onclick="document.getElementById('sysinfo').style.display='none';">X</span>
+<?php		// Same as foreach($FrontMessages as $msgType => $Messages){}
+			// But using a closure.
+			$FrontMessages->forEach ( function ($msgType, $Messages) {
+				if ($Messages instanceof DataCollection && $Messages->count ()) {
+					$color = '';
+					switch ($msgType) {
+						case MessageType::ERROR :
+						case MessageType::FATAL_ERROR :
+							$color = 'red;';
+							break;
+						case MessageType::SUCCESS :
+							$color = 'green;';
+							break;
+						case MessageType::WARNING :
+						case MessageType::DEBUG :
+							$color = 'orange;';
+							break;
+					}
+					// You could also use $Messages->forEach(closure);
+					foreach ( $Messages as $message ) { ?>
+			<div class="sysinfo" style="color:<?=$color?>"><?=$message?></div>
+<?php				}
+				}
+			} ); ?>
+		</div>
+<?php	} ?>
+	</body>
+</html>

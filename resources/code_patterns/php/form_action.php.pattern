@@ -1,0 +1,268 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*useController*/;
+use /*useEntity*/;
+use FragTale\Constant\TemplateFormat;
+use FragTale\DataCollection;
+use FragTale\Service\Project;
+use FragTale\Service\Http\Request;
+use FragTale\Service\Http\Response;
+use FragTale\Service\Route;
+use FragTale\Constant\Database\SqlFunction;
+use /*namespace*/;
+
+/**
+ * Forms uses AJAX requests using methods "POST", "PUT" or "DELETE" to respectively "insert", "update" or "delete" a database row
+ */
+class Action extends WebController {
+	protected /*Entity*/ $Entity;
+	/**
+	 * @var Project
+	 */
+	protected Project $ProjectService;
+	/**
+	 * @var Request
+	 */
+	protected Request $RequestService;
+	/**
+	 * @var Response
+	 */
+	protected Response $ResponseService;
+	/**
+	 * @var Route
+	 */
+	protected Route $RouteService;
+
+	/**
+	 */
+	function __construct() {
+		parent::__construct ();
+		
+		// Set scoped services
+		$this->ProjectService = $this->getService ( Project::class );
+		$this->RequestService = $this->getService ( Request::class );
+		$this->ResponseService = $this->getService ( Response::class );
+		$this->RouteService = $this->getService ( Route::class );
+		
+		$this->Entity = new /*Entity*/ ();
+		
+		// Set template path & default template vars
+		$templatePath = $this->ProjectService->getTemplatesDir () . '//*templatePath*/';
+		$this->getTemplate ()
+			->setPath ( $templatePath )
+			->setVar ( 'inCreation', false )
+			->setVar ( 'controller_classname', self::class )
+			->setVar ( 'entity_classname', get_class ( $this->Entity ) )
+			->addJsSource ( $this->RouteService->getBaseUrl () . '/media/js/fragtale.js' ); // This JS source is required for AJAX requests
+	}
+
+	/**
+	 * Instructions executed in any case, on controller run, at first (top) position.
+	 */
+	protected function executeOnTop(): void {
+		if ($this->RequestService->isMethod ( 'POST' )) {
+			$this->getTemplate ()->setVar ( 'inCreation', 1 );
+			return;
+		}
+
+		// Loading entity: if you want to load data without primary key defined for your table, then it's up to you to change this code.
+		// We strongly recommend to use primary keys (or at least unique keys)
+		$pkParams = [ ];
+		$primaryKey = $this->Entity->getPrimaryKey (); // getPrimaryKey always return an array, in case of combined primary keys
+		if (empty ( $primaryKey )) {
+			$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Forms cannot work without defined primary key(s)' ) ) ) );
+			return;
+		}
+
+		$EntityParams = $this->RequestService->getParamValue ( $this->Entity->getTableName () );
+		$allPkPassed = true;
+		foreach ( $primaryKey as $pk ) {
+			$pkValue = $this->RequestService->getParamValue ( $pk ); // getParamValue returns null when given key does not exist
+			if (! $pkValue && $EntityParams instanceof DataCollection)
+				$pkValue = $EntityParams->findByKey ( $pk );
+			if ($pkValue !== null)
+				$pkParams [$pk] = $pkValue;
+			else
+				$allPkPassed = false;
+		}
+
+		// If values are passed for primary keys in http request, we consider you are in edition mode (update or delete)
+		// Entity is loaded following the primary keys given
+		if ($allPkPassed) {
+			$this->Entity->selectAs ( 'T1', '*' )->where ( $pkParams )->execute ();
+			if (! $this->Entity->count ())
+				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'Could not load data' ) ) );
+			$this->getTemplate ()->setVar ( 'form_title', sprintf ( _ ( 'Edit %s' ), $this->Entity->getTableName () ) )->setVar ( 'EntityData', $this->Entity->getRow () );
+		} else // no primary key passed, you are un creation mode
+			$this->getTemplate ()->setVar ( 'inCreation', true )->setVar ( 'form_title', sprintf ( _ ( 'New entry for %s' ), $this->Entity->getTableName () ) );
+	}
+
+	/**
+	 * Instructions executed before HTTP request method handler.
+	 * It will be executed before any request method (GET, POST, PUT etc.), but not in console.
+	 */
+	protected function executeBeforeHttpRequestMethod(): void {
+	}
+
+	/**
+	 * Instructions executed when HTTP client sends request method GET
+	 */
+	protected function executeOnHttpRequestMethodGet(): void {
+	}
+
+	/**
+	 * Insert new row via AJAX call
+	 */
+	protected function executeOnHttpRequestMethodPost(): void {
+		$this->getTemplate ()->setFormatId ( TemplateFormat::JSON ); // Response is in JSON format
+		$Params = $this->RequestService->getParamValue ( $this->Entity->getTableName () ); // Get request params indexed by entity tablename
+		if (! $Params instanceof DataCollection) {
+			$this->getTemplate ()
+				->setVar ( 'status', $this->Entity::STATUS_ERROR )
+				->setVar ( 'fatal_error', 'Invalid params passed: you must declare your form containing inputs having name such as "entity[column]"' )
+				->setVar ( 'message', _ ( 'No valid data sent' ) );
+			return;
+		}
+
+		$Errors = $this->Entity->getValidationErrors ( $Params );
+		if ($Errors->count ()) {
+			$this->getTemplate ()
+				->setVar ( 'status', $this->Entity::STATUS_ERROR )
+				->setVar ( 'validation_errors', $Errors )
+				->setVar ( 'message', _ ( 'Invalid data sent' ) );
+			return;
+		}
+
+		// Check if Primary Key (PK) is auto increment (if so, remove it)
+		$primaryKey = $this->Entity->getPrimaryKey ();
+		$lastId = 0;
+		if (empty ( $primaryKey )) {
+			$this->getTemplate ()
+				->setVar ( 'status', $this->Entity::STATUS_ERROR )
+				->setVar ( 'fatal_error', 'Incompatible table structure: your table must have primary key(s)' )
+				->setVar ( 'message', _ ( 'Forms cannot work without defined primary key(s)' ) );
+			return;
+		} elseif (count ( $primaryKey ) === 1) {
+			$pk = reset ( $primaryKey );
+			if ($isAutoIncrement = $this->Entity->isAutoIncrement ( ( string ) $pk ))
+				$Params->delete ( $pk ); // removing the auto incremented pk from the posted values to be inserted
+			$isIntegerSingleId = $this->Entity->isInteger ( $pk );
+			// Search the last ID
+			if ($isIntegerSingleId && ! $isAutoIncrement) {
+				$lastId = ( int ) $this->Entity->selectAs ( 'T1', [ 
+						SqlFunction::MAX ( $pk, 'max' )
+				] )->execute ()->getValue ( 'max' ) + 1;
+				$Params->upsert ( $pk, $lastId );
+			}
+		}
+
+		$transactionStatus = $this->Entity->insertIntoDb ( $Params )->getLastTransactionStatus ();
+		if ($transactionStatus === $this->Entity::STATUS_SUCCESS) {
+			$urlParams = [ ];
+			if ($isIntegerSingleId) {
+				$pk = reset ( $primaryKey );
+				if (! $lastId)
+					$lastId = $this->Entity->getLastTransactionInsertId ();
+				$urlParams [$pk] = $lastId;
+			} else
+				foreach ( $primaryKey as $pk )
+					$urlParams [$pk] = $Params->findByKey ( $pk );
+
+			$this->getTemplate ()
+				->setVar ( 'redirect', $this->RouteService->getControllerUrl ( self::class, $urlParams ) )
+				->setVar ( 'redirectTimeout', 2000 )
+				->setVar ( 'message', _ ( 'Recording completed' ) );
+		} else {
+			$this->getTemplate ()->setVar ( 'message', _ ( 'Error occured' ) )->setVar ( 'cast_errors', $this->Entity->getCastErrors () );
+
+			if ($this->getSuperServices ()->getDebugService ()->isActivated ())
+				$this->getTemplate ()->setVar ( 'transaction_log', $this->Entity->getLastTransactionLog () );
+		}
+
+		$this->getTemplate ()->setVar ( 'status', $transactionStatus );
+	}
+
+	/**
+	 * Update existing row via AJAX call
+	 */
+	protected function executeOnHttpRequestMethodPut(): void {
+		$this->getTemplate ()->setFormatId ( TemplateFormat::JSON ); // Response is in JSON format
+		$Params = $this->RequestService->getParamValue ( $this->Entity->getTableName () ); // Get request params indexed by entity tablename
+		if (! $Params instanceof DataCollection) {
+			$this->getTemplate ()
+				->setVar ( 'status', $this->Entity::STATUS_ERROR )
+				->setVar ( 'fatal_error', 'Invalid params passed: you must declare your form containing inputs having name such as "entity[column]"' )
+				->setVar ( 'message', _ ( 'No valid data sent' ) );
+			return;
+		}
+
+		// Remove Pks if they had been passed into request params
+		$conditions = [ ];
+		foreach ( $this->Entity->getPrimaryKey () as $pk ) {
+			$Params->delete ( $pk );
+			$conditions [$pk] = $this->Entity->getValue ( $pk );
+		}
+
+		$Errors = $this->Entity->getValidationErrors ( $Params );
+		if ($Errors->count ()) {
+			$this->getTemplate ()
+				->setVar ( 'status', $this->Entity::STATUS_ERROR )
+				->setVar ( 'validation_errors', $Errors )
+				->setVar ( 'message', _ ( 'Invalid data sent' ) );
+			return;
+		}
+
+		$transactionStatus = $this->Entity->updateDb ( $Params, $conditions )->getLastTransactionStatus ();
+		if ($transactionStatus === $this->Entity::STATUS_SUCCESS)
+			$this->getTemplate ()->setVar ( 'message', _ ( 'Data updated successfully' ) );
+		else {
+			if ($transactionStatus === $this->Entity::STATUS_NEUTRAL)
+				$this->getTemplate ()->setVar ( 'message', _ ( 'No changes' ) );
+			else
+				$this->getTemplate ()->setVar ( 'message', _ ( 'Error occured' ) )->setVar ( 'cast_errors', $this->Entity->getCastErrors () );
+
+			if ($this->getSuperServices ()->getDebugService ()->isActivated ())
+				$this->getTemplate ()->setVar ( 'transaction_log', $this->Entity->getLastTransactionLog () );
+		}
+		$this->getTemplate ()->setVar ( 'status', $transactionStatus );
+	}
+
+	/**
+	 * Delete row via AJAX call
+	 */
+	protected function executeOnHttpRequestMethodDelete(): void {
+		$this->getTemplate ()->setFormatId ( TemplateFormat::JSON ); // Response is in JSON format
+		$conditions = [ ];
+		foreach ( $this->Entity->getPrimaryKey () as $pk )
+			$conditions [$pk] = $this->Entity->getValue ( $pk );
+
+		$transactionStatus = $this->Entity->deleteFromDb ( $conditions )->getLastTransactionStatus ();
+		if ($transactionStatus === $this->Entity::STATUS_SUCCESS)
+			$this->getTemplate ()
+				->setVar ( 'redirect', $this->RouteService->getControllerUrl ( /*ListController*/::class ) )
+				->setVar ( 'redirectTimeout', 2000 )
+				->setVar ( 'message', _ ( 'Deletion done' ) );
+		else {
+			$this->getTemplate ()->setVar ( 'message', _ ( 'Error occured' ) )->setVar ( 'cast_errors', $this->Entity->getCastErrors () );
+
+			if ($this->getSuperServices ()->getDebugService ()->isActivated ())
+				$this->getTemplate ()->setVar ( 'transaction_log', $this->Entity->getLastTransactionLog () );
+		}
+		$this->getTemplate ()->setVar ( 'status', $transactionStatus );
+	}
+
+	/**
+	 * Instructions executed after HTTP request has been handled.
+	 * It will be executed after any request method (GET, POST, PUT etc.), but not in console.
+	 */
+	protected function executeAfterHttpRequestMethod(): void {
+	}
+
+	/**
+	 * Instructions executed in any case, on controller run, at the very end, just before web page rendering
+	 */
+	protected function executeOnBottom(): void {
+	}
+}

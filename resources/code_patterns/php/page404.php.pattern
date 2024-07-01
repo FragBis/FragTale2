@@ -1,0 +1,18 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*use*/;
+
+/**
+ * Throw 404 custom page
+ */
+class Page404 extends Controller {
+	function __construct() {
+		parent::__construct();
+		$this->getTemplate ()->setPath ( $this->getSuperServices ()->getProjectService ()->getViewsDir() . '/404.phtml' );
+	}
+	protected function executeOnTop(): void {
+		$this->getSuperServices ()->getHttpService ()->getResponseService ()->addHeader ( $this->getSuperServices ()->getHttpService ()->getServerService ()->getProtocolVersion () . ' ' . _ ( '404 Not Found' ) );
+	}
+}

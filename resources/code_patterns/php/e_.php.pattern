@@ -1,0 +1,28 @@
+<?php
+namespace %namespace%;
+
+/**
+ *  Entity of "%tableName%"
+ *  (this is your custom class that won't be overwritten in the future by the model generator)
+ */
+class E_%entityName% extends M_%entityName% {
+	
+	/**
+	 * In most case, it is preferable not to set explicitly $connectorId, as it should use the connector set in your "project.json" file.
+	 * 
+	 * @param string $connectorId
+	 *			The database connector name defined in "project.json" file. For example, "default_sql". Most commonly, "null" should be the best way, but you might want to query a duplicate database from time to time.
+	 */
+	function __construct(?string $connectorId = null) {
+		// Keep parent constructor call passing $connectorId
+		parent::__construct ( $connectorId );
+		// Fill in this array where keys are column names and values are the field label automatically displayed in forms HTML blocks.
+		// Example: [ T_User::EMAIL => _('Please type your email address') ]
+		$this->labels = [];
+		// Type here your prefered column to be displayed in forms or lists: type the exact column name (one column)
+		$this->preferedDisplayedColumn = 'id';
+	}
+	
+	// Here, you can add your custom methods
+
+}

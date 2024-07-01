@@ -1,0 +1,11 @@
+{
+	"default_sql_connector_id": "default_sql",
+	"default_mongo_connector_id": "default_mongo",
+	"default_layout_path": "Project//*projectName*//resources/templates/layouts/default.phtml",
+	"default_template_path": "Project//*projectName*//resources/templates/views/default.phtml",
+	"default_template_format_id": 1,
+	"locale": "en_US",
+	"encoding": "UTF-8",
+	"debug": false,
+	"parameters": {}
+}

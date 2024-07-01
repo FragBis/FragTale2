@@ -1,0 +1,55 @@
+<?php
+
+namespace /*namespace*/;
+
+use /*use*/;
+
+class Footer extends Controller {
+	
+	/**
+	 * 
+	 */
+	function __construct() {
+		parent::__construct ();
+	}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at first (top) position.
+	 *
+	 */
+	protected function executeOnTop(): void {}
+
+	/**
+	 * Instructions executed before HTTP request method handler.
+	 * It will be executed before any request method (GET, POST, PUT etc.), but not in console.
+	 *
+	 */
+	protected function executeBeforeHttpRequestMethod(): void {
+		$this->getTemplate ()->setVar ( 'footer_text', _('Here is the page footer') );
+	}
+
+	/**
+	 * Instructions executed when HTTP client sends request method GET
+	 *
+	 */
+	protected function executeOnHttpRequestMethodGet(): void {}
+
+	/**
+	 * Instructions executed when HTTP client sends request method POST
+	 *
+	 */
+	protected function executeOnHttpRequestMethodPost(): void {}
+
+	/**
+	 * Instructions executed after HTTP request has been handled.
+	 * It will be executed after any request method (GET, POST, PUT etc.), but not in console.
+	 *
+	 */
+	protected function executeAfterHttpRequestMethod(): void {}
+
+	/**
+	 * Instructions executed in any case (CLI + HTTP), on controller run, at the very last
+	 *
+	 */
+	protected function executeOnBottom(): void {}
+}
