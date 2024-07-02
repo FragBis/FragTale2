@@ -249,11 +249,12 @@ class QueryBuildSelect extends QueryBuilder {
 	 * @return self
 	 */
 	public function addOrderBy(string $columnName, string $direction = 'ASC'): self {
-		if (in_array ( strtoupper ( $direction ), [ 
+		$direction = strtoupper ( $direction );
+		if (in_array ( $direction, [ 
 				'ASC',
 				'DESC'
 		] ))
-			$this->orderBy [$columnName] = strtoupper ( $direction );
+			$this->orderBy [$columnName] = $direction;
 		return $this;
 	}
 

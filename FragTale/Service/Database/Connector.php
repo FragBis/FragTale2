@@ -156,9 +156,9 @@ class Connector extends AbstractService {
 			throw new \LogicException ( sprintf ( dgettext ( 'core', 'Missing required parameter "%s" in collection passed as argument' ), 'driver' ) );
 		if (! ($host = $DbSettings->findByKey ( 'host' )))
 			throw new \LogicException ( sprintf ( dgettext ( 'core', 'Missing required parameter "%s" in collection passed as argument' ), 'host' ) );
-		$database = $DbSettings->findByKey ( 'database' );
-		$port = $DbSettings->findByKey ( 'port' );
-		$charset = $DbSettings->findByKey ( 'charset' );
+		$database = ( string ) $DbSettings->findByKey ( 'database' );
+		$port = ( string ) $DbSettings->findByKey ( 'port' );
+		$charset = ( string ) $DbSettings->findByKey ( 'charset' );
 		if (! $driver || ! $host)
 			return null;
 		switch (strtolower ( trim ( $driver ) )) {

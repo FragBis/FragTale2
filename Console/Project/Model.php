@@ -143,6 +143,8 @@ class Model extends Project {
 						$this->CliService->print ( sprintf ( dgettext ( 'core', 'Creating constant class containg colum names into "%s"' ), "T_$entityName" ) );
 						$fields = [ ];
 						foreach ( $columns as $col ) {
+							if (! is_string ( $col ))
+								continue;
 							$colProps = $tableStrucuture ['columns'] [$col];
 							$dataType = $colProps ['type'];
 							if ($length = $colProps ['length']) {
@@ -312,9 +314,9 @@ class Model extends Project {
 			foreach ( $info as $row ) {
 				// all keys to upper case
 				foreach ( $row as $key => $value )
-					$row [strtoupper ( $key )] = $value;
+					$row [strtoupper ( ( string ) $key )] = $value;
 
-				switch (strtoupper ( $row ['COLUMN_KEY'] )) {
+				switch (strtoupper ( ( string ) $row ['COLUMN_KEY'] )) {
 					case 'PRI' :
 						$keyIndex = 'primary key';
 						if (! empty ( $row ['EXTRA'] ))
@@ -327,7 +329,7 @@ class Model extends Project {
 						$keyIndex = null;
 				}
 
-				$type = strtolower ( $row ['DATA_TYPE'] );
+				$type = strtolower ( ( string ) $row ['DATA_TYPE'] );
 				// Special case for decimal length
 				$length = ! empty ( $row ['CHARACTER_MAXIMUM_LENGTH'] ) ? $row ['CHARACTER_MAXIMUM_LENGTH'] : $row ['NUMERIC_PRECISION'];
 				if (in_array ( $type, [ 
@@ -366,7 +368,7 @@ class Model extends Project {
 				];
 				if (stripos ( $row ['EXTRA'], 'auto_increment' ) !== false)
 					$schema [$row ['TABLE_NAME']] ['auto_increment'] = $row ['COLUMN_NAME'];
-				if (strtoupper ( $row ['COLUMN_KEY'] ) === 'PRI')
+				if (strtoupper ( ( string ) $row ['COLUMN_KEY'] ) === 'PRI')
 					$schema [$row ['TABLE_NAME']] ['primary_key'] [] = $row ['COLUMN_NAME'];
 			}
 

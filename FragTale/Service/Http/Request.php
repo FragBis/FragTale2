@@ -68,7 +68,7 @@ class Request extends AbstractService {
 	 * @return string|NULL
 	 */
 	final public function getMethod(): ?string {
-		return isset ( $_SERVER ['REQUEST_METHOD'] ) ? strtoupper ( $_SERVER ['REQUEST_METHOD'] ) : null;
+		return ! empty ( $_SERVER ['REQUEST_METHOD'] ) ? strtoupper ( $_SERVER ['REQUEST_METHOD'] ) : null;
 	}
 
 	/**

@@ -96,7 +96,7 @@ trait FilterTrait {
 				if (is_iterable ( $conditions )) {
 					$resConditions = [ ];
 					foreach ( $conditions as $operator => $subConditions ) {
-						$strConditions = ( string ) $this->buildFilterStringOnOperator ( strtoupper ( $operator ), $key, $subConditions );
+						$strConditions = ( string ) $this->buildFilterStringOnOperator ( strtoupper ( ( string ) $operator ), $key, $subConditions );
 						if (substr ( $strConditions, 0, 1 ) === '(')
 							$resConditions [] = $strConditions;
 						else
