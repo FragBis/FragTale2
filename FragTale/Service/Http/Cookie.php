@@ -84,7 +84,7 @@ class Cookie extends AbstractService {
 	 */
 	public function unset(string $key): self {
 		$this->Cookies->delete ( $key );
-		setcookie ( $key, null, - 1, '/' );
+		setcookie ( $key, '', - 1, '/' );
 		return $this;
 	}
 

@@ -407,10 +407,15 @@ class FormTagBuilder extends AbstractService {
 			$extraInputAttributes = [ ];
 
 		$tableName = $Entity->getTableName ();
-		if (empty ( $extraInputAttributes ['id'] ))
-			$extraInputAttributes ['id'] = "{$tableName}_$columnName";
 		$label = $Entity->getColumnLabel ( $columnName );
 		$columnDefinition = $Entity->getColumnDefinition ( $columnName );
+		if (empty ( $extraInputAttributes ['id'] ))
+			$extraInputAttributes ['id'] = "{$tableName}_$columnName";
+		$colIsBinary = ! empty ( $columnDefinition ['type'] ) && in_array ( strtolower ( $columnDefinition ['type'] ), [ 
+				'bit',
+				'bool',
+				'boolean'
+		] );
 
 		if (! array_key_exists ( 'required', $extraInputAttributes ) && (! array_key_exists ( 'nullable', $columnDefinition ) || ! $columnDefinition ['nullable']))
 			$extraInputAttributes ['required'] = true;
@@ -421,8 +426,9 @@ class FormTagBuilder extends AbstractService {
 		$columnHtmlOutput = $this->autobuildEntityField ( $Entity, $columnName, $defaultValue, $extraInputAttributes );
 		if (empty ( $labelAttributes ))
 			$labelAttributes = [ ];
-		$labelAttributes ['for'] = $extraInputAttributes ['id'];
+		if (! $colIsBinary)
+			$labelAttributes ['for'] = $extraInputAttributes ['id'];
 		$strLabelProperties = $this->buildAttributesAsString ( $labelAttributes );
-		return "<label $strLabelProperties>$label</label>$columnHtmlOutput";
+		return $colIsBinary ? "<div $strLabelProperties>$label</div>$columnHtmlOutput" : "<label $strLabelProperties>$label</label>$columnHtmlOutput";
 	}
 }
