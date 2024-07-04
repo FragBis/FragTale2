@@ -401,7 +401,7 @@ class Project extends AbstractService {
 	 */
 	final public function getDefaultFormatId(): int {
 		$defaultFormatId = $this->getEnvSettings ()->findByKey ( 'default_template_format_id' );
-		if (is_numeric ( $defaultFormatId ) && strpos ( $defaultFormatId, '.' ) === false)
+		if (is_numeric ( $defaultFormatId ) && strpos ( ( string ) $defaultFormatId, '.' ) === false)
 			$defaultFormatId = ( int ) $defaultFormatId;
 		return TemplateFormat::getConstants ()->getElementKey ( $defaultFormatId ) ? $defaultFormatId : TemplateFormat::HTML;
 	}

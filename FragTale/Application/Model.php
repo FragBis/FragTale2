@@ -425,7 +425,7 @@ abstract class Model extends Application implements Iterator {
 				$this->castErrors [] = sprintf ( dgettext ( 'core', 'Column "%1s" expected value to be an integer. Value passed: "%2s"' ), $columnName, print_r ( $value, true ) );
 				return false;
 			}
-			if (! is_numeric ( $length ) || strpos ( $length, '.' ) !== false || strpos ( $length, ',' ) !== false) {
+			if (! is_numeric ( $length ) || strpos ( ( string ) $length, '.' ) !== false || strpos ( ( string ) $length, ',' ) !== false) {
 				$errMsg = sprintf ( dgettext ( 'core', 'Property "length" for column "%1s" must be an integer. Value set: %2s' ), $columnName, $length );
 				$this->castErrors ['column_' . $columnName . '_length_error'] = $errMsg;
 				$this->log ( get_class ( $this ) . ' Error: ' . $errMsg );

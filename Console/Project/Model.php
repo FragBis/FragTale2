@@ -366,7 +366,7 @@ class Model extends Project {
 						'default' => $default,
 						'comment' => $row ['COLUMN_COMMENT']
 				];
-				if (stripos ( $row ['EXTRA'], 'auto_increment' ) !== false)
+				if (! empty ( $row ['EXTRA'] ) && stripos ( $row ['EXTRA'], 'auto_increment' ) !== false)
 					$schema [$row ['TABLE_NAME']] ['auto_increment'] = $row ['COLUMN_NAME'];
 				if (strtoupper ( ( string ) $row ['COLUMN_KEY'] ) === 'PRI')
 					$schema [$row ['TABLE_NAME']] ['primary_key'] [] = $row ['COLUMN_NAME'];
