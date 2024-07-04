@@ -438,6 +438,33 @@ class DataCollection implements Iterator {
 	}
 
 	/**
+	 * Merge other data with this DataCollection from given iterable.
+	 * <b>Attention!</b> Previous scalar values matching same key will be overwritten.
+	 * On the other hand, scalar values can't replace an existing iterable, it will be pushed in the collection.
+	 *
+	 * @param iterable $iterable
+	 * @return self
+	 */
+	public function merge(?iterable $iterable): self {
+		if ($iterable)
+			foreach ( $iterable as $key => $elt ) {
+				// Check element already exists
+				$existingElt = $this->findByKey ( $key );
+				if ($existingElt instanceof DataCollection) {
+					if (is_iterable ( $elt ))
+						$existingElt->merge ( $elt );
+					else
+						$existingElt->push ( $elt, true );
+				} elseif (is_iterable ( $elt ) && $existingElt) {
+					$NewElt = new DataCollection ( $elt );
+					$NewElt->push ( $existingElt, true );
+				} else
+					$this->upsert ( $key, $elt );
+			}
+		return $this;
+	}
+
+	/**
 	 * Tells if collection has been modified (using upsert or delete).
 	 *
 	 * @return bool
