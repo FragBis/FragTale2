@@ -171,7 +171,7 @@ class SessionHandler extends Application implements \SessionHandlerInterface {
 	 * @see \SessionHandlerInterface::gc()
 	 *
 	 * @param int $maxlifetime
-	 * @return int|bool
+	 * @return int
 	 */
 	public function gc($maxlifetime): int {
 		$diffTime = time () - $maxlifetime;
@@ -181,8 +181,7 @@ class SessionHandler extends Application implements \SessionHandlerInterface {
 						'$lt' => $diffTime
 				]
 		] );
-		$res = $this->Mongo->executeBulkWrite ( "$this->dbName.$this->collectionName", $Bulk )->getDeletedCount ();
-		return $res ? $res : 0;
+		return ( int ) $this->Mongo->executeBulkWrite ( "$this->dbName.$this->collectionName", $Bulk )->getDeletedCount ();
 	}
 
 	/**
