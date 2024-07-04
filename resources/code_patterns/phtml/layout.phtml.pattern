@@ -46,7 +46,10 @@ use FragTale\Constant\MessageType;
 		<?= $View->Template->getJsSourceTags() ?>
 		
 <?php	// Error, warn or success messages
-		$FrontMessages = $View->getSuperServices ()->getFrontMessageService ()->getMessages ();
+		if (!($FrontMessages = $View->getSuperServices ()->getFrontMessageService ()->getMessages ()))
+			$FrontMessages = new DataCollection();
+		if ($SessionMessages = $View->getSuperServices ()->getFrontMessageService ()->getSessionMessages (null, true))
+			$FrontMessages->merge($SessionMessages);
 		if ($FrontMessages->count()) { ?>
 		<div id="sysinfo">
 			<span class="sysinfo-close-btn" onclick="document.getElementById('sysinfo').style.display='none';">X</span>
