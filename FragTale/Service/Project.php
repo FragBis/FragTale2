@@ -111,6 +111,30 @@ class Project extends AbstractService {
 	 *
 	 * @return string
 	 */
+	final public function getBlockControllerDir(): string {
+		return sprintf ( CustomProjectPattern::BLOCK_CONTROLLER_DIR, $this->getName () );
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	final public function getCliControllerDir(): string {
+		return sprintf ( CustomProjectPattern::CLI_CONTROLLER_DIR, $this->getName () );
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	final public function getControllerDir(): string {
+		return sprintf ( CustomProjectPattern::CONTROLLER_DIR, $this->getName () );
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	final public function getDefaultLogsDir(): string {
 		return sprintf ( CustomProjectPattern::LOGS_DIR, $this->getName () );
 	}
@@ -161,6 +185,14 @@ class Project extends AbstractService {
 	 */
 	final public function getViewsDir(): string {
 		return sprintf ( CustomProjectPattern::VIEWS_DIR, $this->getName () );
+	}
+
+	/**
+	 *
+	 * @return string
+	 */
+	final public function getWebControllerDir(): string {
+		return sprintf ( CustomProjectPattern::WEB_CONTROLLER_DIR, $this->getName () );
 	}
 
 	/**
