@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-06-27 21:21+0200\n"
-"PO-Revision-Date: 2024-06-27 21:22+0200\n"
+"POT-Creation-Date: 2024-07-05 17:54+0200\n"
+"PO-Revision-Date: 2024-07-05 17:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -110,7 +110,7 @@ msgstr "Entering project management space"
 #: Console/Project/Controller/Create.php:32
 #: Console/Project/Controller/Create/Block.php:18
 #: Console/Project/Controller/Create/Cli.php:18
-#: Console/Project/Controller/Create/Form.php:29
+#: Console/Project/Controller/Create/Form.php:35
 #: Console/Project/Controller/Create/Web.php:19 Console/Project/Create.php:44
 #: Console/Project/Model.php:30 Console/Project/Model.php:35
 #: Console/Project/Model/ImportDataset.php:25
@@ -535,7 +535,7 @@ msgstr "Invalid answer"
 #: Console/Project/Controller/Create.php:20
 #: Console/Project/Controller/Create/Block.php:13
 #: Console/Project/Controller/Create/Cli.php:13
-#: Console/Project/Controller/Create/Form.php:23
+#: Console/Project/Controller/Create/Form.php:29
 #: Console/Project/Controller/Create/Web.php:13 Console/Project/Create.php:41
 msgid "**** Help invoked ****"
 msgstr "**** Help invoked ****"
@@ -549,7 +549,7 @@ msgid "There are %s CLI options handled (not required):"
 msgstr "There are %s CLI options handled (not required):"
 
 #: Console/Project/Controller/Create.php:22
-#: Console/Project/Controller/Create/Form.php:25
+#: Console/Project/Controller/Create/Form.php:31
 msgid "· \"--project\": the project name"
 msgstr "· \"--project\": the project name"
 
@@ -751,11 +751,11 @@ msgstr ""
 msgid "\"--name\": the new controller name"
 msgstr "\"--name\": the new controller name"
 
-#: Console/Project/Controller/Create/Form.php:24
+#: Console/Project/Controller/Create/Form.php:30
 msgid "There are 5 CLI options (not required) handled:"
 msgstr "There are 5 CLI options (not required) handled:"
 
-#: Console/Project/Controller/Create/Form.php:26
+#: Console/Project/Controller/Create/Form.php:32
 msgid ""
 "· \"--dir\": the controller folder in which to place it; It can be the "
 "relative path from the project directory (e.g.: Project/{projectName}/"
@@ -765,54 +765,56 @@ msgstr ""
 "relative path from the project directory (e.g.: Project/{projectName}/"
 "Controller/Web)"
 
-#: Console/Project/Controller/Create/Form.php:27
-msgid "· \"--model\": the model name"
-msgstr "· \"--model\": the model name"
+#: Console/Project/Controller/Create/Form.php:33
+msgid "· \"--model\": the model namespace"
+msgstr ""
+"· \"--model\": the model namespace (e.g. "
+"\"Project\\{ProjectName}\\Model\\Sql\\{ModelName}\")"
 
-#: Console/Project/Controller/Create/Form.php:28
+#: Console/Project/Controller/Create/Form.php:34
 msgid "· \"--entity\": the entity name (without prefix)"
 msgstr "· \"--entity\": the entity name (without prefix)"
 
-#: Console/Project/Controller/Create/Form.php:36
+#: Console/Project/Controller/Create/Form.php:42
 #, php-format
 msgid "Creating new form for project \"%s\"."
 msgstr "Creating new form for project \"%s\"."
 
-#: Console/Project/Controller/Create/Form.php:51
+#: Console/Project/Controller/Create/Form.php:57
 #, php-format
 msgid "Using model \"%s\""
 msgstr "Using model \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:56
+#: Console/Project/Controller/Create/Form.php:62
 #, php-format
 msgid "Creating form for entity \"%s\""
 msgstr "Creating form for entity \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:66 Console/Project/Create.php:139
+#: Console/Project/Controller/Create/Form.php:71 Console/Project/Create.php:139
 #, php-format
 msgid "In folder \"%s\""
 msgstr "In folder \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:73
+#: Console/Project/Controller/Create/Form.php:78
 #, php-format
 msgid "Using controller namespace \"%s\""
 msgstr "Using controller namespace \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:78
+#: Console/Project/Controller/Create/Form.php:83
 #, php-format
 msgid "Templates will be placed in \"%s\""
 msgstr "Templates will be placed in \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:78
+#: Console/Project/Controller/Create/Form.php:83
 msgid "Creating folders..."
 msgstr "Creating folders..."
 
-#: Console/Project/Controller/Create/Form.php:90
+#: Console/Project/Controller/Create/Form.php:95
 #, php-format
 msgid "Required class \"%s\" does not exist. Please check your model."
 msgstr "Required class \"%s\" does not exist. Please check your model."
 
-#: Console/Project/Controller/Create/Form.php:98
+#: Console/Project/Controller/Create/Form.php:100
 #, php-format
 msgid ""
 "Class \"%s\" must inherit from FragTale\\Application\\Model. Please check "
@@ -821,53 +823,56 @@ msgstr ""
 "Class \"%s\" must inherit from FragTale\\Application\\Model. Please check "
 "your model."
 
-#: Console/Project/Controller/Create/Form.php:104
-#: Console/Project/Controller/Create/Form.php:124
-#: Console/Project/Controller/Create/Form.php:131
-#: Console/Project/Controller/Create/Form.php:151
+#: Console/Project/Controller/Create/Form.php:106
+#: Console/Project/Controller/Create/Form.php:126
+#: Console/Project/Controller/Create/Form.php:133
+#: Console/Project/Controller/Create/Form.php:153
 #, php-format
 msgid "Using pattern \"%s\""
 msgstr "Using pattern \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:176
-#, php-format
-msgid "SQL Model's folder \"%s\" does not exist"
-msgstr "SQL Model's folder \"%s\" does not exist"
+#: Console/Project/Controller/Create/Form.php:174
+msgid ""
+"You have not declared any models in your configuration file. You should "
+"generate a model first, by executing command: ./fragtale2 Console/Project/"
+"Model"
+msgstr ""
+"You have not declared any model in your configuration file. You must first "
+"generate a model by running the command: ./fragtale2 Console/Project/Model"
 
-#: Console/Project/Controller/Create/Form.php:193
-msgid "Type model name:"
-msgstr "Type model name:"
+#: Console/Project/Controller/Create/Form.php:181
+msgid "Select a model namespace:"
+msgstr "Select a model namespace:"
 
-#: Console/Project/Controller/Create/Form.php:201
-#, php-format
-msgid "Model's folder \"%s\" does not exist"
-msgstr "Model's folder \"%s\" does not exist"
+#: Console/Project/Controller/Create/Form.php:187
+msgid "Please select an existing model."
+msgstr "Please select an existing model."
 
-#: Console/Project/Controller/Create/Form.php:219
-msgid "Type table name:"
-msgstr "Type table name:"
+#: Console/Project/Controller/Create/Form.php:234
+msgid "Select one of the following entities:"
+msgstr "Select one of the following entities:"
 
-#: Console/Project/Controller/Create/Form.php:226
+#: Console/Project/Controller/Create/Form.php:240
 #, php-format
 msgid "Using entity namespace \"%1s\" in folder \"%2s\""
 msgstr "Using entity namespace \"%1s\" in folder \"%2s\""
 
-#: Console/Project/Controller/Create/Form.php:229
+#: Console/Project/Controller/Create/Form.php:243
 #, php-format
 msgid "Entity's folder \"%s\" does not exist"
 msgstr "Entity's folder \"%s\" does not exist"
 
-#: Console/Project/Controller/Create/Form.php:238
+#: Console/Project/Controller/Create/Form.php:252
 #, php-format
 msgid "Entity \"%1s\" misses required class \"%2s\""
 msgstr "Entity \"%1s\" misses required class \"%2s\""
 
-#: Console/Project/Controller/Create/Form.php:268
+#: Console/Project/Controller/Create/Form.php:274
 #, php-format
 msgid "Entering folder \"%s\""
 msgstr "Entering folder \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:270
+#: Console/Project/Controller/Create/Form.php:276
 msgid "Type folder in which to place your new controllers:"
 msgstr "Type folder in which to place your new controllers:"
 
@@ -1030,8 +1035,8 @@ msgstr "Choose connectorId in the list below"
 msgid "Confirm model mapping \"%1s\" from database \"%2s\": [yN]"
 msgstr "Confirm model mapping \"%1s\" from database \"%2s\": [y, N]"
 
-#: Console/Project/Model.php:88 Console/Project/Model.php:181
-#: Console/Project/Model.php:198 Console/Project/Model.php:214
+#: Console/Project/Model.php:88 Console/Project/Model.php:183
+#: Console/Project/Model.php:200 Console/Project/Model.php:216
 #: Console/Project/Model/ImportDataset.php:39
 msgid "Process interrupted"
 msgstr "Process interrupted"
@@ -1069,12 +1074,12 @@ msgstr "Exporting table \"%1s\" structure into \"%2s\""
 msgid "Creating constant class containg colum names into \"%s\""
 msgstr "Creating constant class containing column names into \"%s\""
 
-#: Console/Project/Model.php:186
+#: Console/Project/Model.php:188
 #, php-format
 msgid "Creating model super abstract class \"%s\""
 msgstr "Creating model super abstract class \"%s\""
 
-#: Console/Project/Model.php:274
+#: Console/Project/Model.php:276
 msgid ""
 "Please, select one of these models to remap it or leave empty to create new "
 "model:"
@@ -1082,15 +1087,15 @@ msgstr ""
 "Please, select one of these models to remap it or leave empty to create new "
 "model:"
 
-#: Console/Project/Model.php:274
+#: Console/Project/Model.php:276
 msgid "Please, select one of these models:"
 msgstr "Please, select one of these models:"
 
-#: Console/Project/Model.php:282
+#: Console/Project/Model.php:284
 msgid "Type your new model name:"
 msgstr "Type your new model name:"
 
-#: Console/Project/Model.php:287
+#: Console/Project/Model.php:289
 msgid "Failed to parse your model name. Special chars are not allowed."
 msgstr "Invalid model name. Be careful not to enter special chars."
 
@@ -1633,7 +1638,7 @@ msgstr ""
 "Upsert cannot work if filters fetch more than 1 row. Process interrupted by "
 "ambiguous target data."
 
-#: FragTale/Application/SessionHandler.php:206
+#: FragTale/Application/SessionHandler.php:205
 #, php-format
 msgid "Session ID moved from %1s to %2s"
 msgstr "Session ID moved from %1s to %2s"
@@ -1651,7 +1656,7 @@ msgstr ""
 msgid "Trying to use inexisting template file: %s"
 msgstr "Trying to use a non-existent template file: %s"
 
-#: FragTale/DataCollection.php:583 FragTale/DataCollection.php:601
+#: FragTale/DataCollection.php:610 FragTale/DataCollection.php:628
 #, php-format
 msgid "Unabled to save file %s"
 msgstr "Unable to save file %s"

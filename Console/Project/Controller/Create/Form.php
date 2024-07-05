@@ -17,6 +17,12 @@ use FragTale\DataCollection\JsonCollection;
  */
 class Form extends Create {
 	/**
+	 *
+	 * @var string
+	 */
+	private ?string $modelNamespace;
+
+	/**
 	 */
 	protected function executeOnTop(): void {
 		if ($this->isHelpInvoked ()) {
@@ -24,7 +30,7 @@ class Form extends Create {
 				->printInColor ( dgettext ( 'core', 'There are 5 CLI options (not required) handled:' ), Cli::COLOR_LCYAN )
 				->printInColor ( '	' . dgettext ( 'core', '· "--project": the project name' ), Cli::COLOR_CYAN )
 				->printInColor ( '	' . dgettext ( 'core', '· "--dir": the controller folder in which to place it; It can be the relative path from the project directory (e.g.: Project/{projectName}/Controller/Web)' ), Cli::COLOR_CYAN )
-				->printInColor ( '	' . dgettext ( 'core', '· "--model": the model name' ), Cli::COLOR_CYAN )
+				->printInColor ( '	' . dgettext ( 'core', '· "--model": the model namespace' ), Cli::COLOR_CYAN )
 				->printInColor ( '	' . dgettext ( 'core', '· "--entity": the entity name (without prefix)' ), Cli::COLOR_CYAN )
 				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 			return;
@@ -59,7 +65,6 @@ class Form extends Create {
 
 		// Defining base directories & namespace
 		$projectName = $this->getProjectName ();
-		$modelNamespace = sprintf ( CustomProjectPattern::SQL_MODEL_NAMESPACE, $projectName ) . '\\' . $modelName;
 		$controllerDir = '';
 		if ($relDir = $this->getRelativeFolder ()) {
 			$controllerDir = rtrim ( sprintf ( CustomProjectPattern::WEB_CONTROLLER_DIR, $projectName ) . "/$relDir", '/' );
@@ -84,16 +89,13 @@ class Form extends Create {
 				return;
 		}
 
-		$entityNamespace = sprintf ( CustomProjectPattern::SQL_MODEL_NAMESPACE, $projectName ) . "\\$modelName\\$entityName";
-		$entityClass = "$entityNamespace\\E_$entityName";
+		$entityNamespace = "{$this->modelNamespace}\\{$entityName}";
+		$entityClass = "{$entityNamespace}\\E_{$entityName}";
 		if (! class_exists ( $entityClass )) {
 			$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Required class "%s" does not exist. Please check your model.' ), $entityClass ) ) );
 			return;
 		}
-		// Get model connector ID
-		$modelsSettings = (new JsonCollection ())->setSource ( sprintf ( CustomProjectPattern::SETTINGS_FILE, $projectName ) )->load ()->findByKey ( 'models' );
-		$connectorId = $modelsSettings instanceof DataCollection ? $modelsSettings->findByKey ( $modelNamespace ) : 'default_sql';
-		$Entity = new $entityClass ( $connectorId );
+		$Entity = new $entityClass ();
 		if (! $Entity instanceof Model) {
 			$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Class "%s" must inherit from FragTale\Application\Model. Please check your model.' ), $entityClass ) ) );
 			return;
@@ -156,27 +158,35 @@ class Form extends Create {
 				"$controllerNamespace\\$entityName",
 				$entityName
 		], file_get_contents ( $patternFile ) );
-		if (! $FsService->createFile ( "$templateDir/action.phtml", $actionTemplateContent ))
-			return;
-
-		// Creating templates: list & edit (create use the same template than edit)
+		$FsService->createFile ( "$templateDir/action.phtml", $actionTemplateContent );
 	}
 
 	/**
 	 *
 	 * @return string|NULL
 	 */
-	protected function getProjectSqlModelDir(): ?string {
-		static $modelFolder;
-		if (! isset ( $modelFolder )) {
-			$projectName = $this->getProjectName ();
-			$modelFolder = sprintf ( CustomProjectPattern::SQL_MODEL_DIR, $projectName );
-			if (! is_dir ( $modelFolder )) {
-				$modelFolder = null;
-				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'SQL Model\'s folder "%s" does not exist' ), $modelFolder ) ) );
+	protected function getModelNamespace(): ?string {
+		if (! isset ( $this->modelNamespace )) {
+			// Get list of existing models
+			$ProjectSettings = $this->getSuperServices ()->getProjectService ()->getSettings ();
+			$Models = $ProjectSettings->findByKey ( 'models' );
+			if (! $Models instanceof DataCollection || ! $Models->count ()) {
+				$this->CliService->printError ( dgettext ( 'core', 'You have not declared any models in your configuration file. You should generate a model first, by executing command: ./fragtale2 Console/Project/Model' ) );
+				return null;
 			}
+
+			$modelNamespace = $this->CliService->getOpt ( 'model' );
+			if (! $modelNamespace || ! $Models->findByKey ( $modelNamespace )) {
+				// If not passed in cli option or not in list, prompt:
+				$modelNamespace = $this->promptToFindElementInCollection ( dgettext ( 'core', 'Select a model namespace:' ), $Models, null, true );
+			}
+
+			if ($modelNamespace)
+				$this->modelNamespace = $modelNamespace;
+			else
+				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'Please select an existing model.' ) ) );
 		}
-		return $modelFolder;
+		return $this->modelNamespace;
 	}
 
 	/**
@@ -184,27 +194,11 @@ class Form extends Create {
 	 * @return string|NULL
 	 */
 	protected function getModelName(): ?string {
-		static $modelName;
-		if (! isset ( $modelName )) {
-			if (! ($modelName = $this->CliService->getOpt ( 'model' ))) {
-				// Get list of existing models
-				
-				// If not passed in cli option, prompt:
-				$modelName = $this->CliService->prompt ( dgettext ( 'core', 'Type model name:' ) );
-			}
-			if ($modelName) {
-				// Check model exists
-				if ($modelName = $this->getSuperServices ()->getRouteService ()->convertUriToNamespace ( $modelName )) {
-					$modelFolder = $this->getProjectSqlModelDir () . "/$modelName";
-					if (! is_dir ( $modelFolder )) {
-						$modelName = null;
-						$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Model\'s folder "%s" does not exist' ), $modelFolder ) ) );
-					}
-				} else
-					$modelName = null;
-			}
-		}
-		return $modelName;
+		if (! $this->getModelNamespace ())
+			return null;
+
+		$exp = explode ( '\\', $this->modelNamespace );
+		return end ( $exp );
 	}
 
 	/**
@@ -214,15 +208,35 @@ class Form extends Create {
 	protected function getEntityName(): ?string {
 		static $entityName;
 		if (! isset ( $entityName )) {
-			if (! ($entityName = $this->CliService->getOpt ( 'entity' ))) {
-				// If not passed in cli option, prompt:
-				$entityName = $this->CliService->prompt ( dgettext ( 'core', 'Type table name:' ) );
+			// Get list of entities from model folder
+			$Entities = new DataCollection ();
+			$modelDir = APP_ROOT . '/' . str_replace ( "\\", '/', ( string ) $this->getModelNamespace () );
+			if ($entities = glob ( "$modelDir/*", GLOB_ONLYDIR )) {
+				foreach ( $entities as $folder )
+					$Entities->upsert ( basename ( $folder ), $folder );
+			} else {
+				$this->CliService->printError ( degettext ( 'core', 'Model namespace does not contain any valid entity.' ) );
+				return null;
 			}
+
+			$entityFound = false;
+			if ($entityName = $this->CliService->getOpt ( 'entity' )) {
+				// Check if it is contained in list of entities
+				foreach ( $Entities as $entity => $folder ) {
+					if (strtolower ( $entity ) == strtolower ( $entityName )) {
+						$entityName = $entity;
+						$entityFound = true;
+						break;
+					}
+				}
+			}
+			if (! $entityFound)
+				$entityName = ( string ) $this->promptToFindElementInCollection ( dgettext ( 'core', 'Select one of the following entities:' ), $Entities, null, true );
+
 			if ($entityName) {
-				$entityName = $this->getSuperServices ()->getRouteService ()->convertUriToNamespace ( $entityName );
-				$entityNamespace = sprintf ( CustomProjectPattern::SQL_MODEL_NAMESPACE, $this->getProjectName () ) . '\\' . $this->getModelName () . '\\' . $entityName;
+				$entityNamespace = $this->getModelNamespace () . "\\{$entityName}";
 				// Check entity exists
-				$entityDir = $this->getEntityDir ();
+				$entityDir = APP_ROOT . '/' . str_replace ( "\\", '/', $entityNamespace );
 				$this->CliService->print ( sprintf ( dgettext ( 'core', 'Using entity namespace "%1s" in folder "%2s"' ), $entityNamespace, $entityDir ) );
 				if (! is_dir ( $entityDir )) {
 					$entityName = null;
@@ -243,14 +257,6 @@ class Form extends Create {
 			}
 		}
 		return $entityName;
-	}
-
-	/**
-	 *
-	 * @return string|NULL
-	 */
-	protected function getEntityDir(): ?string {
-		return $this->getProjectSqlModelDir () . '/' . $this->getModelName () . '/' . $this->getEntityName ();
 	}
 
 	/**

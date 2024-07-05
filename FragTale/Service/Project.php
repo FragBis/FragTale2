@@ -303,7 +303,9 @@ class Project extends AbstractService {
 				$host = $this->getSuperServices ()->getHttpServerService ()->getHost ();
 				if (($HostsSettings = $this->getSuperServices ()->getConfigurationService ()->getHostsSettings ()) && $HostsSettings instanceof DataCollection)
 					$this->name = $HostsSettings->findByKey ( $host ) ? $HostsSettings->findByKey ( $host ) : '';
-			} elseif (($routeSections = explode ( '/', ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( '_route_index' ) )) && $routeSections [0] === 'Project')
+			} elseif (IS_CLI && $this->getSuperServices ()->getCliService ()->getOpt ( 'project' ))
+				$this->name = ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( 'project' );
+			elseif (($routeSections = explode ( '/', ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( '_route_index' ) )) && $routeSections [0] === 'Project')
 				$this->name = $routeSections [1];
 		}
 		return $this->name;
