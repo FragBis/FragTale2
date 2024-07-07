@@ -151,7 +151,8 @@ class FormTagBuilder extends AbstractService {
 				$spanConvertedToLowerKeys [trim ( strtolower ( ( string ) $key ) )] = $value;
 		}
 
-		$inputId = isset ( $inputAttributes ['id'] ) ? $inputAttributes ['id'] : 'radio_' . substr ( md5 ( time () . rand () ), 0, 8 );
+		$inputId = isset ( $inputAttributes ['id'] ) ? $inputAttributes ['id'] : 'radio';
+		$inputId .= '_' . substr ( md5 ( time () . rand () ), 0, 8 );
 		$inputConvertedTolowerKeys ['id'] = $inputId;
 		$inputConvertedTolowerKeys ['type'] = 'radio';
 		$labelConvertedToLowerKeys ['for'] = $inputId;
@@ -350,20 +351,21 @@ class FormTagBuilder extends AbstractService {
 					case 'bit' :
 					case 'bool' :
 					case 'boolean' :
-						if (! empty ( $extraInputAttributes ['required'] ) && ! $defaultValue && ! empty ( $columnDefinition ['default'] ))
-							$defaultValue = is_numeric ( $columnDefinition ['default'] ) ? ( int ) (( bool ) $columnDefinition ['default']) : ($columnDefinition ['default'] === "b'1'" ? 1 : 0);
+						$defaultValue = ( int ) $defaultValue;
 
 						if ($defaultValue)
 							$extraInputAttributes ['checked'] = true;
 						else
 							unset ( $extraInputAttributes ['checked'] );
-						$htmlOutput = $this->radio ( $extraInputAttributes, dgettext ( 'core', 'Yes' ) );
+						$extraInputAttributes ['value'] = '1';
+						$htmlOutput = $this->radio ( $extraInputAttributes, _ ( 'Yes' ) );
 
 						if (! $defaultValue)
 							$extraInputAttributes ['checked'] = true;
 						else
 							unset ( $extraInputAttributes ['checked'] );
-						$htmlOutput = $this->radio ( $extraInputAttributes, dgettext ( 'core', 'No' ) );
+						$extraInputAttributes ['value'] = '0';
+						$htmlOutput .= $this->radio ( $extraInputAttributes, _ ( 'No' ) );
 
 						return $htmlOutput;
 					default :
