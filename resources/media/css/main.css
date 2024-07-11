@@ -57,6 +57,9 @@ section.footer h4{
 section.footer a{
 	color: white;
 }
+form{
+	margin: 2em auto;
+}
 form div{
 	display: flex;
 	align-items: flex-start;

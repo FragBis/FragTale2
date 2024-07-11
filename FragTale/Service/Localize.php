@@ -169,7 +169,7 @@ class Localize extends AbstractService {
 	}
 
 	/**
-	 * Convert from locale to "machine" number string.
+	 * Convert from locale to default number format.
 	 * "Machine" number means that there is no thousand separator and '.' is the decimal separator.
 	 * It can parse "12,000.001" to "12000.001", or "12 000,001" to "12000.001"
 	 *

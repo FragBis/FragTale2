@@ -3,52 +3,41 @@ use FragTale\Application\Model;
 use FragTale\DataCollection;
 use /*useListController*/;
 
-$RouteService = $View->getSuperServices ()->getRouteService ();
-$FormService = $View->getSuperServices ()->getFormTagBuilderService ();
+$RouteService = $View->getSuperServices()->getRouteService();
+$FormService = $View->getSuperServices()->getFormTagBuilderService();
 
-$inCreation = $View->Template->getVar('inCreation');
-$entityClassName = $View->Template->getVar ( 'entity_classname' );
-$Entity = new $entityClassName();
-if (! ($Entity instanceof Model)) { ?>
+$inCreation = $View->Template->getVar('in_creation');
+
+$Entity = $View->Template->getObject('Entity');
+if (! $Entity instanceof Model) { ?>
 <div class="message-error">
-	<?= sprintf(dgettext('core', 'Class "%s" is not an instance of FragTale\\Application\\Model.'), $entityClassName) ?>
+	<?= sprintf( _('Class "%s" is not an instance of FragTale\\Application\\Model.'), $Entity ? get_class($Entity) : 'null' ) ?>
 </div>
 <?php
 }
-$EntityData = $View->Template->getVar ( 'EntityData' );
-if (! ($EntityData instanceof DataCollection))
-	$EntityData = new DataCollection ();
+
+$Data = $Entity->getRow();
+if (! $Data instanceof DataCollection)
+	$Data = new DataCollection ();
 
 $controllerClassName = $View->Template->getVar ( 'controller_classname' ); ?>
 <form onsubmit="return false;" action="<?= $RouteService->getControllerUrl($controllerClassName) ?>">
-	<div>
-		<h2><?= $View->Template->getVar('form_title') ?></h2>
-	</div>
+	<h2><?= $View->Template->getTitle() ?></h2>
 	<div class="entity-form">
-<?php	foreach ( $Entity->getColumns () as $columnName ) { ?>
-		<div>
-			<?= $FormService->autobuildEntityFieldWithLabel ($Entity, $columnName, $EntityData->findByKey ( $columnName ) ) ?>
+<?php	foreach ( $Entity->getColumns() as $columnName ) { ?>
+		<div class="entity-field">
+			<?= $FormService->autobuildEntityFieldWithLabel( $Entity, $columnName, $Data->findByKey($columnName) ) ?>
 		</div>
 <?php	} ?>
-	
-		<div class="entity-field">
-			<div class="entity-field-prop">
-<?php			if (! $inCreation) { ?>
-				<button onclick="if (confirm('<?= _('Confirm deletion') ?>')) FragTale.Form.delete(this.closest('form'));"><?=_('Delete')?></button>
-<?php			} ?>
-			</div>
-			<div class="entity-field-prop column">
-<?php			if ($inCreation) { ?>
-				<button onclick="FragTale.Form.post(this.closest('form'));"><?=_('Record')?></button>
-<?php			} else { ?>
-				<button onclick="FragTale.Form.put(this.closest('form'));"><?=_('Update')?></button>
-<?php			} ?>
-			</div>
-		</div>
-		<div class="entity-field">
-			<div class="entity-field-prop">
-				<a href="<?= $RouteService->getControllerUrl(/*ListController*/::class) ?>"><?=_('Return to list')?></a>
-			</div>
-		</div>
+	</div>
+	<div class="entity-form">
+		<a href="<?= $RouteService->getControllerUrl(/*ListController*/::class) ?>"><?= _('Return to list') ?></a>
+<?php	if ($inCreation) { ?>
+		<button onclick="FragTale.Form.post(this.closest('form'));"><?= _('Record') ?></button>
+<?php	} else { ?>
+		<button onclick="if (confirm('<?= _('Confirm deletion') ?>')) FragTale.Form.delete(this.closest('form'));"><?= _('Delete') ?></button>
+		<button onclick="FragTale.Form.put(this.closest('form'));"><?= _('Update') ?></button>
+		<button type="reset"><?=_('Reset')?></button>
+<?php	} ?>
 	</div>
 </form>

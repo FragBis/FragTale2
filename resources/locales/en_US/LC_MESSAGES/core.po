@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-07-05 17:54+0200\n"
-"PO-Revision-Date: 2024-07-05 17:54+0200\n"
+"POT-Creation-Date: 2024-07-11 22:35+0200\n"
+"PO-Revision-Date: 2024-07-11 22:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -94,12 +94,12 @@ msgid ""
 msgstr ""
 "#ROUTE_ERROR: Missing explicit controller argument in non-interactive Shell"
 
-#: Console/Project.php:37
+#: Console/Project.php:38
 #, php-format
 msgid "Entering project management space"
 msgstr "Entering project management space"
 
-#: Console/Project.php:38 Console/Project.php:44
+#: Console/Project.php:39 Console/Project.php:45
 #: Console/Project/Configure.php:31 Console/Project/Configure.php:39
 #: Console/Project/Configure/Database.php:23
 #: Console/Project/Configure/Database.php:29
@@ -110,7 +110,7 @@ msgstr "Entering project management space"
 #: Console/Project/Controller/Create.php:32
 #: Console/Project/Controller/Create/Block.php:18
 #: Console/Project/Controller/Create/Cli.php:18
-#: Console/Project/Controller/Create/Form.php:35
+#: Console/Project/Controller/Create/Form.php:34
 #: Console/Project/Controller/Create/Web.php:19 Console/Project/Create.php:44
 #: Console/Project/Model.php:30 Console/Project/Model.php:35
 #: Console/Project/Model/ImportDataset.php:25
@@ -124,11 +124,11 @@ msgstr "Entering project management space"
 msgid "**********************"
 msgstr "**********************"
 
-#: Console/Project.php:39
+#: Console/Project.php:40
 msgid "You have 4 sections:"
 msgstr "You have 4 sections:"
 
-#: Console/Project.php:40
+#: Console/Project.php:41
 msgid ""
 "· \"Configure\": offers 3 actions to configure your project databases, "
 "environments and custom parameters"
@@ -136,33 +136,33 @@ msgstr ""
 "· \"Configure\": offers 3 actions to configure your project databases, "
 "environments and custom parameters"
 
-#: Console/Project.php:41
+#: Console/Project.php:42
 msgid "· \"Controller\": you can create a new controller"
 msgstr "· \"Controller\": you can create a new controller"
 
-#: Console/Project.php:42
+#: Console/Project.php:43
 msgid "· \"Create\": allows you to create a new project from scratch"
 msgstr "· \"Create\": allows you to create a new project from scratch"
 
-#: Console/Project.php:43
+#: Console/Project.php:44
 msgid "· \"Model\": map your database tables and relations (ORM)"
 msgstr "· \"Model\": map your database tables and relations (ORM)"
 
-#: Console/Project.php:64
+#: Console/Project.php:65
 #, php-format
 msgid "File \"%s\" successfully updated"
 msgstr "File \"%s\" successfully updated"
 
-#: Console/Project.php:118
+#: Console/Project.php:119
 #, php-format
 msgid "Unknown project \"%s\""
 msgstr "Unknown project \"%s\""
 
-#: Console/Project.php:119
+#: Console/Project.php:120
 msgid "Select project"
 msgstr "Select project"
 
-#: Console/Project.php:135
+#: Console/Project.php:140
 #, php-format
 msgid ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
@@ -171,7 +171,7 @@ msgstr ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
 "fragtale Console/Setup"
 
-#: Console/Project.php:156
+#: Console/Project.php:161
 msgid "You have not created a project yet. Going through project creation:"
 msgstr "You have not created a project yet. Going through project creation:"
 
@@ -231,7 +231,8 @@ msgstr ""
 #: Console/Project/Configure/Environment.php:115
 #: Console/Project/Configure/Environment.php:146
 #: Console/Project/Configure/Parameter/SetMaintenance.php:16
-#: FragTale/Service/Localize.php:53
+#: FragTale/Service/Filesystem.php:103 FragTale/Service/Localize.php:53
+#: FragTale/Service/Project.php:511
 msgid "y {means yes}"
 msgstr "y"
 
@@ -535,7 +536,7 @@ msgstr "Invalid answer"
 #: Console/Project/Controller/Create.php:20
 #: Console/Project/Controller/Create/Block.php:13
 #: Console/Project/Controller/Create/Cli.php:13
-#: Console/Project/Controller/Create/Form.php:29
+#: Console/Project/Controller/Create/Form.php:28
 #: Console/Project/Controller/Create/Web.php:13 Console/Project/Create.php:41
 msgid "**** Help invoked ****"
 msgstr "**** Help invoked ****"
@@ -549,7 +550,7 @@ msgid "There are %s CLI options handled (not required):"
 msgstr "There are %s CLI options handled (not required):"
 
 #: Console/Project/Controller/Create.php:22
-#: Console/Project/Controller/Create/Form.php:31
+#: Console/Project/Controller/Create/Form.php:30
 msgid "· \"--project\": the project name"
 msgstr "· \"--project\": the project name"
 
@@ -751,11 +752,11 @@ msgstr ""
 msgid "\"--name\": the new controller name"
 msgstr "\"--name\": the new controller name"
 
-#: Console/Project/Controller/Create/Form.php:30
+#: Console/Project/Controller/Create/Form.php:29
 msgid "There are 5 CLI options (not required) handled:"
 msgstr "There are 5 CLI options (not required) handled:"
 
-#: Console/Project/Controller/Create/Form.php:32
+#: Console/Project/Controller/Create/Form.php:31
 msgid ""
 "· \"--dir\": the controller folder in which to place it; It can be the "
 "relative path from the project directory (e.g.: Project/{projectName}/"
@@ -765,56 +766,56 @@ msgstr ""
 "relative path from the project directory (e.g.: Project/{projectName}/"
 "Controller/Web)"
 
-#: Console/Project/Controller/Create/Form.php:33
+#: Console/Project/Controller/Create/Form.php:32
 msgid "· \"--model\": the model namespace"
 msgstr ""
 "· \"--model\": the model namespace (e.g. "
 "\"Project\\{ProjectName}\\Model\\Sql\\{ModelName}\")"
 
-#: Console/Project/Controller/Create/Form.php:34
+#: Console/Project/Controller/Create/Form.php:33
 msgid "· \"--entity\": the entity name (without prefix)"
 msgstr "· \"--entity\": the entity name (without prefix)"
 
-#: Console/Project/Controller/Create/Form.php:42
+#: Console/Project/Controller/Create/Form.php:41
 #, php-format
 msgid "Creating new form for project \"%s\"."
 msgstr "Creating new form for project \"%s\"."
 
-#: Console/Project/Controller/Create/Form.php:57
+#: Console/Project/Controller/Create/Form.php:56
 #, php-format
 msgid "Using model \"%s\""
 msgstr "Using model \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:62
+#: Console/Project/Controller/Create/Form.php:61
 #, php-format
 msgid "Creating form for entity \"%s\""
 msgstr "Creating form for entity \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:71 Console/Project/Create.php:139
+#: Console/Project/Controller/Create/Form.php:70 Console/Project/Create.php:139
 #, php-format
 msgid "In folder \"%s\""
 msgstr "In folder \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:78
+#: Console/Project/Controller/Create/Form.php:77
 #, php-format
 msgid "Using controller namespace \"%s\""
 msgstr "Using controller namespace \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:83
+#: Console/Project/Controller/Create/Form.php:82
 #, php-format
 msgid "Templates will be placed in \"%s\""
 msgstr "Templates will be placed in \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:83
+#: Console/Project/Controller/Create/Form.php:82
 msgid "Creating folders..."
 msgstr "Creating folders..."
 
-#: Console/Project/Controller/Create/Form.php:95
+#: Console/Project/Controller/Create/Form.php:94
 #, php-format
 msgid "Required class \"%s\" does not exist. Please check your model."
 msgstr "Required class \"%s\" does not exist. Please check your model."
 
-#: Console/Project/Controller/Create/Form.php:100
+#: Console/Project/Controller/Create/Form.php:99
 #, php-format
 msgid ""
 "Class \"%s\" must inherit from FragTale\\Application\\Model. Please check "
@@ -823,15 +824,15 @@ msgstr ""
 "Class \"%s\" must inherit from FragTale\\Application\\Model. Please check "
 "your model."
 
-#: Console/Project/Controller/Create/Form.php:106
-#: Console/Project/Controller/Create/Form.php:126
-#: Console/Project/Controller/Create/Form.php:133
-#: Console/Project/Controller/Create/Form.php:153
+#: Console/Project/Controller/Create/Form.php:107
+#: Console/Project/Controller/Create/Form.php:129
+#: Console/Project/Controller/Create/Form.php:138
+#: Console/Project/Controller/Create/Form.php:160
 #, php-format
 msgid "Using pattern \"%s\""
 msgstr "Using pattern \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:174
+#: Console/Project/Controller/Create/Form.php:181
 msgid ""
 "You have not declared any models in your configuration file. You should "
 "generate a model first, by executing command: ./fragtale2 Console/Project/"
@@ -840,39 +841,39 @@ msgstr ""
 "You have not declared any model in your configuration file. You must first "
 "generate a model by running the command: ./fragtale2 Console/Project/Model"
 
-#: Console/Project/Controller/Create/Form.php:181
+#: Console/Project/Controller/Create/Form.php:188
 msgid "Select a model namespace:"
 msgstr "Select a model namespace:"
 
-#: Console/Project/Controller/Create/Form.php:187
+#: Console/Project/Controller/Create/Form.php:194
 msgid "Please select an existing model."
 msgstr "Please select an existing model."
 
-#: Console/Project/Controller/Create/Form.php:234
+#: Console/Project/Controller/Create/Form.php:241
 msgid "Select one of the following entities:"
 msgstr "Select one of the following entities:"
 
-#: Console/Project/Controller/Create/Form.php:240
+#: Console/Project/Controller/Create/Form.php:247
 #, php-format
 msgid "Using entity namespace \"%1s\" in folder \"%2s\""
 msgstr "Using entity namespace \"%1s\" in folder \"%2s\""
 
-#: Console/Project/Controller/Create/Form.php:243
+#: Console/Project/Controller/Create/Form.php:250
 #, php-format
 msgid "Entity's folder \"%s\" does not exist"
 msgstr "Entity's folder \"%s\" does not exist"
 
-#: Console/Project/Controller/Create/Form.php:252
+#: Console/Project/Controller/Create/Form.php:259
 #, php-format
 msgid "Entity \"%1s\" misses required class \"%2s\""
 msgstr "Entity \"%1s\" misses required class \"%2s\""
 
-#: Console/Project/Controller/Create/Form.php:274
+#: Console/Project/Controller/Create/Form.php:281
 #, php-format
 msgid "Entering folder \"%s\""
 msgstr "Entering folder \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:276
+#: Console/Project/Controller/Create/Form.php:283
 msgid "Type folder in which to place your new controllers:"
 msgstr "Type folder in which to place your new controllers:"
 
@@ -984,7 +985,7 @@ msgstr "Do you want to set project host name or IP? [y, N]"
 msgid "Working on %s"
 msgstr "Working on %s"
 
-#: Console/Project/Create.php:209 FragTale/Service/Filesystem.php:91
+#: Console/Project/Create.php:209 FragTale/Service/Filesystem.php:90
 #, php-format
 msgid "File \"%s\" already exists"
 msgstr "File \"%s\" already exists"
@@ -1753,8 +1754,8 @@ msgstr "No column and/or no value passed building insert query."
 msgid "Rows affected: %s"
 msgstr "Rows affected: %s"
 
-#: FragTale/Database/QueryBuilder/QueryBuildSelect.php:91
-#: FragTale/Database/QueryBuilder/QueryBuildSelect.php:95
+#: FragTale/Database/QueryBuilder/QueryBuildSelect.php:92
+#: FragTale/Database/QueryBuilder/QueryBuildSelect.php:96
 msgid ""
 "Parameter \"$select\" must be a single array containing string value or a "
 "full string."
@@ -1780,12 +1781,12 @@ msgstr "Data successfully updated."
 msgid "Nothing changed."
 msgstr "Nothing changed."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:133
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:134
 #, php-format
 msgid "Operator \"%s\" expects its value to be an array of other filters."
 msgstr "Operator \"%s\" expects its value to be an array of other filters."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:155
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:156
 #, php-format
 msgid ""
 "Operator \"%s\" expects its value to be litterally \"NULL\" or \"NOT "
@@ -1794,7 +1795,7 @@ msgstr ""
 "The \"%s\" operator expects its value to literally be \"NULL\" or \"NOT "
 "NULL\" (and nothing else)."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:160
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:161
 #, php-format
 msgid "Operator \"%s\" expects its value to be a string."
 msgstr "The \"%s\" operator expects its value to be a string."
@@ -1820,15 +1821,15 @@ msgstr ""
 "The \"%s\" operator expects its value to be a single list (1 dimension "
 "array)."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:189
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:204
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:188
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:201
 #, php-format
 msgid "Operator \"%s\" expects its value to be an array of 2 values exactly."
 msgstr ""
 "The \"%s\" operator expects its value to be an array of 2 values exactly."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:216
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:238
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:211
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:233
 #, php-format
 msgid ""
 "Operator \"%s\" expects its value to be a single value, not an array nor an "
@@ -1837,7 +1838,7 @@ msgstr ""
 "The \"%s\" operator expects its value to be a single value, not an array nor "
 "an object."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:233
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:228
 #, php-format
 msgid ""
 "Operator \"%s\" expects its value to be a string, not an array nor an object."
@@ -1845,7 +1846,7 @@ msgstr ""
 "The \"%s\" operator expects its value to be a string, not an array nor an "
 "object."
 
-#: FragTale/Implement/QueryBuilder/FilterTrait.php:246
+#: FragTale/Implement/QueryBuilder/FilterTrait.php:241
 #, php-format
 msgid ""
 "Operator IN_SELECT expects a query builder, instance of QueryBuildSelect."
@@ -1942,7 +1943,7 @@ msgstr "Please choose a class that extends a Controller"
 msgid "File and/or class not found"
 msgstr "File and/or class not found"
 
-#: FragTale/Service/Filesystem.php:39
+#: FragTale/Service/Filesystem.php:38
 #, php-format
 msgid ""
 "Could not create folder: \"%s\" because parent folder does not exist yet. "
@@ -1951,31 +1952,45 @@ msgstr ""
 "Could not create folder: \"%s\" because parent folder does not exist yet. "
 "You should create it before."
 
-#: FragTale/Service/Filesystem.php:49
+#: FragTale/Service/Filesystem.php:47
 #, php-format
 msgid "Folder: \"%s\" already exists"
 msgstr "Folder: \"%s\" already exists"
 
-#: FragTale/Service/Filesystem.php:52
+#: FragTale/Service/Filesystem.php:50
 #, php-format
 msgid "Created folder: \"%s\""
 msgstr "Created folder: \"%s\""
 
-#: FragTale/Service/Filesystem.php:55
+#: FragTale/Service/Filesystem.php:53
 #, php-format
 msgid "Could not create folder: \"%s\""
 msgstr "Could not create folder: \"%s\""
 
-#: FragTale/Service/Filesystem.php:89
-msgid "File already exists. Overwrite it? [yn]"
-msgstr "File already exists. Overwrite it? [y, n]"
+#: FragTale/Service/Filesystem.php:86
+#, php-format
+msgid "File \"%s\" already exists."
+msgstr "File \"%s\" already exists."
 
-#: FragTale/Service/Filesystem.php:100
+#: FragTale/Service/Filesystem.php:87
+msgid "Overwrite file? [Yn]"
+msgstr "Overwrite file? [Yn]"
+
+#: FragTale/Service/Filesystem.php:102
+#, php-format
+msgid "Folder \"%s\" does not exist yet."
+msgstr "Folder \"%s\" does not exist yet."
+
+#: FragTale/Service/Filesystem.php:103
+msgid "Create folder? [Yn]"
+msgstr "Create folder? [Yn]"
+
+#: FragTale/Service/Filesystem.php:110
 #, php-format
 msgid "File \"%s\" successfully written"
 msgstr "File \"%s\" successfully written"
 
-#: FragTale/Service/Filesystem.php:103
+#: FragTale/Service/Filesystem.php:113
 #, php-format
 msgid "Unabled to create file \"%s\""
 msgstr "Unable to create file \"%s\""
@@ -1992,17 +2007,25 @@ msgstr "no"
 msgid "yes"
 msgstr "yes"
 
-#: FragTale/Service/Project.php:218
+#: FragTale/Service/Project.php:250
 #, php-format
 msgid ""
 "Your project \"%s\" does not contain a \"project.json\" configuration file."
 msgstr ""
 "Your project \"%s\" does not contain a \"project.json\" configuration file."
 
-#: FragTale/Service/Project.php:238
+#: FragTale/Service/Project.php:270
 #, php-format
 msgid "Using env '%s'"
 msgstr "Using env '%s'"
+
+#: FragTale/Service/Project.php:510
+msgid "Missing required configuration file in your project!"
+msgstr "Missing required configuration file in your project!"
+
+#: FragTale/Service/Project.php:511
+msgid "Create \"project.json\" file? [Yn]"
+msgstr "Create \"project.json\" file? [Yn]"
 
 #: FragTale/Service/Project/CliPurpose.php:19
 msgid "This class is for CLI purpose only!"
@@ -2061,3 +2084,6 @@ msgstr "Footer"
 #: resources/templates/maintenance.phtml:1
 msgid "Site in construction..."
 msgstr "Site in construction..."
+
+#~ msgid "File already exists. Overwrite it? [yn]"
+#~ msgstr "File already exists. Overwrite it? [y, n]"

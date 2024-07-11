@@ -5,6 +5,7 @@ namespace FragTale\Implement\QueryBuilder;
 use FragTale\Constant\Database\SqlOperator;
 use FragTale\DataCollection;
 use FragTale\Database\QueryBuilder\QueryBuildSelect;
+use FragTale\Constant\Database\SqlEncaps;
 
 /**
  *
@@ -73,7 +74,7 @@ trait FilterTrait {
 	 */
 	final protected function setConditions(): self {
 		$globalConds = $this->buildFiltersArray ( $this->filters );
-		$this->queryConditions = ! empty ( $globalConds ) ? implode ( "\n" . SqlOperator::AND . ' ', $globalConds ) : '';
+		$this->queryConditions = ! empty ( $globalConds ) ? SqlEncaps::IN_PARENTHESES ( $globalConds ) : '';
 		return $this;
 	}
 
@@ -91,7 +92,7 @@ trait FilterTrait {
 			$operator = is_int ( $key ) ? SqlOperator::AND : null;
 			if ($operator || ($operator = SqlOperator::getConstant ( $key ))) {
 				if ($subConditions = is_iterable ( $conditions ) ? $this->buildFiltersArray ( $conditions ) : trim ( ( string ) $conditions ))
-					$globalConds [] = is_iterable ( $subConditions ) ? '(' . implode ( " $operator ", $subConditions ) . ')' : "($subConditions)";
+					$globalConds [] = is_iterable ( $subConditions ) ? SqlEncaps::IN_PARENTHESES ( $subConditions, $operator ) : "($subConditions)";
 			} else {
 				if (is_iterable ( $conditions )) {
 					$resConditions = [ ];
@@ -102,7 +103,7 @@ trait FilterTrait {
 						else
 							$resConditions [] = "$key $strConditions";
 					}
-					$globalConds [] = '(' . implode ( ' ' . SqlOperator::AND . ' ', $resConditions ) . ')';
+					$globalConds [] = SqlEncaps::IN_PARENTHESES ( $resConditions );
 				} else {
 					$operator = SqlOperator::EQ;
 					$rand = substr ( md5 ( rand () . microtime () ), 0, 8 );
@@ -143,7 +144,7 @@ trait FilterTrait {
 					else
 						$resConditions [] = "$key $strConditions";
 				}
-				return '(' . implode ( " $operator ", $resConditions ) . ')';
+				return SqlEncaps::IN_PARENTHESES ( $resConditions, $operator );
 			case SqlOperator::IS :
 			case SqlOperator::IS_NOT :
 				if ($conditions === null)
@@ -158,8 +159,7 @@ trait FilterTrait {
 			case SqlOperator::NOT_LIKE :
 				if (! is_string ( $conditions ))
 					throw new \Exception ( sprintf ( dgettext ( 'core', 'Operator "%s" expects its value to be a string.' ), $operator ) );
-				$conditions = str_replace ( "'", "''", $conditions );
-				return "$operator '$conditions'";
+				return $operator . ' ' . SqlEncaps::IN_QUOTES ( $conditions );
 			case SqlOperator::EQ_BOOL :
 			case SqlOperator::DIFFERENT_BOOL :
 				if (is_iterable ( $conditions ))
@@ -181,8 +181,7 @@ trait FilterTrait {
 					} else
 						throw new \Exception ( sprintf ( dgettext ( 'core', 'Operator "%s" expects its value to be a single list (1 dimension array).' ), $operator ) );
 				}
-				$markedConds = implode ( ', ', $markedConds );
-				return "$operator ($markedConds)";
+				return $operator . ' ' . SqlEncaps::IN_PARENTHESES ( $markedConds, ', ' );
 			case SqlOperator::BETWEEN :
 			case SqlOperator::NOT_BETWEEN :
 				if (! is_array ( $conditions ) || count ( $conditions ) !== 2)
@@ -195,17 +194,13 @@ trait FilterTrait {
 					$this->preparedValues [$mark] = $value;
 					$values [] = $mark;
 				}
-				$val1 = reset ( $values );
-				$val2 = end ( $values );
-				return "$operator $val1 AND $val2";
+				return $operator . ' ' . implode ( ' ' . SqlOperator::AND . ' ', $values );
 			case SqlOperator::BETWEEN_LITT :
 			case SqlOperator::NOT_BETWEEN_LITT :
 				if (! is_array ( $conditions ) || count ( $conditions ) !== 2)
 					throw new \Exception ( sprintf ( dgettext ( 'core', 'Operator "%s" expects its value to be an array of 2 values exactly.' ), $operator ) );
-				$val1 = reset ( $conditions );
-				$val2 = end ( $conditions );
 				$operator = trim ( str_ireplace ( 'LITTERALLY', '', $operator ) );
-				return "$operator $val1 AND $val2";
+				return $operator . ' ' . implode ( ' ' . SqlOperator::AND . ' ', $conditions );
 			case SqlOperator::EQ_LITT :
 			case SqlOperator::DIFFERENT_LITT :
 			case SqlOperator::LT_LITT :
@@ -221,7 +216,7 @@ trait FilterTrait {
 					return "$operator $conditions";
 				else {
 					$conditions = trim ( trim ( ( string ) $conditions, "'" ) );
-					return "$operator '$conditions'";
+					return $operator . ' ' . SqlEncaps::IN_QUOTES ( $conditions );
 				}
 			case SqlOperator::EQ_FIELD :
 			case SqlOperator::DIFFERENT_FIELD :

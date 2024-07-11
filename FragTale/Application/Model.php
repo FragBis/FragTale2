@@ -224,7 +224,7 @@ abstract class Model extends Application implements Iterator {
 	public function bulkCommitDiffsBetweenCollections(DataCollection $InitialData, DataCollection $NewData, array $keys2match, ?\Closure $closureForUpdate = null, ?\Closure $closureForDeletion = null, ?\Closure $closureForInsertion = null): Model {
 		foreach ( $keys2match as $key2match )
 			if (! $this->isEntityColumn ( $key2match )) {
-				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( _ ( 'Key to match must be a property of the entity used.' ) ) );
+				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'Key to match must be a property of the entity used.' ) ) );
 				return new static ( $this->getConnectorId () );
 			}
 		$SelfEntity = new static ( $this->getConnectorId () );
@@ -235,7 +235,7 @@ abstract class Model extends Application implements Iterator {
 			$existingMatchedValues = [ ];
 			foreach ( $keys2match as $key2match ) {
 				if (! in_array ( $key2match, $InitialRow->keys () )) {
-					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( _ ( 'Row of InitialData does not contain one of keys to match passed as argument.' ) ) );
+					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'Row of InitialData does not contain one of keys to match passed as argument.' ) ) );
 					return new self ();
 				}
 				$existingMatchedValues [$key2match] = $InitialRow->findByKey ( $key2match );
@@ -257,7 +257,7 @@ abstract class Model extends Application implements Iterator {
 				return true;
 			} )->count ()) {
 				if ($hasError) {
-					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( _ ( 'NewData passed must contain rows typed as DataCollection and each row must contain key/value corresponding to the keys 2 match.' ) ) );
+					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'NewData passed must contain rows typed as DataCollection and each row must contain key/value corresponding to the keys 2 match.' ) ) );
 					return $this;
 				}
 				if ($closureForDeletion)
@@ -274,7 +274,7 @@ abstract class Model extends Application implements Iterator {
 			$newValues = [ ];
 			foreach ( $keys2match as $key2match ) {
 				if (! in_array ( $key2match, $NewRow->keys () )) {
-					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( _ ( 'Row of NewData does not contain one of keys to match passed as argument.' ) ) );
+					$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( dgettext ( 'core', 'Row of NewData does not contain one of keys to match passed as argument.' ) ) );
 					return new self ();
 				}
 				$newValues [$key2match] = $NewRow->findByKey ( $key2match );

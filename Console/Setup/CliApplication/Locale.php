@@ -36,7 +36,7 @@ class Locale extends CliApplication {
 				$locales [$locale] = $elt->findByKey ( 'language' ) . ' (' . $elt->findByKey ( 'country' ) . ')';
 			}
 		} );
-		if ($locale = $this->promptToFindElementInCollection ( dgettext ( 'core', _ ( 'Select locale from the list below:' ) ), new DataCollection ( $locales ), $defaultLocaleIndex, true )) {
+		if ($locale = $this->promptToFindElementInCollection ( dgettext ( 'core', 'Select locale from the list below:' ), new DataCollection ( $locales ), $defaultLocaleIndex, true )) {
 			$this->CliService->print ( $locale );
 			if ($locale !== $curLocale)
 				$Settings->upsert ( 'locale', $locale );

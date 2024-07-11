@@ -32,6 +32,7 @@ abstract class SqlFunction {
 	 * @param string $default
 	 *        	For example: 0 for a numeric column. You don't need to escape single quotes as they are escaped in this function for this parameter.
 	 *        	Then, you can just set '' for varchar columns.
+	 *        	<b>Attention! You can't pass another field name!</b>
 	 * @param string $alias
 	 *        	(optional) If you use this function in a SELECT clause, you should define a custom alias. Obviously, don't pass an alias in a WHERE clause.
 	 * @return string
@@ -127,7 +128,23 @@ abstract class SqlFunction {
 		$sepExpr = $separator ? " SEPARATOR '$separator'" : '';
 		return SqlAlias::ADD ( "GROUP_CONCAT(DISTINCT {$columnName}{$sepExpr})", $alias );
 	}
-
+	/**
+	 * IFNULL is equivalent to COALESCE, ISNULL or NVL.
+	 * Set a default value when a field value is NULL
+	 *
+	 * @param string $columnName
+	 *        	The column name to test
+	 * @param string $default
+	 *        	For example: 0 for a numeric column. You don't need to escape single quotes as they are escaped in this function for this parameter.
+	 *        	Then, you can just set '' for varchar columns.
+	 *        	<b>Attention! You can't pass another field name!</b>
+	 * @param string $alias
+	 *        	(optional) If you use this function in a SELECT clause, you should define a custom alias. Obviously, don't pass an alias in a WHERE clause.
+	 * @return string
+	 */
+	public static function IFNULL(string $columnName, string $default, ?string $alias = null): string {
+		return self::COALESCE ( $columnName, $default, $alias );
+	}
 	/**
 	 * LPAD function.
 	 * For example, adding leading 0 to specified colum name, giving string length where $pad = '0'
@@ -144,7 +161,6 @@ abstract class SqlFunction {
 	public static function LPAD(string $columnName, int $length, ?string $pad = ' ', ?string $alias = null): string {
 		return SqlAlias::ADD ( "LPAD({$columnName}, {$length}, '{$pad}')", $alias );
 	}
-
 	/**
 	 * Maximum function
 	 *

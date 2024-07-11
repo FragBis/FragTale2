@@ -335,9 +335,7 @@ class Project extends AbstractService {
 				$host = $this->getSuperServices ()->getHttpServerService ()->getHost ();
 				if (($HostsSettings = $this->getSuperServices ()->getConfigurationService ()->getHostsSettings ()) && $HostsSettings instanceof DataCollection)
 					$this->name = $HostsSettings->findByKey ( $host ) ? $HostsSettings->findByKey ( $host ) : '';
-			} elseif (IS_CLI && $this->getSuperServices ()->getCliService ()->getOpt ( 'project' ))
-				$this->name = ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( 'project' );
-			elseif (($routeSections = explode ( '/', ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( '_route_index' ) )) && $routeSections [0] === 'Project')
+			} elseif (($routeSections = explode ( '/', ( string ) $this->getSuperServices ()->getCliService ()->getOpt ( '_route_index' ) )) && $routeSections [0] === 'Project')
 				$this->name = $routeSections [1];
 		}
 		return $this->name;
@@ -486,5 +484,39 @@ class Project extends AbstractService {
 			$LocaleProps = (new DataCollection ( Locale::getConstant ( $locale ) ))->upsert ( 'locale', $locale );
 		}
 		return $LocaleProps;
+	}
+
+	/**
+	 * Targetted project can be modified only in CLI mode.
+	 *
+	 * @param string $projectName
+	 * @return self
+	 */
+	final public function setProjectNameInCliMode(?string $projectName): self {
+		$projectName = trim ( ( string ) $projectName );
+		if (IS_CLI && $projectName) {
+			// Check if configuration project folder exists
+			$projectDir = sprintf ( CustomProjectPattern::PATH, $projectName );
+			if (! is_dir ( $projectDir )) {
+				$this->getSuperServices ()->getCliService ()->printError ( sprintf ( degettext ( 'core', 'Project "%s" does not exist!' ), $projectName ) );
+				if (! empty ( $this->name ))
+					$this->getSuperServices ()->getCliService ()->printError ( sprintf ( degettext ( 'core', 'Keeping project "%s".' ), $projectName ) );
+				return $this;
+			}
+			// Check configuration file exists
+			$settingsFile = sprintf ( CustomProjectPattern::SETTINGS_FILE, $projectName );
+			if (! file_exists ( $settingsFile )) {
+				// Create it as it is required
+				$this->getSuperServices ()->getCliService ()->printWarning ( dgettext ( 'core', 'Missing required configuration file in your project!' ) );
+				$answer = $this->getSuperServices ()->getCliService ()->prompt ( dgettext ( 'core', 'Create "project.json" file? [Yn]' ), dgettext ( 'core', 'y {means yes}' ) );
+				if ($this->getSuperServices ()->getLocalizeService ()->meansYes ( $answer )) {
+					$settingsContent = str_replace ( '/*projectName*/', $projectName, file_get_contents ( CorePath::PATTERN_PROJECT_SETUP_FILE ) );
+					if (! $this->getSuperServices ()->getFilesystemService ()->createFile ( $settingsFile, $settingsContent, Filesystem::FILE_OVERWRITE_PROMPT ))
+						return $this;
+				}
+			}
+			$this->name = $projectName;
+		}
+		return $this;
 	}
 }

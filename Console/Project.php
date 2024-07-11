@@ -9,6 +9,7 @@ use FragTale\Service\Cli;
 use FragTale\DataCollection\JsonCollection;
 use FragTale\Constant\Setup\CustomProjectPattern;
 use Console\Project\Create;
+use FragTale\Service\Filesystem;
 
 /**
  *
@@ -119,7 +120,11 @@ class Project extends Console {
 			$projectName = $this->promptToFindElementInCollection ( dgettext ( 'core', 'Select project' ), $this->getProjectFolders (), null, true );
 			$this->CliService->print ( $projectName );
 		}
-		if ($projectName = trim ( ( string ) $projectName ))
+		// Set project service name (to load targetted project settings) and check if project exists
+		if ($projectName === $this->getSuperServices ()
+			->getProjectService ()
+			->setProjectNameInCliMode ( $projectName )
+			->getName ())
 			static::$projectName = $projectName;
 		return $this;
 	}

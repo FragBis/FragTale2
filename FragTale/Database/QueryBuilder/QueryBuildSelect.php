@@ -6,6 +6,7 @@ use FragTale\Database\QueryBuilder;
 use FragTale\Implement\QueryBuilder\JoinTrait;
 use FragTale\Application\Model;
 use FragTale\Constant\Database\SqlOperator;
+use FragTale\Constant\Database\SqlOrder;
 
 /**
  *
@@ -245,14 +246,14 @@ class QueryBuildSelect extends QueryBuilder {
 	 * @param string $columnName
 	 *        	The column name.
 	 * @param string $direction
-	 *        	"ASC" or "DESC"
+	 *        	"ASC" or "DESC". "ASC" by default.
 	 * @return self
 	 */
-	public function addOrderBy(string $columnName, string $direction = 'ASC'): self {
+	public function addOrderBy(string $columnName, string $direction = SqlOrder::ASC): self {
 		$direction = strtoupper ( $direction );
 		if (in_array ( $direction, [ 
-				'ASC',
-				'DESC'
+				SqlOrder::ASC,
+				SqlOrder::DESC
 		] ))
 			$this->orderBy [$columnName] = $direction;
 		return $this;

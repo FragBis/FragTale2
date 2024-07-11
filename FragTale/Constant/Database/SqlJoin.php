@@ -21,4 +21,88 @@ abstract class SqlJoin extends Constant {
 	const FULL_OUTER = 'FULL OUTER JOIN';
 	const NATURAL = 'NATURAL JOIN';
 	const CROSS = 'CROSS JOIN';
+	/**
+	 * Concatenate 2 statements joined by "="
+	 *
+	 * @param string $statement1
+	 *        	1st statement before equal sign
+	 * @param string $statement
+	 *        	2nd statement after equal sign
+	 * @return string
+	 */
+	public static function EQ(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::EQ . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by "LIKE"
+	 *
+	 * @param string $statement1
+	 *        	1st statement before LIKE
+	 * @param string $statement
+	 *        	2nd statement after LIKE
+	 * @return string
+	 */
+	public static function LIKE(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::LIKE . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by "<>"
+	 *
+	 * @param string $statement1
+	 *        	1st statement before diff sign
+	 * @param string $statement
+	 *        	2nd statement after diff sign
+	 * @return string
+	 */
+	public static function DIFF(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::DIFFERENT . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by "<"
+	 *
+	 * @param string $statement1
+	 *        	1st statement before "<"
+	 * @param string $statement
+	 *        	2nd statement after "<"
+	 * @return string
+	 */
+	public static function LT(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::LT . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by "<="
+	 *
+	 * @param string $statement1
+	 *        	1st statement before "<="
+	 * @param string $statement
+	 *        	2nd statement after "<="
+	 * @return string
+	 */
+	public static function LTE(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::LTE . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by ">"
+	 *
+	 * @param string $statement1
+	 *        	1st statement before ">"
+	 * @param string $statement
+	 *        	2nd statement after ">"
+	 * @return string
+	 */
+	public static function GT(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::GT . $statement2;
+	}
+	/**
+	 * Concatenate 2 statements joined by ">="
+	 *
+	 * @param string $statement1
+	 *        	1st statement before ">="
+	 * @param string $statement
+	 *        	2nd statement after ">="
+	 * @return string
+	 */
+	public static function GTE(string $statement1, string $statement2): string {
+		return $statement1 . SqlOperator::GTE . $statement2;
+	}
 }

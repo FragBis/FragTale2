@@ -12,7 +12,11 @@
 		"Maintenance.php": "resources/code_patterns/php/maintenance.php.pattern?namespace&use",
 		"Page404.php": "resources/code_patterns/php/page404.php.pattern?namespace&use"
 	},
-	"Library": {},
+	"Library": {
+		"AbstractClass": {
+			"CustomGettextTranslations.php": "resources/code_patterns/php/custom_gettext_translations.php.pattern?projectName"
+		}
+	},
 	"Model": {},
 	"resources": {
 		"configuration": {},
@@ -25,6 +29,7 @@
 		},
 		"media": {
 			"css": {
+				"fragtale.css": "resources/media/css/fragtale.css",
 				"main.css": "resources/media/css/main.css"
 			},
 			"img": {
@@ -41,6 +46,18 @@
 			},
 			"layouts": {
 				"default.phtml": "resources/code_patterns/phtml/layout.phtml.pattern?namespace&projectName"
+			},
+			"patterns": {
+				"form": {
+					"action": {
+						"controller.pattern": "resources/code_patterns/php/form_action.php.pattern",
+						"view.pattern": "resources/code_patterns/phtml/form_action.phtml.pattern"
+					},
+					"list": {
+						"controller.pattern": "resources/code_patterns/php/form_list.php.pattern",
+						"view.pattern": "resources/code_patterns/phtml/form_list.phtml.pattern"
+					}
+				}
 			},
 			"views": {
 				"404.phtml": "resources/code_patterns/phtml/404.phtml.pattern",

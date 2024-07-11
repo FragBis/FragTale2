@@ -8,7 +8,6 @@ use FragTale\Application\Model;
 use FragTale\Constant\Setup\CorePath;
 use FragTale\Constant\Setup\CustomProjectPattern;
 use FragTale\DataCollection;
-use FragTale\DataCollection\JsonCollection;
 
 /**
  *
@@ -102,7 +101,9 @@ class Form extends Create {
 		}
 
 		// Creating controller: list
-		$patternFile = CorePath::PATTERN_FORM_CONTROLLER_ENTITY_LIST;
+		$patternFile = sprintf ( CustomProjectPattern::PATTERN_FORM_CONTROLLER_ENTITY_LIST, $projectName );
+		if (! file_exists ( $patternFile ))
+			$patternFile = CorePath::PATTERN_FORM_CONTROLLER_ENTITY_LIST;
 		$this->CliService->print ( sprintf ( dgettext ( 'core', 'Using pattern "%s"' ), $patternFile ) );
 		$listControllerContent = str_replace ( [ 
 				'/*namespace*/',
@@ -122,14 +123,18 @@ class Form extends Create {
 		if (! $FsService->createFile ( "$controllerDir/$entityName.php", $listControllerContent ))
 			return;
 		// Creating template: list
-		$patternFile = CorePath::PATTERN_FORM_TEMPLATE_ENTITY_LIST;
+		$patternFile = sprintf ( CustomProjectPattern::PATTERN_FORM_TEMPLATE_ENTITY_LIST, $projectName );
+		if (! file_exists ( $patternFile ))
+			$patternFile = CorePath::PATTERN_FORM_TEMPLATE_ENTITY_LIST;
 		$this->CliService->print ( sprintf ( dgettext ( 'core', 'Using pattern "%s"' ), $patternFile ) );
 		$listTemplateContent = str_replace ( '/*useAction*/', "$controllerNamespace\\$entityName\\Action", file_get_contents ( $patternFile ) );
 		if (! $FsService->createFile ( "$templateDir/list.phtml", $listTemplateContent ))
 			return;
 
 		// Creating controller: action
-		$patternFile = CorePath::PATTERN_FORM_CONTROLLER_ENTITY_ACTION;
+		$patternFile = sprintf ( CustomProjectPattern::PATTERN_FORM_CONTROLLER_ENTITY_ACTION, $projectName );
+		if (! file_exists ( $patternFile ))
+			$patternFile = CorePath::PATTERN_FORM_CONTROLLER_ENTITY_ACTION;
 		$this->CliService->print ( sprintf ( dgettext ( 'core', 'Using pattern "%s"' ), $patternFile ) );
 		$actionControllerContent = str_replace ( [ 
 				'/*namespace*/',
@@ -149,7 +154,9 @@ class Form extends Create {
 		if (! $FsService->createFile ( "$controllerDir/$entityName/Action.php", $actionControllerContent ))
 			return;
 		// Creating template: action
-		$patternFile = CorePath::PATTERN_FORM_TEMPLATE_ENTITY_ACTION;
+		$patternFile = sprintf ( CustomProjectPattern::PATTERN_FORM_TEMPLATE_ENTITY_ACTION, $projectName );
+		if (! file_exists ( $patternFile ))
+			$patternFile = CorePath::PATTERN_FORM_TEMPLATE_ENTITY_ACTION;
 		$this->CliService->print ( sprintf ( dgettext ( 'core', 'Using pattern "%s"' ), $patternFile ) );
 		$actionTemplateContent = str_replace ( [ 
 				'/*useListController*/',

@@ -26,23 +26,21 @@ class Filesystem extends AbstractService {
 	 * @return bool
 	 */
 	public function createDir(string $dir, bool $recursively = false): bool {
-		$dir = rtrim ( $dir, '/' );
+		$dir = trim ( $dir );
 		$success = true;
 		try {
-			if ($lastSlashPos = strrpos ( $dir, '/' )) {
-				$parentDir = substr ( $dir, 0, $lastSlashPos );
-				if (! is_dir ( $parentDir )) {
-					if ($recursively) {
-						if (! $this->createDir ( $parentDir, true ))
-							return false;
-					} else {
-						$message = sprintf ( dgettext ( 'core', 'Could not create folder: "%s" because parent folder does not exist yet. You should create it before.' ), $dir );
-						if (IS_CLI)
-							$this->getSuperServices ()->getCliService ()->printInColor ( $message, Cli::COLOR_RED );
-						else
-							$this->getSuperServices ()->getFrontMessageService ()->add ( $message, MessageType::WARNING );
+			$parentDir = dirname ( $dir );
+			if (! is_dir ( $parentDir )) {
+				if ($recursively) {
+					if (! $this->createDir ( $parentDir, true ))
 						return false;
-					}
+				} else {
+					$message = sprintf ( dgettext ( 'core', 'Could not create folder: "%s" because parent folder does not exist yet. You should create it before.' ), $dir );
+					if (IS_CLI)
+						$this->getSuperServices ()->getCliService ()->printInColor ( $message, Cli::COLOR_RED );
+					else
+						$this->getSuperServices ()->getFrontMessageService ()->add ( $message, MessageType::WARNING );
+					return false;
 				}
 			}
 			if (is_dir ( $dir )) {
@@ -79,15 +77,16 @@ class Filesystem extends AbstractService {
 	public function createFile(string $filename, string $content, int $overwriteMode = self::FILE_OVERWRITE_KEEP): bool {
 		$success = true;
 		$writeFile = false;
-		$fileShortName = trim ( substr ( $filename, ( int ) strrpos ( '/', $filename ) ), '/' );
+		$filename = trim ( $filename );
+		$fileShortName = basename ( $filename );
 		if (file_exists ( $filename )) {
 			if ($overwriteMode === self::FILE_OVERWRITE_FORCE)
 				$writeFile = true;
-			elseif ($overwriteMode === self::FILE_OVERWRITE_PROMPT && IS_CLI)
-				$writeFile = $this->getSuperServices ()->getLocalizeService ()->meansYes ( $this->getSuperServices ()
-					->getCliService ()
-					->prompt ( dgettext ( 'core', 'File already exists. Overwrite it? [yn]' ) ) );
-			else {
+			elseif ($overwriteMode === self::FILE_OVERWRITE_PROMPT && IS_CLI) {
+				$this->getSuperServices ()->getCliService ()->printWarning ( sprintf ( dgettext ( 'core', 'File "%s" already exists.' ), $filename ) );
+				$answer = $this->getSuperServices ()->getCliService ()->prompt ( dgettext ( 'core', 'Overwrite file? [Yn]' ) );
+				$writeFile = $this->getSuperServices ()->getLocalizeService ()->meansYes ( $answer );
+			} else {
 				$message = sprintf ( dgettext ( 'core', 'File "%s" already exists' ), IS_CLI ? $filename : $fileShortName );
 				$typeOrColor = IS_CLI ? Cli::COLOR_ORANGE : MessageType::WARNING;
 			}
@@ -96,6 +95,17 @@ class Filesystem extends AbstractService {
 
 		if ($writeFile) {
 			try {
+				$dir = dirname ( $filename );
+				if (! is_dir ( $dir )) {
+					$createDir = false;
+					if (IS_CLI && ! ($createDir = ($overwriteMode === self::FILE_OVERWRITE_FORCE))) {
+						$this->getSuperServices ()->getCliService ()->printWarning ( sprintf ( dgettext ( 'core', 'Folder "%s" does not exist yet.' ), $dir ) );
+						$answer = $this->getSuperServices ()->getCliService ()->prompt ( dgettext ( 'core', 'Create folder? [Yn]' ), dgettext ( 'core', 'y {means yes}' ) );
+						$createDir = $this->getSuperServices ()->getLocalizeService ()->meansYes ( $answer );
+					}
+					if (! $createDir || ! $this->createDir ( $dir ))
+						return false;
+				}
 				if (file_put_contents ( $filename, $content )) {
 					$message = sprintf ( dgettext ( 'core', 'File "%s" successfully written' ), IS_CLI ? $filename : $fileShortName );
 					$typeOrColor = IS_CLI ? Cli::COLOR_GREEN : MessageType::SUCCESS;
