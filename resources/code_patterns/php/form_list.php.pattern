@@ -4,6 +4,7 @@ namespace /*namespace*/;
 
 use /*useController*/;
 use /*useEntity*/;
+use FragTale\Constant\Database\SqlAlias;
 
 /**
  * List database data
@@ -49,10 +50,11 @@ class /*Class*/ extends WebController {
 			$order = 1;
 		$orderDirection = ( string ) $RequestService->getParamValue ( 'direction' );
 		if (! in_array ( strtoupper ( $orderDirection ), [ 
-				'ASC',
-				'DESC'
+				SqlOrder::ASC,
+				SqlOrder::DESC
 		] ))
-			$orderDirection = 'ASC';
+			$orderDirection = SqlOrder::DESC;
+
 		// Load data
 		$this->Entity->selectAs ( 'T1', '*' )
 			->orderBy ( [ 
@@ -63,6 +65,7 @@ class /*Class*/ extends WebController {
 				$nbDisplayedRows
 		] )
 			->execute ();
+
 		// Set template variables
 		$this->getTemplate ()
 			->setVar ( 'total_rows', $totalRows )

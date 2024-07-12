@@ -136,7 +136,7 @@ class Project extends AbstractService {
 	 * @return string
 	 */
 	final public function getDefaultLogsDir(): string {
-		return sprintf ( CustomProjectPattern::LOGS_DIR, $this->getName () );
+		return CorePath::LOG_DIR . '/' . $this->getName ();
 	}
 
 	/**

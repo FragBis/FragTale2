@@ -49,8 +49,7 @@ class ErrorHandler extends AbstractService {
 			$debugOn = $this->getSuperServices ()->getDebugService ()->isActivated ();
 			$this->getSuperServices ()->getFrontMessageService ()->add ( nl2br ( $debugOn ? $fullMessage : $message ), MessageType::FATAL_ERROR );
 		}
-		$this->log ( $fullMessage, null, 'error_' );
-		return $this;
+		return $this->log ( $fullMessage, null, 'throwables_caught_' );
 	}
 
 	/**
@@ -74,7 +73,7 @@ class ErrorHandler extends AbstractService {
 			$this->getSuperServices ()->getCliService ()->printError ( $fullMessage );
 		else
 			$this->getSuperServices ()->getFrontMessageService ()->add ( nl2br ( $fullMessage ), MessageType::FATAL_ERROR );
-		$this->log ( $fullMessage, null, 'error_' );
+		$this->log ( $fullMessage );
 		return $this;
 	}
 }

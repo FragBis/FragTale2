@@ -29,7 +29,7 @@ $formId = 'paginator_form_' . substr( md5( time().rand() ), 0, 8 );
 $primaryKeys = $Entity->getPrimaryKey(); ?>
 
 <h1><?= $View->Template->getTitle() ?></h1>
-<form method="GET" id="<?=$formId?>">
+<form method="GET" id="<?=$formId?>" autocomplete="off">
 <?php
 	if ($hasData) { ?>
 	<!-- Result -->

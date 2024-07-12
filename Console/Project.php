@@ -9,7 +9,6 @@ use FragTale\Service\Cli;
 use FragTale\DataCollection\JsonCollection;
 use FragTale\Constant\Setup\CustomProjectPattern;
 use Console\Project\Create;
-use FragTale\Service\Filesystem;
 
 /**
  *

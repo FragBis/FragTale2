@@ -97,12 +97,13 @@ class Filesystem extends AbstractService {
 			try {
 				$dir = dirname ( $filename );
 				if (! is_dir ( $dir )) {
-					$createDir = false;
-					if (IS_CLI && ! ($createDir = ($overwriteMode === self::FILE_OVERWRITE_FORCE))) {
+					$createDir = ($overwriteMode === self::FILE_OVERWRITE_FORCE);
+					if (IS_CLI && ! $createDir) {
 						$this->getSuperServices ()->getCliService ()->printWarning ( sprintf ( dgettext ( 'core', 'Folder "%s" does not exist yet.' ), $dir ) );
 						$answer = $this->getSuperServices ()->getCliService ()->prompt ( dgettext ( 'core', 'Create folder? [Yn]' ), dgettext ( 'core', 'y {means yes}' ) );
 						$createDir = $this->getSuperServices ()->getLocalizeService ()->meansYes ( $answer );
 					}
+
 					if (! $createDir || ! $this->createDir ( $dir ))
 						return false;
 				}

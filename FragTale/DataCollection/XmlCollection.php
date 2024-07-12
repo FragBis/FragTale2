@@ -50,7 +50,7 @@ class XmlCollection extends DataCollection {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message, null, 'XmlCollection_' );
+				$this->log ( $message );
 			return $this->import ( null );
 		}
 		if ($xml = simplexml_load_file ( $this->source ))
@@ -60,7 +60,7 @@ class XmlCollection extends DataCollection {
 		if (IS_CLI)
 			throw new \Exception ( $message );
 		else
-			$this->log ( $message, null, 'XmlCollection_' );
+			$this->log ( $message );
 		return $this->import ( null );
 	}
 

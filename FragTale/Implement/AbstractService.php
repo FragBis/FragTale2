@@ -69,4 +69,18 @@ class AbstractService {
 			return $this->createSingleInstance ( $superClassName );
 		return null;
 	}
+
+	/**
+	 * Default log directory is logs/{project_name}/{date `Ym`}
+	 *
+	 * @param string $message
+	 * @param string $folder
+	 * @param string $filePrefix
+	 * @return self
+	 */
+	public function log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
+		if (! $folder)
+			$folder = $this->getSuperServices ()->getProjectService ()->getDefaultLogsDir () . '/' . date ( 'Ym' );
+		return $this->_log ( $message, $folder, $filePrefix );
+	}
 }

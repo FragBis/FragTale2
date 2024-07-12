@@ -611,7 +611,7 @@ class DataCollection implements Iterator {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message, 'DataCollection_' );
+				$this->log ( $message );
 		}
 		return $this;
 	}
@@ -629,7 +629,7 @@ class DataCollection implements Iterator {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message, 'DataCollection_' );
+				$this->log ( $message );
 		}
 		return $this;
 	}

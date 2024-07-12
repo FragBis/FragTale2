@@ -99,6 +99,14 @@ abstract class SqlFunction {
 		return SqlAlias::ADD ( "CASE WHEN $condition THEN $then ELSE $else END", $alias );
 	}
 	/**
+	 * Current date function
+	 *
+	 * @return string CURDATE() function
+	 */
+	public static function CURDATE(): string {
+		return 'CURDATE()';
+	}
+	/**
 	 * MySQL compatible only
 	 *
 	 * @param string $columnName
@@ -182,6 +190,14 @@ abstract class SqlFunction {
 	 */
 	public static function MIN(string $columnName, ?string $alias = null): string {
 		return SqlAlias::ADD ( "MIN($columnName)", $alias );
+	}
+	/**
+	 * Current date and time function
+	 *
+	 * @return string NOW() function
+	 */
+	public static function NOW(): string {
+		return 'NOW()';
 	}
 	/**
 	 * Replace function.

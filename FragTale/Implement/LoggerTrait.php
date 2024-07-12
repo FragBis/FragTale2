@@ -15,17 +15,19 @@ use FragTale\Constant\Setup\CorePath;
 trait LoggerTrait {
 
 	/**
+	 * Protected base function to log errors or events.
+	 * Unchangeable.
 	 *
 	 * @param string $message
 	 * @param string $folder
 	 * @param string $filePrefix
 	 * @return self
 	 */
-	function log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
+	final protected function _log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
 		$prepend = date ( '[Y-m-d H:i:s] ' );
-		if (! $folder || (! file_exists ( $folder ) && ! mkdir ( $folder ))) {
+		if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, 775, true )))
 			$folder = CorePath::LOG_DIR;
-		}
+
 		$filePrefix = IS_CLI ? 'cli_' . $filePrefix : 'http_' . $filePrefix;
 		$logFile = $folder . '/' . $filePrefix . date ( 'Y-m' ) . '.log';
 		try {
@@ -42,5 +44,18 @@ trait LoggerTrait {
 			throw $Exc;
 		}
 		return $this;
+	}
+
+	/**
+	 * Default public function to log errors or events.
+	 * Can be overwritten.
+	 *
+	 * @param string $message
+	 * @param string $folder
+	 * @param string $filePrefix
+	 * @return self
+	 */
+	public function log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
+		return $this->_log ( $message, $folder, $filePrefix );
 	}
 }

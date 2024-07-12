@@ -135,7 +135,7 @@ class MongoCollection extends DataCollection {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message, null, 'MongoCollection_' );
+				$this->log ( $message );
 			return $this->import ( null );
 		}
 

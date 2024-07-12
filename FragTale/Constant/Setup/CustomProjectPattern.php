@@ -14,7 +14,6 @@ use FragTale\Constant;
  */
 abstract class CustomProjectPattern extends Constant {
 	const PATH = CorePath::PROJECT_ROOT . '/%s';
-	const LOGS_DIR = self::PATH . '/logs';
 	const MODEL_DIR = self::PATH . '/Model';
 	const SQL_MODEL_DIR = self::MODEL_DIR . '/Sql';
 	const RESOURCES_DIR = self::PATH . '/resources';

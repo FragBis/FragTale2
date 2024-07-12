@@ -1204,6 +1204,9 @@ abstract class Model extends Application implements Iterator {
 	}
 
 	/**
+	 * Function used to log database transactions.
+	 * <b>This function doesn't only log errors in a file</b>, it keeps transaction events in a DataCollection.
+	 * You can fetch last transaction by calling function "Model::getLastTransactionLog()".
 	 *
 	 * @param string $status
 	 * @param array $criterias
@@ -1239,9 +1242,10 @@ abstract class Model extends Application implements Iterator {
 		if ($this->getSuperServices ()->getDebugService ()->isActivated ())
 			$this->getSuperServices ()->getDebugService ()->setDebugInfo ( $this->lastTransactionKey . ' `' . $this->getTableName () . '`', $log, 'MODELS' );
 
-		$query = str_replace ( "\n", "\n\t", $query );
-		if ($status === self::STATUS_ERROR)
+		if ($status === self::STATUS_ERROR) {
+			$query = str_replace ( "\n", "\n\t", $query );
 			$this->log ( "$context | $message\nQuery:\n\t$query\nCriterias: " . (new DataCollection ( $criterias )) );
+		}
 
 		return $this;
 	}

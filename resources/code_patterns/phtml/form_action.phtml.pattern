@@ -21,7 +21,7 @@ if (! $Data instanceof DataCollection)
 	$Data = new DataCollection ();
 
 $controllerClassName = $View->Template->getVar ( 'controller_classname' ); ?>
-<form onsubmit="return false;" action="<?= $RouteService->getControllerUrl($controllerClassName) ?>">
+<form onsubmit="return false;" action="<?= $RouteService->getControllerUrl($controllerClassName) ?>" autocomplete="off">
 	<h2><?= $View->Template->getTitle() ?></h2>
 	<div class="entity-form">
 <?php	foreach ( $Entity->getColumns() as $columnName ) { ?>
