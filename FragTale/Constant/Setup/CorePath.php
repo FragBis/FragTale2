@@ -36,7 +36,6 @@ abstract class CorePath extends Constant {
 	const TEXT_TEMPLATE_PATH = self::TEMPLATE_DIR . '/text.phtml';
 	const DEBUG_TEMPLATE_PATH = self::TEMPLATE_DIR . '/debug.phtml';
 	const PATTERN_WEB_CONTROLLER = self::CODE_PATTERNS_DIR . '/php/webcontroller.php.pattern';
-	const PATTERN_DEFAULT_WEB_CONTROLLER = self::CODE_PATTERNS_DIR . '/php/defaultwebcontroller.php.pattern';
 	const PATTERN_CLI_CONTROLLER = self::CODE_PATTERNS_DIR . '/php/clicontroller.php.pattern';
 	const PATTERN_BLOCK_CONTROLLER = self::CODE_PATTERNS_DIR . '/php/blockcontroller.php.pattern';
 	const PATTERN_MODEL_E = self::CODE_PATTERNS_DIR . '/php/e_.php.pattern';

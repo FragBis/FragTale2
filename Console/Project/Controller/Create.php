@@ -7,9 +7,11 @@ use FragTale\Constant\Setup\ControllerType;
 use FragTale\Constant\Setup\CorePath;
 use FragTale\Constant\Setup\CustomProjectPattern;
 use FragTale\Service\Cli;
+use FragTale\DataCollection;
 
 class Create extends Controller {
 	protected ?bool $swapTemplate;
+	protected ?string $patternFolderName;
 	protected ?string $controllerName;
 	protected ?string $controllerFolder;
 
@@ -18,11 +20,12 @@ class Create extends Controller {
 	protected function executeOnTop(): void {
 		if ($this->isHelpInvoked ()) {
 			$this->CliService->printInColor ( dgettext ( 'core', '**** Help invoked ****' ), Cli::COLOR_LCYAN )
-				->printInColor ( sprintf ( dgettext ( 'core', 'There are %s CLI options handled (not required):' ), 5 ), Cli::COLOR_LCYAN )
+				->printInColor ( sprintf ( dgettext ( 'core', 'There are %s CLI options handled (not required):' ), 6 ), Cli::COLOR_LCYAN )
 				->print ( '	' . dgettext ( 'core', '· "--project": the project name' ) )
 				->print ( '	' . dgettext ( 'core', '· "--dir": the controller folder in which to place it; It can be the relative path from the project directory or from controller type folder (e.g.: Project/{projectName}/Controller/{controllerType})' ) )
 				->print ( '	' . dgettext ( 'core', '· "--name": the new controller class name' ) )
 				->print ( '	' . dgettext ( 'core', '· "--type": controller type in list [\'Web\', \'Cli\', \'Block\']' ) )
+				->print ( '	' . dgettext ( 'core', '· "--pattern": pattern folder name (placed in your project template patterns directory). Only for types "Web" and "Block"' ) )
 				->print ( '	' . dgettext ( 'core', '· "--swap-template": [0, 1] (or [true, false]); Indicate that you do not want to create the ".phtml" file associated with a Web Controller. This option is useless for Cli controller and Block controller always create the corresponding template.' ) )
 				->print ( '' )
 				->printInColor ( dgettext ( 'core', 'About controller types:' ), Cli::COLOR_LCYAN )
@@ -34,6 +37,7 @@ class Create extends Controller {
 		}
 
 		$this->swapTemplate = $this->getSuperServices ()->getLocalizeService ()->meansYes ( $this->CliService->getOpt ( 'swap-template' ) );
+		$this->patternFolderName = trim ( ( string ) $this->CliService->getOpt ( 'pattern' ) );
 		$this->controllerName = ( string ) $this->getControllerName ();
 		$this->controllerFolder = ( string ) $this->getRelativeFolder ();
 	}
@@ -125,8 +129,8 @@ class Create extends Controller {
 		}
 		$this->CliService->print ( sprintf ( dgettext ( 'core', 'Creating controller "%s"' ), $this->controllerName ) );
 
-		$controllerClass = "$controllerNamespace\\$this->controllerName";
-		$controllerFile = "$controllerDir/$this->controllerName.php";
+		$controllerClass = "$controllerNamespace\\{$this->controllerName}";
+		$controllerFile = "$controllerDir/{$this->controllerName}.php";
 
 		// Checking if class exists
 		if (class_exists ( $controllerClass )) {
@@ -142,12 +146,25 @@ class Create extends Controller {
 				$finalTemplateFile = null;
 				break;
 			case ControllerType::WEB :
-				if ($this->swapTemplate) {
-					$controllerPatternFile = CorePath::PATTERN_DEFAULT_WEB_CONTROLLER;
-					$this->CliService->print ( dgettext ( 'core', 'No ".phtml" file will be created.' ) );
+				$basePatternsDir = sprintf ( CustomProjectPattern::CODE_PATTERNS_DIR_WEB, $projectName );
+				if (! $this->promptToSelectPatternFolder ( $basePatternsDir )) {
+					// Fallback to default files
+					$controllerPatternFile = CorePath::PATTERN_WEB_CONTROLLER; // The default web controller pattern file
+					$this->CliService->printWarning ( sprintf ( dgettext ( 'core', 'Falling back to default controller pattern "%s"' ), $controllerPatternFile ) );
+					if (! $this->swapTemplate)
+						$templatePatternFile = CorePath::PATTERN_DEFAULT_TEMPLATE_PATH; // The default view pattern file
 				} else {
-					$controllerPatternFile = CorePath::PATTERN_WEB_CONTROLLER;
-					$templatePatternFile = CorePath::PATTERN_DEFAULT_TEMPLATE_PATH;
+					$controllerPatternFile = "$basePatternsDir/{$this->patternFolderName}/controller.pattern";
+					if (! $this->swapTemplate) {
+						$templatePatternFile = "$basePatternsDir/{$this->patternFolderName}/view.pattern";
+						if (! file_exists ( $templatePatternFile ))
+							$templatePatternFile = null;
+					}
+				}
+
+				if (! $templatePatternFile)
+					$this->CliService->print ( dgettext ( 'core', 'No ".phtml" file will be created.' ) );
+				else {
 					$templateDir = sprintf ( CustomProjectPattern::VIEWS_DIR, $projectName ) . '/' . $RouteService->convertNamespaceToUri ( $relDir );
 					$finalTemplateFile = rtrim ( $templateDir, '/' ) . '/' . ltrim ( $RouteService->convertNamespaceToUri ( $this->controllerName ), '/' ) . '.phtml';
 				}
@@ -156,12 +173,20 @@ class Create extends Controller {
 				$this->CliService->print ( sprintf ( dgettext ( 'core', 'This controller will be accessible on the Web following URI: /%s' ), $uri ) );
 				break;
 			case ControllerType::BLOCK :
-				$controllerPatternFile = CorePath::PATTERN_BLOCK_CONTROLLER;
-				$templatePatternFile = CorePath::PATTERN_DEFAULT_TEMPLATE_PATH;
+				$basePatternsDir = sprintf ( CustomProjectPattern::CODE_PATTERNS_DIR_BLOCK, $projectName );
+				if (! $this->promptToSelectPatternFolder ( $basePatternsDir )) {
+					// Fallback to default files
+					$controllerPatternFile = CorePath::PATTERN_BLOCK_CONTROLLER; // The default block controller pattern file
+					$templatePatternFile = CorePath::PATTERN_DEFAULT_TEMPLATE_PATH; // The default view pattern file. We will keep this one if no view.pattern was found in selected pattern folder
+					$this->CliService->printWarning ( sprintf ( dgettext ( 'core', 'Falling back to default controller pattern "%s"' ), $controllerPatternFile ) );
+				} else {
+					$controllerPatternFile = "$basePatternsDir/{$this->patternFolderName}/controller.pattern";
+					$templatePatternFile = "$basePatternsDir/{$this->patternFolderName}/view.pattern";
+					if (! file_exists ( $templatePatternFile ))
+						$templatePatternFile = CorePath::PATTERN_DEFAULT_TEMPLATE_PATH; // The default view pattern file. We will keep this one if no view.pattern was found in selected pattern folder
+				}
 				$templateDir = sprintf ( CustomProjectPattern::BLOCKS_DIR, $projectName ) . '/' . $RouteService->convertNamespaceToUri ( $relDir );
 				$finalTemplateFile = rtrim ( $templateDir, '/' ) . '/' . ltrim ( $RouteService->convertNamespaceToUri ( $this->controllerName ), '/' ) . '.phtml';
-				$this->CliService->printWarning ( dgettext ( 'core', 'Note that you can also use a Web controller as a block.' ) );
-				$this->CliService->printWarning ( dgettext ( 'core', 'Placing a controller in the blocks folder will not allowed it to be accessible via an http request' ) );
 				break;
 			default :
 				$this->CliService->printError ( sprintf ( dgettext ( 'core', 'Unhandled controller type "%s"' ) ) );
@@ -235,5 +260,45 @@ class Create extends Controller {
 			return null;
 		}
 		return trim ( str_replace ( APP_ROOT . '/', '', $folder ), '/' ) . '/';
+	}
+
+	/**
+	 * Scan a pattern folder to select
+	 *
+	 * @param string $basePatternsDir
+	 *        	Absolute path
+	 * @return string The selected folder
+	 */
+	protected function promptToSelectPatternFolder(string $basePatternsDir): string {
+		if (! is_dir ( $basePatternsDir ))
+			return '';
+		if ($this->patternFolderName) {
+			$selectedPatternDir = $basePatternsDir . '/' . $this->patternFolderName;
+			if (! is_dir ( $selectedPatternDir )) {
+				$this->CliService->printError ( sprintf ( dgettext ( 'core', 'Folder "%s" does not exist!' ), $selectedPatternDir ) );
+				$this->patternFolderName = '';
+			}
+		}
+		if (! $this->patternFolderName) {
+			$Collection = new DataCollection ();
+			$content = scandir ( $basePatternsDir );
+			if (empty ( $content ))
+				return '';
+			foreach ( $content as $dir ) {
+				$subDirAbsolutePath = "$basePatternsDir/$dir";
+				if (in_array ( $dir, [ 
+						'.',
+						'..',
+						'form' // The form pattern folder is reserved for Form creation
+				] ) || ! is_dir ( $subDirAbsolutePath ))
+					continue;
+				$subcontent = scandir ( $subDirAbsolutePath );
+				if (! in_array ( 'controller.pattern', $subcontent )) // The file 'controller.pattern' is the one required
+					continue;
+				$Collection->push ( $dir );
+			}
+			$this->patternFolderName = $Collection->count () ? ( string ) $this->promptToFindElementInCollection ( dgettext ( 'core', 'Select folder containing controller pattern:' ), $Collection ) : '';
+		}
+		return $this->patternFolderName;
 	}
 }

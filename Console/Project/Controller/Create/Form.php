@@ -26,11 +26,11 @@ class Form extends Create {
 	protected function executeOnTop(): void {
 		if ($this->isHelpInvoked ()) {
 			$this->CliService->printInColor ( dgettext ( 'core', '**** Help invoked ****' ), Cli::COLOR_LCYAN )
-				->printInColor ( dgettext ( 'core', 'There are 5 CLI options (not required) handled:' ), Cli::COLOR_LCYAN )
-				->printInColor ( '	' . dgettext ( 'core', '· "--project": the project name' ), Cli::COLOR_CYAN )
-				->printInColor ( '	' . dgettext ( 'core', '· "--dir": the controller folder in which to place it; It can be the relative path from the project directory (e.g.: Project/{projectName}/Controller/Web)' ), Cli::COLOR_CYAN )
-				->printInColor ( '	' . dgettext ( 'core', '· "--model": the model namespace' ), Cli::COLOR_CYAN )
-				->printInColor ( '	' . dgettext ( 'core', '· "--entity": the entity name (without prefix)' ), Cli::COLOR_CYAN )
+				->printInColor ( sprintf ( dgettext ( 'core', 'There are %s CLI options handled (not required):' ), 4 ), Cli::COLOR_LCYAN )
+				->print ( '	' . dgettext ( 'core', '· "--project": the project name' ) )
+				->print ( '	' . dgettext ( 'core', '· "--dir": the controller folder in which to place it; It can be the relative path from the project directory (e.g.: Project/{projectName}/Controller/Web)' ) )
+				->print ( '	' . dgettext ( 'core', '· "--model": the model namespace' ) )
+				->print ( '	' . dgettext ( 'core', '· "--entity": the entity name (without prefix)' ) )
 				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 			return;
 		}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-07-11 22:35+0200\n"
-"PO-Revision-Date: 2024-07-11 22:35+0200\n"
+"POT-Creation-Date: 2024-07-14 02:33+0200\n"
+"PO-Revision-Date: 2024-07-14 02:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -94,12 +94,12 @@ msgid ""
 msgstr ""
 "#ROUTE_ERROR: Missing explicit controller argument in non-interactive Shell"
 
-#: Console/Project.php:38
+#: Console/Project.php:37
 #, php-format
 msgid "Entering project management space"
 msgstr "Entering project management space"
 
-#: Console/Project.php:39 Console/Project.php:45
+#: Console/Project.php:38 Console/Project.php:44
 #: Console/Project/Configure.php:31 Console/Project/Configure.php:39
 #: Console/Project/Configure/Database.php:23
 #: Console/Project/Configure/Database.php:29
@@ -107,28 +107,29 @@ msgstr "Entering project management space"
 #: Console/Project/Configure/Database/Delete.php:16
 #: Console/Project/Configure/Environment.php:21
 #: Console/Project/Configure/Environment.php:24
-#: Console/Project/Controller/Create.php:32
-#: Console/Project/Controller/Create/Block.php:18
+#: Console/Project/Controller/Create.php:35
+#: Console/Project/Controller/Create/Block.php:19
 #: Console/Project/Controller/Create/Cli.php:18
 #: Console/Project/Controller/Create/Form.php:34
-#: Console/Project/Controller/Create/Web.php:19 Console/Project/Create.php:44
+#: Console/Project/Controller/Create/Web.php:20 Console/Project/Create.php:44
 #: Console/Project/Model.php:30 Console/Project/Model.php:35
 #: Console/Project/Model/ImportDataset.php:25
 #: Console/Project/Model/ImportDataset.php:31 Console/Setup.php:84
 #: Console/Setup.php:89 Console/Setup/CliApplication.php:39
 #: Console/Setup/CliApplication.php:45
 #: Console/Setup/CliApplication/Parameter.php:31
-#: Console/Setup/CliApplication/Parameter.php:35 Console/Setup/Hosts.php:24
+#: Console/Setup/CliApplication/Parameter.php:35 Console/Setup/Etc.php:17
+#: Console/Setup/Etc.php:22 Console/Setup/Hosts.php:24
 #: Console/Setup/Hosts.php:29 Console/Setup/Module.php:25
 #: Console/Setup/Module.php:27
 msgid "**********************"
 msgstr "**********************"
 
-#: Console/Project.php:40
+#: Console/Project.php:39
 msgid "You have 4 sections:"
 msgstr "You have 4 sections:"
 
-#: Console/Project.php:41
+#: Console/Project.php:40
 msgid ""
 "· \"Configure\": offers 3 actions to configure your project databases, "
 "environments and custom parameters"
@@ -136,33 +137,33 @@ msgstr ""
 "· \"Configure\": offers 3 actions to configure your project databases, "
 "environments and custom parameters"
 
-#: Console/Project.php:42
+#: Console/Project.php:41
 msgid "· \"Controller\": you can create a new controller"
 msgstr "· \"Controller\": you can create a new controller"
 
-#: Console/Project.php:43
+#: Console/Project.php:42
 msgid "· \"Create\": allows you to create a new project from scratch"
 msgstr "· \"Create\": allows you to create a new project from scratch"
 
-#: Console/Project.php:44
+#: Console/Project.php:43
 msgid "· \"Model\": map your database tables and relations (ORM)"
 msgstr "· \"Model\": map your database tables and relations (ORM)"
 
-#: Console/Project.php:65
+#: Console/Project.php:64
 #, php-format
 msgid "File \"%s\" successfully updated"
 msgstr "File \"%s\" successfully updated"
 
-#: Console/Project.php:119
+#: Console/Project.php:118
 #, php-format
 msgid "Unknown project \"%s\""
 msgstr "Unknown project \"%s\""
 
-#: Console/Project.php:120
+#: Console/Project.php:119
 msgid "Select project"
 msgstr "Select project"
 
-#: Console/Project.php:140
+#: Console/Project.php:139
 #, php-format
 msgid ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
@@ -171,7 +172,7 @@ msgstr ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
 "fragtale Console/Setup"
 
-#: Console/Project.php:161
+#: Console/Project.php:160
 msgid "You have not created a project yet. Going through project creation:"
 msgstr "You have not created a project yet. Going through project creation:"
 
@@ -381,8 +382,8 @@ msgstr "Confirm removing \"%s\" from settings: [y, N]"
 #: Console/Project/Configure/Environment.php:115 Console/Project/Create.php:109
 #: Console/Project/Create.php:124 Console/Project/Model.php:87
 #: Console/Setup/CliApplication/Parameter.php:36
-#: Console/Setup/CliApplication/Parameter.php:61 Console/Setup/Hosts.php:73
-#: FragTale/Service/Localize.php:29
+#: Console/Setup/CliApplication/Parameter.php:61 Console/Setup/Etc/Hosts.php:43
+#: Console/Setup/Hosts.php:73 FragTale/Service/Localize.php:29
 msgid "n {means no}"
 msgstr "n"
 
@@ -533,7 +534,7 @@ msgstr "You have chosen to set your website maintenance OFF"
 msgid "Invalid answer"
 msgstr "Invalid answer"
 
-#: Console/Project/Controller/Create.php:20
+#: Console/Project/Controller/Create.php:22
 #: Console/Project/Controller/Create/Block.php:13
 #: Console/Project/Controller/Create/Cli.php:13
 #: Console/Project/Controller/Create/Form.php:28
@@ -541,220 +542,216 @@ msgstr "Invalid answer"
 msgid "**** Help invoked ****"
 msgstr "**** Help invoked ****"
 
-#: Console/Project/Controller/Create.php:21
+#: Console/Project/Controller/Create.php:23
 #: Console/Project/Controller/Create/Block.php:14
 #: Console/Project/Controller/Create/Cli.php:14
+#: Console/Project/Controller/Create/Form.php:29
 #: Console/Project/Controller/Create/Web.php:14
 #, php-format
 msgid "There are %s CLI options handled (not required):"
 msgstr "There are %s CLI options handled (not required):"
 
-#: Console/Project/Controller/Create.php:22
+#: Console/Project/Controller/Create.php:24
+#: Console/Project/Controller/Create/Block.php:15
+#: Console/Project/Controller/Create/Cli.php:15
 #: Console/Project/Controller/Create/Form.php:30
+#: Console/Project/Controller/Create/Web.php:15
 msgid "· \"--project\": the project name"
 msgstr "· \"--project\": the project name"
 
-#: Console/Project/Controller/Create.php:23
-msgid ""
-"· \"--dir\": the controller folder in which to place it; It can be the "
-"relative path from the project directory or from controller type folder (e."
-"g.: Project/{projectName}/Controller/{controllerType})"
-msgstr ""
-"· \"--dir\": the controller folder in which to place it; It can be the "
-"relative path from the project directory or from controller type folder (e."
-"g.: Project/{projectName}/Controller/{controllerType})"
-
-#: Console/Project/Controller/Create.php:24
-msgid "· \"--name\": the new controller class name"
-msgstr "· \"--name\": the new controller class name"
-
 #: Console/Project/Controller/Create.php:25
-msgid "· \"--type\": controller type in list ['Web', 'Cli', 'Block']"
-msgstr "· \"--type\": controller type in list ['Web', 'Cli', 'Block']"
-
-#: Console/Project/Controller/Create.php:26
-msgid ""
-"· \"--swap-template\": [0, 1] (or [true, false]); Indicate that you do not "
-"want to create the \".phtml\" file associated with a Web Controller. This "
-"option is useless for Cli controller and Block controller always create the "
-"corresponding template."
-msgstr ""
-"· \"--swap-template\": [0, 1] (or [true, false]); Indicate that you do not "
-"want to create the \".phtml\" file associated with a Web Controller. This "
-"option is useless for Cli controller and Block controller always create the "
-"corresponding template."
-
-#: Console/Project/Controller/Create.php:28
-msgid "About controller types:"
-msgstr "About controller types:"
-
-#: Console/Project/Controller/Create.php:29
-msgid ""
-"· a \"WEB\" controller is exposed on the Web (but it can be executed in CLI "
-"or used as BLOCK)."
-msgstr ""
-"· a \"WEB\" controller is exposed on the Web (but it can be executed in CLI "
-"or used as BLOCK)."
-
-#: Console/Project/Controller/Create.php:30
-msgid ""
-"· a \"BLOCK\" controller is not directly exposed on the Web and included in "
-"another controller or view."
-msgstr ""
-"· a \"BLOCK\" controller is not directly exposed on the Web and included in "
-"another controller or view."
-
-#: Console/Project/Controller/Create.php:31
-msgid "· a \"CLI\" controller is only executed in console."
-msgstr "· a \"CLI\" controller is only executed in console."
-
-#: Console/Project/Controller/Create.php:49
-msgid "Create a new controller"
-msgstr "Create a new controller"
-
-#: Console/Project/Controller/Create.php:49
-msgid "Add option \"-h\" for more information:"
-msgstr "Add option \"-h\" for more information:"
-
-#: Console/Project/Controller/Create.php:55
-#, php-format
-msgid "Controller type \"%s\" not handled"
-msgstr "Controller type \"%s\" not handled"
-
-#: Console/Project/Controller/Create.php:56
-msgid "Which kind of controller do you wish to create?"
-msgstr "Which kind of controller do you wish to create?"
-
-#: Console/Project/Controller/Create.php:75
-#, php-format
-msgid "Creating controller type \"%s\""
-msgstr "Creating controller type \"%s\""
-
-#: Console/Project/Controller/Create.php:88
-#, php-format
-msgid ""
-"Please type the folder you want to place the %1s controller in:\n"
-" from \"%2s\" (you can press [TAB] to browse existing folders or leave blank "
-"to write in this folder)"
-msgstr ""
-"Please type the folder you want to place the %1s controller in:\n"
-" from \"%2s\" (you can press [TAB] to browse existing folders or leave blank "
-"to write in this folder)"
-
-#: Console/Project/Controller/Create.php:104
-#, php-format
-msgid ""
-"\"%s\" does not match a valid namespace format. Remove any special chars, "
-"spaces or underscores... Class name must not be a PHP keyword."
-msgstr ""
-"\"%s\" does not match a valid namespace format. Remove any special chars, "
-"spaces or underscores... Class name must not be a PHP keyword."
-
-#: Console/Project/Controller/Create.php:116
-#, php-format
-msgid "Using namespace \"%s\""
-msgstr "Using namespace \"%s\""
-
-#: Console/Project/Controller/Create.php:120
-msgid ""
-"Type controller name (in camel case, no spaces, no underscore or any special "
-"characters, no .php file extension)"
-msgstr ""
-"Type controller name (in camel case, no spaces, no underscore or any special "
-"characters, no .php file extension)"
-
-#: Console/Project/Controller/Create.php:123
-#, php-format
-msgid ""
-"\"%s\" does not match a valid class name format. Remove any special chars, "
-"spaces or underscores... Class name must not be a PHP keyword."
-msgstr ""
-"\"%s\" does not match a valid class name format. Remove any special chars, "
-"spaces or underscores... Class name must not be a PHP keyword."
-
-#: Console/Project/Controller/Create.php:126
-#, php-format
-msgid "Creating controller \"%s\""
-msgstr "Creating controller \"%s\""
-
-#: Console/Project/Controller/Create.php:133
-#, php-format
-msgid ""
-"Class \"%s\" already exists. You cannot replace existing classes via Console."
-msgstr ""
-"Class \"%s\" already exists. You cannot replace existing classes via Console."
-
-#: Console/Project/Controller/Create.php:147
-msgid "No \".phtml\" file will be created."
-msgstr "No \".phtml\" file will be created."
-
-#: Console/Project/Controller/Create.php:156
-#, php-format
-msgid "This controller will be accessible on the Web following URI: /%s"
-msgstr "This controller will be accessible on the Web following URI: /%s"
-
-#: Console/Project/Controller/Create.php:163
-msgid "Note that you can also use a Web controller as a block."
-msgstr "Note that you can also use a Web controller as a block."
-
-#: Console/Project/Controller/Create.php:164
-msgid ""
-"Placing a controller in the blocks folder will not allowed it to be "
-"accessible via an http request"
-msgstr ""
-"Placing a controller in the blocks folder will not allowed it to be "
-"accessible via HTTP request"
-
-#: Console/Project/Controller/Create.php:167
-#, php-format
-msgid "Unhandled controller type \"%s\""
-msgstr "Unhandled controller type \"%s\""
-
-#: Console/Project/Controller/Create.php:196
-#, php-format
-msgid "Template file \"%s\" created"
-msgstr "Template file \"%s\" created"
-
-#: Console/Project/Controller/Create.php:198
-#, php-format
-msgid "Unabled to copy file \"%1s\" to \"%2s\""
-msgstr "Unable to copy file \"%1s\" to \"%2s\""
-
-#: Console/Project/Controller/Create.php:213
-msgid ""
-"Controller name must not contain part of URI. Please enter the single class "
-"name."
-msgstr ""
-"Controller name must not contain part of URI. Please enter the single class "
-"name."
-
-#: Console/Project/Controller/Create/Block.php:15
-#: Console/Project/Controller/Create/Cli.php:15
-#: Console/Project/Controller/Create/Web.php:15
-msgid "\"--project\": the project name"
-msgstr "\"--project\": the project name"
-
 #: Console/Project/Controller/Create/Block.php:16
 #: Console/Project/Controller/Create/Cli.php:16
 #: Console/Project/Controller/Create/Web.php:16
 msgid ""
-"\"--dir\": the controller folder in which to place it; It can be the "
+"· \"--dir\": the controller folder in which to place it; It can be the "
 "relative path from the project directory or from controller type folder (e."
 "g.: Project/{projectName}/Controller/{controllerType})"
 msgstr ""
-"\"--dir\": the controller folder in which to place it; It can be the "
+"· \"--dir\": the controller folder in which to place it; It can be the "
 "relative path from the project directory or from controller type folder (e."
 "g.: Project/{projectName}/Controller/{controllerType})"
 
+#: Console/Project/Controller/Create.php:26
 #: Console/Project/Controller/Create/Block.php:17
 #: Console/Project/Controller/Create/Cli.php:17
 #: Console/Project/Controller/Create/Web.php:17
-msgid "\"--name\": the new controller name"
-msgstr "\"--name\": the new controller name"
+msgid "· \"--name\": the new controller class name"
+msgstr "· \"--name\": the new controller class name"
 
-#: Console/Project/Controller/Create/Form.php:29
-msgid "There are 5 CLI options (not required) handled:"
-msgstr "There are 5 CLI options (not required) handled:"
+#: Console/Project/Controller/Create.php:27
+msgid "· \"--type\": controller type in list ['Web', 'Cli', 'Block']"
+msgstr "· \"--type\": controller type in list ['Web', 'Cli', 'Block']"
+
+#: Console/Project/Controller/Create.php:28
+#: Console/Project/Controller/Create/Block.php:18
+#: Console/Project/Controller/Create/Web.php:18
+msgid ""
+"· \"--pattern\": pattern folder name (placed in your project template "
+"patterns directory). Only for types \"Web\" and \"Block\""
+msgstr ""
+"· \"--pattern\": pattern folder name (placed in your project template "
+"patterns directory. Only for types \"Web\" and \"Block\""
+
+#: Console/Project/Controller/Create.php:29
+#: Console/Project/Controller/Create/Web.php:19
+msgid ""
+"· \"--swap-template\": [0, 1] (or [true, false]); Indicate that you do not "
+"want to create the \".phtml\" file associated with a Web Controller. This "
+"option is useless for Cli controller and Block controller always create the "
+"corresponding template."
+msgstr ""
+"· \"--swap-template\": [0, 1] (or [true, false]); Indicate that you do not "
+"want to create the \".phtml\" file associated with a Web Controller. This "
+"option is useless for Cli controller and Block controller always create the "
+"corresponding template."
+
+#: Console/Project/Controller/Create.php:31
+msgid "About controller types:"
+msgstr "About controller types:"
+
+#: Console/Project/Controller/Create.php:32
+msgid ""
+"· a \"WEB\" controller is exposed on the Web (but it can be executed in CLI "
+"or used as BLOCK)."
+msgstr ""
+"· a \"WEB\" controller is exposed on the Web (but it can be executed in CLI "
+"or used as BLOCK)."
+
+#: Console/Project/Controller/Create.php:33
+msgid ""
+"· a \"BLOCK\" controller is not directly exposed on the Web and included in "
+"another controller or view."
+msgstr ""
+"· a \"BLOCK\" controller is not directly exposed on the Web and included in "
+"another controller or view."
+
+#: Console/Project/Controller/Create.php:34
+msgid "· a \"CLI\" controller is only executed in console."
+msgstr "· a \"CLI\" controller is only executed in console."
+
+#: Console/Project/Controller/Create.php:53
+msgid "Create a new controller"
+msgstr "Create a new controller"
+
+#: Console/Project/Controller/Create.php:53
+msgid "Add option \"-h\" for more information:"
+msgstr "Add option \"-h\" for more information:"
+
+#: Console/Project/Controller/Create.php:59
+#, php-format
+msgid "Controller type \"%s\" not handled"
+msgstr "Controller type \"%s\" not handled"
+
+#: Console/Project/Controller/Create.php:60
+msgid "Which kind of controller do you wish to create?"
+msgstr "Which kind of controller do you wish to create?"
+
+#: Console/Project/Controller/Create.php:79
+#, php-format
+msgid "Creating controller type \"%s\""
+msgstr "Creating controller type \"%s\""
+
+#: Console/Project/Controller/Create.php:92
+#, php-format
+msgid ""
+"Please type the folder you want to place the %1s controller in:\n"
+" from \"%2s\" (you can press [TAB] to browse existing folders or leave blank "
+"to write in this folder)"
+msgstr ""
+"Please type the folder you want to place the %1s controller in:\n"
+" from \"%2s\" (you can press [TAB] to browse existing folders or leave blank "
+"to write in this folder)"
+
+#: Console/Project/Controller/Create.php:108
+#, php-format
+msgid ""
+"\"%s\" does not match a valid namespace format. Remove any special chars, "
+"spaces or underscores... Class name must not be a PHP keyword."
+msgstr ""
+"\"%s\" does not match a valid namespace format. Remove any special chars, "
+"spaces or underscores... Class name must not be a PHP keyword."
+
+#: Console/Project/Controller/Create.php:120
+#, php-format
+msgid "Using namespace \"%s\""
+msgstr "Using namespace \"%s\""
+
+#: Console/Project/Controller/Create.php:124
+msgid ""
+"Type controller name (in camel case, no spaces, no underscore or any special "
+"characters, no .php file extension)"
+msgstr ""
+"Type controller name (in camel case, no spaces, no underscore or any special "
+"characters, no .php file extension)"
+
+#: Console/Project/Controller/Create.php:127
+#, php-format
+msgid ""
+"\"%s\" does not match a valid class name format. Remove any special chars, "
+"spaces or underscores... Class name must not be a PHP keyword."
+msgstr ""
+"\"%s\" does not match a valid class name format. Remove any special chars, "
+"spaces or underscores... Class name must not be a PHP keyword."
+
+#: Console/Project/Controller/Create.php:130
+#, php-format
+msgid "Creating controller \"%s\""
+msgstr "Creating controller \"%s\""
+
+#: Console/Project/Controller/Create.php:137
+#, php-format
+msgid ""
+"Class \"%s\" already exists. You cannot replace existing classes via Console."
+msgstr ""
+"Class \"%s\" already exists. You cannot replace existing classes via Console."
+
+#: Console/Project/Controller/Create.php:153
+#: Console/Project/Controller/Create.php:181
+#, php-format
+msgid "Falling back to default controller pattern \"%s\""
+msgstr "Falling back to default controller pattern \"%s\""
+
+#: Console/Project/Controller/Create.php:166
+msgid "No \".phtml\" file will be created."
+msgstr "No \".phtml\" file will be created."
+
+#: Console/Project/Controller/Create.php:173
+#, php-format
+msgid "This controller will be accessible on the Web following URI: /%s"
+msgstr "This controller will be accessible on the Web following URI: /%s"
+
+#: Console/Project/Controller/Create.php:192
+#, php-format
+msgid "Unhandled controller type \"%s\""
+msgstr "Unhandled controller type \"%s\""
+
+#: Console/Project/Controller/Create.php:221
+#, php-format
+msgid "Template file \"%s\" created"
+msgstr "Template file \"%s\" created"
+
+#: Console/Project/Controller/Create.php:223
+#, php-format
+msgid "Unabled to copy file \"%1s\" to \"%2s\""
+msgstr "Unable to copy file \"%1s\" to \"%2s\""
+
+#: Console/Project/Controller/Create.php:238
+msgid ""
+"Controller name must not contain part of URI. Please enter the single class "
+"name."
+msgstr ""
+"Controller name must not contain part of URI. Please enter the single class "
+"name."
+
+#: Console/Project/Controller/Create.php:278
+#, php-format
+msgid "Folder \"%s\" does not exist!"
+msgstr "Folder \"%s\" does not exist!"
+
+#: Console/Project/Controller/Create.php:300
+msgid "Select folder containing controller pattern:"
+msgstr "Select folder containing controller pattern:"
 
 #: Console/Project/Controller/Create/Form.php:31
 msgid ""
@@ -876,20 +873,6 @@ msgstr "Entering folder \"%s\""
 #: Console/Project/Controller/Create/Form.php:283
 msgid "Type folder in which to place your new controllers:"
 msgstr "Type folder in which to place your new controllers:"
-
-#: Console/Project/Controller/Create/Web.php:18
-msgid ""
-"\"--swap-template\": [0, 1] (or [true, false]) Creating a template (view) \"."
-"phtml\" file is not required if you want to create a WebController for JSON "
-"response or if you want to use the project default view. This option is "
-"useless for CliController and block controller always create the "
-"corresponding template."
-msgstr ""
-"\"--swap-template\": [0, 1] (or [true, false]) Creating a template (view) \"."
-"phtml\" file is not required if you want to create a WebController for JSON "
-"response or if you want to use the project default view. This option is "
-"useless for CliController and block controller always create the "
-"corresponding template."
 
 #: Console/Project/Create.php:42
 msgid "One CLI option handled:"
@@ -1334,6 +1317,75 @@ msgstr "Key cannot be empty"
 msgid "Setup another parameter? [yN]"
 msgstr "Setup another parameter? [y, N]"
 
+#: Console/Setup/Etc.php:18
+msgid "Here, you can setup your servers:"
+msgstr "Here, you can setup your servers:"
+
+#: Console/Setup/Etc.php:19 Console/Setup/Etc.php:21
+#, php-format
+msgid "· \"%s\": You can add a configuration file into \"sites-availables\"."
+msgstr "· \"%s\": You can add a configuration file into \"sites-availables\"."
+
+#: Console/Setup/Etc.php:20
+msgid ""
+"· \"Hosts\": You can add a domain bound to 127.0.0.1 in your /etc/hosts file "
+"(only for Linux distributions)."
+msgstr ""
+"· \"Hosts\": You can add a domain bound to 127.0.0.1 in your \"/etc/hosts\" "
+"file (only for Linux distributions)."
+
+#: Console/Setup/Etc/Hosts.php:17
+msgid ""
+"Accessing your \"/etc/hosts\" file in write mode (only for Linux "
+"distributions)..."
+msgstr ""
+"Accessing your \"/etc/hosts\" file in write mode (only for Linux "
+"distributions)..."
+
+#: Console/Setup/Etc/Hosts.php:18
+msgid "You must be root or sudoer."
+msgstr "You must be \"root\" or \"sudoer\"."
+
+#: Console/Setup/Etc/Hosts.php:19
+msgid ""
+"Modifying this file is only for local machines to use custom virtual hosts. "
+"Do not use it in production."
+msgstr ""
+"Modifying this file is only for local machines to use custom virtual hosts. "
+"Do not use it in production."
+
+#: Console/Setup/Etc/Hosts.php:20
+msgid "This application appends new domain bound to 127.0.0.1 localhost"
+msgstr "This application appends new domain bound to 127.0.0.1 localhost"
+
+#: Console/Setup/Etc/Hosts.php:21
+msgid "Backup your file before..."
+msgstr "Backup your file before..."
+
+#: Console/Setup/Etc/Hosts.php:37
+msgid "Here are your current hosts:"
+msgstr "Here is your current hosts configuration:"
+
+#: Console/Setup/Etc/Hosts.php:38
+msgid "Type a new custom domain to append: (Ctrl+C to exit)"
+msgstr "Type a new custom domain to append to that line: (Ctrl+C to exit)"
+
+#: Console/Setup/Etc/Hosts.php:42
+msgid "Your new file content:"
+msgstr "Your new file content:"
+
+#: Console/Setup/Etc/Hosts.php:43
+msgid "Confirm registration [yN]"
+msgstr "Confirm registration [yN]"
+
+#: Console/Setup/Etc/Hosts.php:47
+msgid "OK, file written."
+msgstr "OK, file overwritten."
+
+#: Console/Setup/Etc/Hosts.php:50
+msgid "Could not find line for 127.0.0.1"
+msgstr "Could not find line for 127.0.0.1"
+
 #: Console/Setup/Hosts.php:23
 msgid "Entering hosts management"
 msgstr "Entering hosts management"
@@ -1617,7 +1669,7 @@ msgid ""
 msgstr ""
 "Defined primary key \"%1s\" from entity \"%2s\" is not listed in columns list"
 
-#: FragTale/Application/Model.php:1261
+#: FragTale/Application/Model.php:1265
 #, php-format
 msgid ""
 "You cannot auto register collection if there is no primary key declared for "
@@ -1626,12 +1678,12 @@ msgstr ""
 "You cannot auto register collection if there is no primary key declared for "
 "table \"%s\""
 
-#: FragTale/Application/Model.php:1306
+#: FragTale/Application/Model.php:1310
 #, php-format
 msgid "Unknown connector ID \"%s\""
 msgstr "Unknown connector ID \"%s\""
 
-#: FragTale/Application/Model.php:1365
+#: FragTale/Application/Model.php:1369
 msgid ""
 "Upsert cannot work if filters fetch more than 1 row. Process interrupted by "
 "ambiguous target data."
@@ -1913,12 +1965,12 @@ msgstr "Close"
 msgid "%1s in \"%2s\" at line %3s: %4s"
 msgstr "%1s in \"%2s\" at line %3s: %4s"
 
-#: FragTale/Service/ErrorHandler.php:68
+#: FragTale/Service/ErrorHandler.php:67
 #, php-format
 msgid "Error code %1s: %2s\n"
 msgstr "Error code %1s: %2s\n"
 
-#: FragTale/Service/ErrorHandler.php:69
+#: FragTale/Service/ErrorHandler.php:68
 #, php-format
 msgid "In %1s (%2s)"
 msgstr "In %1s (%2s)"
@@ -1985,12 +2037,12 @@ msgstr "Folder \"%s\" does not exist yet."
 msgid "Create folder? [Yn]"
 msgstr "Create folder? [Yn]"
 
-#: FragTale/Service/Filesystem.php:110
+#: FragTale/Service/Filesystem.php:111
 #, php-format
 msgid "File \"%s\" successfully written"
 msgstr "File \"%s\" successfully written"
 
-#: FragTale/Service/Filesystem.php:113
+#: FragTale/Service/Filesystem.php:114
 #, php-format
 msgid "Unabled to create file \"%s\""
 msgstr "Unable to create file \"%s\""
@@ -2084,6 +2136,3 @@ msgstr "Footer"
 #: resources/templates/maintenance.phtml:1
 msgid "Site in construction..."
 msgstr "Site in construction..."
-
-#~ msgid "File already exists. Overwrite it? [yn]"
-#~ msgstr "File already exists. Overwrite it? [y, n]"

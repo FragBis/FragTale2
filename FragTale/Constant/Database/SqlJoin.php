@@ -105,4 +105,29 @@ abstract class SqlJoin extends Constant {
 	public static function GTE(string $statement1, string $statement2): string {
 		return $statement1 . SqlOperator::GTE . $statement2;
 	}
+	/**
+	 * Returns SQL statement followed by IS NULL.
+	 * You will use this function declaring "(INNER|LEFT|RIGHT) JOIN... ON" clause.
+	 * <b>Attention:</b> it is NOT the SQL "isnull()" function (that is "SqlFunction::IFNULL()").
+	 * Defining filters in "where" clause, you should use "SqlOperator::IS" instead
+	 *
+	 * @param string $statement
+	 *        	Any SQL statement that will be tested
+	 * @return string
+	 */
+	public static function IS_NULL(string $statement): string {
+		return "$statement IS NULL";
+	}
+	/**
+	 * Returns SQL statement followed by IS NOT NULL
+	 * You will use this function declaring "(INNER|LEFT|RIGHT) JOIN... ON" clause.
+	 * Attention: defining filters in "where" clause, you should use "SqlOperator::IS_NOT" instead
+	 *
+	 * @param string $statement
+	 *        	Any SQL statement that will be tested
+	 * @return string
+	 */
+	public static function IS_NOT_NULL(string $statement): string {
+		return "$statement IS NOT NULL";
+	}
 }

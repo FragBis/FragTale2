@@ -23,6 +23,9 @@ abstract class CustomProjectPattern extends Constant {
 	const VIEWS_DIR = self::TEMPLATES_DIR . '/views';
 	const BLOCKS_DIR = self::TEMPLATES_DIR . '/blocks';
 	const CODE_PATTERNS_DIR = self::TEMPLATES_DIR . '/patterns';
+	const CODE_PATTERNS_DIR_BLOCK = self::CODE_PATTERNS_DIR . '/block';
+	const CODE_PATTERNS_DIR_FORM = self::CODE_PATTERNS_DIR . '/form';
+	const CODE_PATTERNS_DIR_WEB = self::CODE_PATTERNS_DIR . '/web';
 	const MEDIA_DIR = self::RESOURCES_DIR . '/media';
 	const SETTINGS_FILE = self::CONFIGURATION_DIR . '/project.json';
 	const NAMESPACE = CorePath::BASE_PROJECT_NAMESPACE . '\\%s';
@@ -35,8 +38,8 @@ abstract class CustomProjectPattern extends Constant {
 	const WEB_CONTROLLER_DIR = self::CONTROLLER_DIR . '/' . ControllerType::WEB;
 	const BLOCK_CONTROLLER_DIR = self::CONTROLLER_DIR . '/' . ControllerType::BLOCK;
 	const CLI_CONTROLLER_DIR = self::CONTROLLER_DIR . '/' . ControllerType::CLI;
-	const PATTERN_FORM_CONTROLLER_ENTITY_LIST = self::CODE_PATTERNS_DIR . '/form/list/controller.pattern';
-	const PATTERN_FORM_CONTROLLER_ENTITY_ACTION = self::CODE_PATTERNS_DIR . '/form/action/controller.pattern';
-	const PATTERN_FORM_TEMPLATE_ENTITY_LIST = self::CODE_PATTERNS_DIR . '/form/list/view.pattern';
-	const PATTERN_FORM_TEMPLATE_ENTITY_ACTION = self::CODE_PATTERNS_DIR . '/form/action/view.pattern';
+	const PATTERN_FORM_CONTROLLER_ENTITY_LIST = self::CODE_PATTERNS_DIR_FORM . '/list/controller.pattern';
+	const PATTERN_FORM_TEMPLATE_ENTITY_LIST = self::CODE_PATTERNS_DIR_FORM . '/list/view.pattern';
+	const PATTERN_FORM_CONTROLLER_ENTITY_ACTION = self::CODE_PATTERNS_DIR_FORM . '/action/controller.pattern';
+	const PATTERN_FORM_TEMPLATE_ENTITY_ACTION = self::CODE_PATTERNS_DIR_FORM . '/action/view.pattern';
 }

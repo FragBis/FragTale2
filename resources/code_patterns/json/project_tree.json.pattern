@@ -48,6 +48,12 @@
 				"default.phtml": "resources/code_patterns/phtml/layout.phtml.pattern?namespace&projectName"
 			},
 			"patterns": {
+				"block": {
+					"default": {
+						"controller.pattern": "resources/code_patterns/php/blockcontroller.php.pattern",
+						"view.pattern": "resources/code_patterns/phtml/view.phtml.pattern"
+					}
+				},
 				"form": {
 					"action": {
 						"controller.pattern": "resources/code_patterns/php/form_action.php.pattern",
@@ -56,6 +62,12 @@
 					"list": {
 						"controller.pattern": "resources/code_patterns/php/form_list.php.pattern",
 						"view.pattern": "resources/code_patterns/phtml/form_list.phtml.pattern"
+					}
+				},
+				"web": {
+					"default": {
+						"controller.pattern": "resources/code_patterns/php/webcontroller.php.pattern",
+						"view.pattern": "resources/code_patterns/phtml/view.phtml.pattern"
 					}
 				}
 			},

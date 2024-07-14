@@ -25,6 +25,7 @@ trait LoggerTrait {
 	 */
 	final protected function _log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
 		$prepend = date ( '[Y-m-d H:i:s] ' );
+		$oldmask = umask ( 0 );
 		if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, 775, true )))
 			$folder = CorePath::LOG_DIR;
 
@@ -43,6 +44,7 @@ trait LoggerTrait {
 		} catch ( \Exception $Exc ) {
 			throw $Exc;
 		}
+		umask ( $oldmask );
 		return $this;
 	}
 
