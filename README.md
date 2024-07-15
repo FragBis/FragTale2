@@ -65,8 +65,10 @@ apt install git nginx mysql-server
 
 ## You can change /var/www by any path you want
 cd /var/www
-git clone git@github.com:FragBis/FragTale2.git
+git clone https://github.com/FragBis/FragTale2.git
 cd FragTale2
+# Stable branch
+git checkout fragtale2.1
 
 ## Declare some variables:
 ## Replace "mycustomhostname.com" and "MyCustomProject" by your host name and your project name
@@ -157,11 +159,13 @@ apt install git
 
 # Here, we will use the most common way to configure a web server.
 cd /var/www
-git clone git@github.com:FragBis/FragTale2.git
+git clone https://github.com/FragBis/FragTale2.git
 # It will create a new folder "FragTale2" in /var/www
 # Of course, you can rename this folder.
 
 cd FragTale2
+# Change to FragTale2.1 branch (stable)
+git checkout fragtale2.1
 ```
 
 Check that PHP option **short_open_tag** is enabled.
