@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-07-14 02:33+0200\n"
-"PO-Revision-Date: 2024-07-14 02:33+0200\n"
+"POT-Creation-Date: 2024-07-15 04:23+0200\n"
+"PO-Revision-Date: 2024-07-15 04:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,15 +19,15 @@ msgstr ""
 "X-Poedit-SearchPath-4: Console.php\n"
 "X-Poedit-SearchPath-5: fragtale2\n"
 
-#: Console.php:55
+#: Console.php:66
 msgid "Select one of the controller(s) listed bellow:"
 msgstr "Select one of the controller(s) listed bellow:"
 
-#: Console.php:58 Console.php:83
+#: Console.php:69 Console.php:94
 msgid "Type number:"
 msgstr "Type number:"
 
-#: Console.php:61 Console/Project/Controller.php:31
+#: Console.php:72 Console/Project/Controller.php:31
 #, php-format
 msgid "Running controller %s"
 msgstr "Running controller %s"
@@ -94,36 +94,191 @@ msgid ""
 msgstr ""
 "#ROUTE_ERROR: Missing explicit controller argument in non-interactive Shell"
 
-#: Console/Project.php:37
-#, php-format
-msgid "Entering project management space"
-msgstr "Entering project management space"
+#: Console/Install.php:30 Console/Setup/Etc/Apache.php:74
+#: Console/Setup/Etc/Hosts.php:27 Console/Setup/Etc/Nginx.php:74
+msgid "You need to be root or sudoer."
+msgstr "You need to be root or sudoer."
 
-#: Console/Project.php:38 Console/Project.php:44
-#: Console/Project/Configure.php:31 Console/Project/Configure.php:39
-#: Console/Project/Configure/Database.php:23
+#: Console/Install.php:34 Console/Install.php:40 Console/Install.php:42
+#: Console/Install.php:46 Console/Project.php:38 Console/Project.php:44
+#: Console/Project/Configure.php:22 Console/Project/Configure.php:25
+#: Console/Project/Configure.php:43 Console/Project/Configure.php:48
+#: Console/Project/Configure/Database.php:26
 #: Console/Project/Configure/Database.php:29
-#: Console/Project/Configure/Database/Delete.php:11
-#: Console/Project/Configure/Database/Delete.php:16
-#: Console/Project/Configure/Environment.php:21
-#: Console/Project/Configure/Environment.php:24
+#: Console/Project/Configure/Database/Delete.php:14
+#: Console/Project/Configure/Database/Delete.php:17
 #: Console/Project/Controller/Create.php:35
 #: Console/Project/Controller/Create/Block.php:19
 #: Console/Project/Controller/Create/Cli.php:18
 #: Console/Project/Controller/Create/Form.php:34
-#: Console/Project/Controller/Create/Web.php:20 Console/Project/Create.php:44
-#: Console/Project/Model.php:30 Console/Project/Model.php:35
-#: Console/Project/Model/ImportDataset.php:25
+#: Console/Project/Controller/Create/Web.php:20 Console/Project/Create.php:37
+#: Console/Project/Model.php:22 Console/Project/Model.php:25
+#: Console/Project/Model.php:39 Console/Project/Model.php:41
+#: Console/Project/Model/ImportDataset.php:27
 #: Console/Project/Model/ImportDataset.php:31 Console/Setup.php:84
-#: Console/Setup.php:89 Console/Setup/CliApplication.php:39
-#: Console/Setup/CliApplication.php:45
+#: Console/Setup.php:89 Console/Setup/CliApplication.php:30
+#: Console/Setup/CliApplication.php:36
 #: Console/Setup/CliApplication/Parameter.php:31
 #: Console/Setup/CliApplication/Parameter.php:35 Console/Setup/Etc.php:17
-#: Console/Setup/Etc.php:22 Console/Setup/Hosts.php:24
-#: Console/Setup/Hosts.php:29 Console/Setup/Module.php:25
-#: Console/Setup/Module.php:27
+#: Console/Setup/Etc.php:22 Console/Setup/Etc/Apache.php:77
+#: Console/Setup/Etc/Apache.php:80 Console/Setup/Etc/Apache.php:88
+#: Console/Setup/Etc/Hosts.php:31 Console/Setup/Etc/Hosts.php:34
+#: Console/Setup/Etc/Nginx.php:77 Console/Setup/Etc/Nginx.php:80
+#: Console/Setup/Etc/Nginx.php:88 Console/Setup/Hosts.php:45
+#: Console/Setup/Hosts.php:49 Console/Setup/Hosts.php:54
+#: Console/Setup/Hosts.php:58 Console/Setup/Hosts.php:63
+#: Console/Setup/Module.php:25 Console/Setup/Module.php:27
 msgid "**********************"
 msgstr "**********************"
+
+#: Console/Install.php:35 Console/Project/Create.php:34
+#: Console/Setup/Etc/Apache.php:82 Console/Setup/Etc/Nginx.php:82
+#: Console/Setup/Hosts.php:46
+msgid "CLI arguments:"
+msgstr "CLI arguments:"
+
+#: Console/Install.php:36 Console/Setup/Etc/Apache.php:83
+#: Console/Setup/Etc/Nginx.php:83 Console/Setup/Hosts.php:47
+msgid "· \"--host\": server name"
+msgstr "· \"--host\": server name"
+
+#: Console/Install.php:37 Console/Setup/Hosts.php:48
+msgid "· \"--project\": project name to bind with host"
+msgstr "· \"--project\": project name to bind with host"
+
+#: Console/Install.php:38
+msgid "· \"--server\": [Apache|Nginx]"
+msgstr "· \"--server\": [Apache|Nginx]"
+
+#: Console/Install.php:39 Console/Setup/Etc/Apache.php:87
+#: Console/Setup/Etc/Hosts.php:33 Console/Setup/Etc/Nginx.php:87
+msgid ""
+"· \"--force\": [0|1] If true, it will run all configuration processes with "
+"minimum prompts."
+msgstr ""
+"· \"--force\": [0|1] If true, it will run all configuration processes with "
+"minimum prompts."
+
+#: Console/Install.php:43
+msgid "Installation process supports Debian-like distributions."
+msgstr "Installation process supports Debian-like distributions."
+
+#: Console/Install.php:44
+msgid ""
+"It will help you to setup a development environment using a virtual host."
+msgstr ""
+"It will help you to setup a development environment using a virtual host."
+
+#: Console/Install.php:45
+msgid ""
+"It comes with no warranty. It uses the most common setup deployed on a "
+"Debian server."
+msgstr ""
+"It comes with no warranty. It uses the most common setup deployed on a "
+"Debian server."
+
+#: Console/Install.php:47
+#, php-format
+msgid "You are using PHP version %s"
+msgstr "You are using PHP version %s"
+
+#: Console/Install.php:58
+msgid "Type hostname you want to setup:"
+msgstr "Type hostname you want to setup:"
+
+#: Console/Install.php:59
+#, php-format
+msgid "Hostname to setup: %s"
+msgstr "Hostname to setup: %s"
+
+#: Console/Install.php:61
+msgid "Do you want to append this hostname to your \"/etc/hosts\" file? [yN]"
+msgstr "Do you want to append this hostname to your \"/etc/hosts\" file? [yN]"
+
+#: Console/Install.php:61 Console/Install.php:73 Console/Install.php:98
+#: Console/Project/Configure/Database/Delete.php:28
+#: Console/Project/Configure/Database/Delete.php:32
+#: Console/Project/Configure/Environment.php:117 Console/Project/Create.php:128
+#: Console/Project/Create.php:143 Console/Project/Model.php:96
+#: Console/Setup/CliApplication/Parameter.php:36
+#: Console/Setup/CliApplication/Parameter.php:61 Console/Setup/Etc/Hosts.php:86
+#: Console/Setup/Hosts.php:129 FragTale/Service/Localize.php:29
+msgid "n {means no}"
+msgstr "n"
+
+#: Console/Install.php:67
+msgid "Could not find \"/etc/hosts\" file!"
+msgstr "Could not find \"/etc/hosts\" file!"
+
+#: Console/Install.php:73
+msgid ""
+"Do you want to add a basic configuration file to your Apache or Nginx "
+"server? [yN]"
+msgstr ""
+"Do you want to add a basic configuration file to your Apache or Nginx "
+"server? [yN]"
+
+#: Console/Install.php:75
+msgid "Select your web server:"
+msgstr "Select your web server:"
+
+#: Console/Install.php:94
+#, php-format
+msgid ""
+"Project \"%s\" does not exist or does not match required structure to run a "
+"website!"
+msgstr ""
+"Project \"%s\" does not exist or does not match required structure to run a "
+"website!"
+
+#: Console/Install.php:98
+msgid ""
+"You have to bind your new host to an existing project. Do you want to create "
+"a new project? [yN]"
+msgstr ""
+"You have to bind your new host to an existing project. Do you want to create "
+"a new project? [yN]"
+
+#: Console/Install.php:101
+msgid ""
+"You should \"chown\" your project folder to be the owner if you want to "
+"modify files."
+msgstr ""
+"You should \"chown\" your project folder to be the owner if you want to "
+"modify files."
+
+#: Console/Install.php:102
+msgid "You can let \"root\" to be owner of the FragTale2 framework."
+msgstr "You can let \"root\" to be owner of the FragTale2 framework."
+
+#: Console/Install.php:103
+msgid "You can use GIT and version your project folder."
+msgstr "You can use GIT and version your project folder."
+
+#: Console/Install.php:104
+msgid "Do not include FragTale2 framework in your version control."
+msgstr "Do not include FragTale2 framework in your version control."
+
+#: Console/Install.php:109
+msgid "You can now exit \"root\" or \"sudo\" mode."
+msgstr "You can now exit \"root\" or \"sudo\" mode."
+
+#: Console/Install.php:110
+msgid ""
+"You'll have to bind your host to one of your project environment, but "
+"default is \"production\"."
+msgstr ""
+"You'll have to bind your host to one of your project environment, but "
+"default is \"production\"."
+
+#: Console/Install.php:111
+msgid "Execute following command:"
+msgstr "Execute following command:"
+
+#: Console/Project.php:37
+#, php-format
+msgid "Entering project management space"
+msgstr "Entering project management space"
 
 #: Console/Project.php:39
 msgid "You have 4 sections:"
@@ -149,21 +304,21 @@ msgstr "· \"Create\": allows you to create a new project from scratch"
 msgid "· \"Model\": map your database tables and relations (ORM)"
 msgstr "· \"Model\": map your database tables and relations (ORM)"
 
-#: Console/Project.php:64
+#: Console/Project.php:67
 #, php-format
 msgid "File \"%s\" successfully updated"
 msgstr "File \"%s\" successfully updated"
 
-#: Console/Project.php:118
+#: Console/Project.php:121
 #, php-format
 msgid "Unknown project \"%s\""
 msgstr "Unknown project \"%s\""
 
-#: Console/Project.php:119
+#: Console/Project.php:122
 msgid "Select project"
 msgstr "Select project"
 
-#: Console/Project.php:139
+#: Console/Project.php:142
 #, php-format
 msgid ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
@@ -172,40 +327,36 @@ msgstr ""
 "Directory \"%s\" does not exist yet. You should execute first command: ./"
 "fragtale Console/Setup"
 
-#: Console/Project.php:160
+#: Console/Project.php:163
 msgid "You have not created a project yet. Going through project creation:"
 msgstr "You have not created a project yet. Going through project creation:"
 
-#: Console/Project/Configure.php:29
+#: Console/Project/Configure.php:23 Console/Project/Model.php:23
+msgid "CLI option:"
+msgstr "CLI option:"
+
+#: Console/Project/Configure.php:24 Console/Project/Model.php:24
+msgid ""
+"· \"--project\": The project name (if not passed, application will prompt "
+"you to select an existing project)"
+msgstr ""
+"· \"--project\": The project name (if not passed, application will prompt "
+"you to select an existing project)"
+
+#: Console/Project/Configure.php:41
 #, php-format
 msgid "Setting up project \"%s\""
 msgstr "Setting up project \"%s\""
 
-#: Console/Project/Configure.php:32 Console/Project/Configure/Database.php:24
-#: Console/Project/Configure/Database/Delete.php:14
-#: Console/Project/Configure/Environment.php:22 Console/Project/Model.php:31
-#: Console/Project/Model/ImportDataset.php:29
-msgid "CLI option:"
-msgstr "CLI option:"
-
-#: Console/Project/Configure.php:33 Console/Project/Configure/Database.php:25
-#: Console/Project/Configure/Environment.php:23 Console/Project/Model.php:32
-msgid ""
-"· \"--project\": The project name (if not passed, application will prompt "
-"you to select an existing project)"
-msgstr ""
-"· \"--project\": The project name (if not passed, application will prompt "
-"you to select an existing project)"
-
-#: Console/Project/Configure.php:35
+#: Console/Project/Configure.php:44
 msgid "You have 3 actions:"
 msgstr "You have 3 actions:"
 
-#: Console/Project/Configure.php:36
+#: Console/Project/Configure.php:45
 msgid "· \"Database\": setup your database credentials (SQL & MongoDB)"
 msgstr "· \"Database\": setup your database credentials (SQL & MongoDB)"
 
-#: Console/Project/Configure.php:37
+#: Console/Project/Configure.php:46
 msgid ""
 "· \"Environment\": setup your environments, basically corresponding to "
 "\"production\" and \"development\""
@@ -213,7 +364,7 @@ msgstr ""
 "· \"Environment\": setup your environments, basically corresponding to "
 "\"production\" and \"development\""
 
-#: Console/Project/Configure.php:38
+#: Console/Project/Configure.php:47
 msgid ""
 "· \"Parameter\": optionally edit some custom project parameters that you can "
 "use for your own purposes"
@@ -221,29 +372,29 @@ msgstr ""
 "· \"Parameter\": optionally edit some custom project parameters that you can "
 "use for your own purposes"
 
-#: Console/Project/Configure.php:50
+#: Console/Project/Configure.php:62
 msgid "Continue configuring databases, environments or user paramaters? [Yn]"
 msgstr ""
 "Continue configuring databases, environments or user parameters? [Y, n]"
 
-#: Console/Project/Configure.php:50 Console/Project/Configure/Database.php:63
-#: Console/Project/Configure/Database.php:139
-#: Console/Project/Configure/Environment.php:56
-#: Console/Project/Configure/Environment.php:115
-#: Console/Project/Configure/Environment.php:146
-#: Console/Project/Configure/Parameter/SetMaintenance.php:16
+#: Console/Project/Configure.php:62 Console/Project/Configure/Database.php:66
+#: Console/Project/Configure/Database.php:142
+#: Console/Project/Configure/Environment.php:58
+#: Console/Project/Configure/Environment.php:117
+#: Console/Project/Configure/Environment.php:148
+#: Console/Project/Configure/Parameter/SetMaintenance.php:19
 #: FragTale/Service/Filesystem.php:103 FragTale/Service/Localize.php:53
 #: FragTale/Service/Project.php:511
 msgid "y {means yes}"
 msgstr "y"
 
-#: Console/Project/Configure/Database.php:22
+#: Console/Project/Configure/Database.php:25
 #, php-format
 msgid "Entering project \"%s\" database configuration:"
 msgstr "Entering project \"%s\" database configuration:"
 
 #: Console/Project/Configure/Database.php:27
-#: Console/Project/Configure/Database/Delete.php:12
+#: Console/Project/Configure/Database/Delete.php:15
 msgid "You'll have to choose one configuration among the list of connector IDs"
 msgstr ""
 "You'll have to choose one configuration among the list of connector IDs"
@@ -252,11 +403,11 @@ msgstr ""
 msgid "Then, enter credentials step-by-step"
 msgstr "Then, enter credentials step-by-step"
 
-#: Console/Project/Configure/Database.php:43
+#: Console/Project/Configure/Database.php:46
 msgid "Could not find database configuration"
 msgstr "Could not find database configuration"
 
-#: Console/Project/Configure/Database.php:56
+#: Console/Project/Configure/Database.php:59
 #, php-format
 msgid ""
 "Choose one available connection to modify (leave empty if you want to create "
@@ -265,11 +416,11 @@ msgstr ""
 "Choose one available connection to modify (leave empty if you want to create "
 "new connection, Ctrl+C to quit): (total %d)"
 
-#: Console/Project/Configure/Database.php:60
+#: Console/Project/Configure/Database.php:63
 msgid "Updating configuration:"
 msgstr "Updating configuration:"
 
-#: Console/Project/Configure/Database.php:63
+#: Console/Project/Configure/Database.php:66
 msgid ""
 "You have not setup a database yet. Do you want to configure new database "
 "connection? Y, N"
@@ -277,41 +428,41 @@ msgstr ""
 "You have not setup a database yet. Do you want to configure new database "
 "connection? [y, n]"
 
-#: Console/Project/Configure/Database.php:66
+#: Console/Project/Configure/Database.php:69
 msgid "Creating new database configuration:"
 msgstr "Creating new database configuration:"
 
-#: Console/Project/Configure/Database.php:69
+#: Console/Project/Configure/Database.php:72
 msgid "Give a name to your database configuration:"
 msgstr "Give a name to your database configuration:"
 
-#: Console/Project/Configure/Database.php:74
+#: Console/Project/Configure/Database.php:77
 msgid "Type one of the following database drivers:"
 msgstr "Type one of the following database drivers:"
 
-#: Console/Project/Configure/Database.php:79
+#: Console/Project/Configure/Database.php:82
 msgid "Type server name or IP address of database host:"
 msgstr "Type server name or IP address of database host:"
 
-#: Console/Project/Configure/Database.php:84
+#: Console/Project/Configure/Database.php:87
 msgid ""
 "Type port number (leave blank to use default port or to keep previous entry):"
 msgstr ""
 "Type port number (leave blank to use default port or to keep previous entry):"
 
-#: Console/Project/Configure/Database.php:89
+#: Console/Project/Configure/Database.php:92
 msgid "Type database name:"
 msgstr "Type database name:"
 
-#: Console/Project/Configure/Database.php:94
+#: Console/Project/Configure/Database.php:97
 msgid "Type username:"
 msgstr "Type username:"
 
-#: Console/Project/Configure/Database.php:99
+#: Console/Project/Configure/Database.php:102
 msgid "Type password:"
 msgstr "Type password:"
 
-#: Console/Project/Configure/Database.php:104
+#: Console/Project/Configure/Database.php:107
 msgid ""
 "Type charset (leave blank to use database default charset, most commonly "
 "\"utf8\"):"
@@ -319,52 +470,43 @@ msgstr ""
 "Type charset (leave blank to use database default charset, most commonly "
 "\"utf8\"):"
 
-#: Console/Project/Configure/Database.php:120
+#: Console/Project/Configure/Database.php:123
 msgid "This parameter is required and cannot be empty"
 msgstr "This parameter is required and cannot be empty"
 
-#: Console/Project/Configure/Database.php:124
+#: Console/Project/Configure/Database.php:127
 msgid "Unsupported driver:"
 msgstr "Unsupported driver:"
 
-#: Console/Project/Configure/Database.php:128
+#: Console/Project/Configure/Database.php:131
 #, php-format
 msgid ""
 "A database connection named \"%s\" already exists. Please enter another name."
 msgstr ""
 "A database connection named \"%s\" already exists. Please enter another name."
 
-#: Console/Project/Configure/Database.php:139
+#: Console/Project/Configure/Database.php:142
 msgid "Confirm save: [Yn]"
 msgstr "Confirm save: [Y, n]"
 
-#: Console/Project/Configure/Database.php:141
+#: Console/Project/Configure/Database.php:144
 msgid "Replacing database settings named:"
 msgstr "Replacing database settings named:"
 
-#: Console/Project/Configure/Database.php:144
+#: Console/Project/Configure/Database.php:147
 msgid "Adding new database settings named:"
 msgstr "Adding new database settings named:"
 
-#: Console/Project/Configure/Database/Delete.php:10
+#: Console/Project/Configure/Database/Delete.php:13
 #, php-format
 msgid "Delete a database connector from project \"%s\""
 msgstr "Delete a database connector from project \"%s\""
 
-#: Console/Project/Configure/Database/Delete.php:13
+#: Console/Project/Configure/Database/Delete.php:16
 msgid "This will definitely remove this configuration from your file"
 msgstr "This will definitely remove this configuration from your file"
 
-#: Console/Project/Configure/Database/Delete.php:15
-#: Console/Project/Model/ImportDataset.php:30
-msgid ""
-"\"--project\": The project name (if not passed, application will prompt you "
-"to select an existing project)"
-msgstr ""
-"\"--project\": The project name (if not passed, application will prompt you "
-"to select an existing project)"
-
-#: Console/Project/Configure/Database/Delete.php:23
+#: Console/Project/Configure/Database/Delete.php:27
 msgid ""
 "Select the configuration you want to delete (you cannot roll back, backup "
 "your configuration file if not sure):"
@@ -372,35 +514,25 @@ msgstr ""
 "Select the configuration you want to delete (you cannot roll back, backup "
 "your configuration file if not sure):"
 
-#: Console/Project/Configure/Database/Delete.php:24
+#: Console/Project/Configure/Database/Delete.php:28
 #, php-format
 msgid "Confirm removing \"%s\" from settings: [yN]"
 msgstr "Confirm removing \"%s\" from settings: [y, N]"
 
-#: Console/Project/Configure/Database/Delete.php:24
-#: Console/Project/Configure/Database/Delete.php:28
-#: Console/Project/Configure/Environment.php:115 Console/Project/Create.php:109
-#: Console/Project/Create.php:124 Console/Project/Model.php:87
-#: Console/Setup/CliApplication/Parameter.php:36
-#: Console/Setup/CliApplication/Parameter.php:61 Console/Setup/Etc/Hosts.php:43
-#: Console/Setup/Hosts.php:73 FragTale/Service/Localize.php:29
-msgid "n {means no}"
-msgstr "n"
-
-#: Console/Project/Configure/Database/Delete.php:27
+#: Console/Project/Configure/Database/Delete.php:31
 msgid "You have not selected a database configuration to delete."
 msgstr "You have not selected a database configuration to delete."
 
-#: Console/Project/Configure/Database/Delete.php:28
+#: Console/Project/Configure/Database/Delete.php:32
 msgid "Delete another one? [yN]"
 msgstr "Delete another one? [y, N]"
 
-#: Console/Project/Configure/Environment.php:20
+#: Console/Project/Configure/Environment.php:23
 #, php-format
 msgid "Entering project \"%s\" environments setup"
 msgstr "Entering project \"%s\" environments setup"
 
-#: Console/Project/Configure/Environment.php:28
+#: Console/Project/Configure/Environment.php:30
 msgid ""
 "Edit or create environment: define which database connector to use as "
 "default, choose your locale and enable debug mode."
@@ -408,7 +540,7 @@ msgstr ""
 "Edit or create environment: define which database connector to use as "
 "default, choose your locale and enable debug mode."
 
-#: Console/Project/Configure/Environment.php:29
+#: Console/Project/Configure/Environment.php:31
 msgid ""
 "Bind a hostname to a project is not enough. You should also bind an "
 "environment to a hostname."
@@ -416,30 +548,30 @@ msgstr ""
 "Bind a host name to a project is not enough. You should also bind an "
 "environment to a host name."
 
-#: Console/Project/Configure/Environment.php:45
+#: Console/Project/Configure/Environment.php:47
 msgid "You have 2 action groups:"
 msgstr "You have 2 action groups:"
 
-#: Console/Project/Configure/Environment.php:56
+#: Console/Project/Configure/Environment.php:58
 msgid "Choose another action group? [Yn]"
 msgstr "Choose another action group? [Y, n]"
 
-#: Console/Project/Configure/Environment.php:70
+#: Console/Project/Configure/Environment.php:72
 msgid "Select which environment to update (leave empty to enter new one)"
 msgstr "Select which environment to update (leave empty to enter new one)"
 
-#: Console/Project/Configure/Environment.php:74
+#: Console/Project/Configure/Environment.php:76
 msgid "Enter new environment name"
 msgstr "Enter new environment name"
 
-#: Console/Project/Configure/Environment.php:91
+#: Console/Project/Configure/Environment.php:93
 #, php-format
 msgid ""
 "Select one of these SQL credentials to set as default for environment \"%s\""
 msgstr ""
 "Select one of these SQL credentials to set as default for environment \"%s\""
 
-#: Console/Project/Configure/Environment.php:107
+#: Console/Project/Configure/Environment.php:109
 #, php-format
 msgid ""
 "Select one of these Mongo credentials to set as default for environment "
@@ -448,11 +580,11 @@ msgstr ""
 "Select one of these MongoDB credentials to set as default for environment "
 "\"%s\""
 
-#: Console/Project/Configure/Environment.php:116
+#: Console/Project/Configure/Environment.php:118
 msgid "Activate debug mode? [yn]"
 msgstr "Activate debug mode? [y, n]"
 
-#: Console/Project/Configure/Environment.php:145
+#: Console/Project/Configure/Environment.php:147
 #, php-format
 msgid ""
 "Host \"%s\" contained in these environments is not bound to this project (as "
@@ -461,11 +593,11 @@ msgstr ""
 "Host \"%s\" contained in these environments is not bound to this project (as "
 "declared in \"hosts.json\" conf file)."
 
-#: Console/Project/Configure/Environment.php:146
+#: Console/Project/Configure/Environment.php:148
 msgid "Do you want to remove it? [Yn]"
 msgstr "Do you want to remove it? [Y, n]"
 
-#: Console/Project/Configure/Environment.php:164
+#: Console/Project/Configure/Environment.php:166
 msgid ""
 "Choose between one of these hosts (\"default\" is the environment used by "
 "default)"
@@ -473,47 +605,47 @@ msgstr ""
 "Choose between one of these hosts (\"default\" is the environment used by "
 "default)"
 
-#: Console/Project/Configure/Environment.php:174
+#: Console/Project/Configure/Environment.php:176
 msgid "Bind it to one of these environment"
 msgstr "Bind it to one of these environments"
 
-#: Console/Project/Configure/Parameter.php:31
+#: Console/Project/Configure/Parameter.php:23
 #, php-format
 msgid "Entering project \"%s\" parameters setup"
 msgstr "Entering project \"%s\" parameters setup"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:13
+#: Console/Project/Configure/Parameter/SetMaintenance.php:16
 #, php-format
 msgid "Entering project \"%s\" maintenance parameter setup"
 msgstr "Entering project \"%s\" maintenance parameter setup"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:16
+#: Console/Project/Configure/Parameter/SetMaintenance.php:19
 msgid "Do you want to set maintenance parameter for all environments? [Yn]"
 msgstr "Do you want to set maintenance parameter for all environments? [Y, n]"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:26
+#: Console/Project/Configure/Parameter/SetMaintenance.php:29
 #, php-format
 msgid "There is no environment set yet in your %s file."
 msgstr "There is no environment set yet in your %s file."
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:32
+#: Console/Project/Configure/Parameter/SetMaintenance.php:35
 msgid "Choose the environment you want to set maintenance parameter:"
 msgstr "Choose the environment you want to set maintenance parameter:"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:40
+#: Console/Project/Configure/Parameter/SetMaintenance.php:43
 #, php-format
 msgid "Selected environment: %s"
 msgstr "Selected environment: %s"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:42
+#: Console/Project/Configure/Parameter/SetMaintenance.php:45
 msgid "Invalid environment selection"
 msgstr "Invalid environment selection"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:49
+#: Console/Project/Configure/Parameter/SetMaintenance.php:52
 msgid "Unabled to initialize parameters."
 msgstr "Unable to initialize parameters."
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:54
+#: Console/Project/Configure/Parameter/SetMaintenance.php:57
 #, php-format
 msgid ""
 "Type 1 to set maintenance ON, type 0 to set maintenance OFF (actual value: "
@@ -522,15 +654,15 @@ msgstr ""
 "Type 1 to set maintenance ON, type 0 to set maintenance OFF (actual value: "
 "%s):"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:56
+#: Console/Project/Configure/Parameter/SetMaintenance.php:59
 msgid "You have chosen to set your website maintenance ON!"
 msgstr "You have chosen to set your website maintenance ON!"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:59
+#: Console/Project/Configure/Parameter/SetMaintenance.php:62
 msgid "You have chosen to set your website maintenance OFF"
 msgstr "You have chosen to set your website maintenance OFF"
 
-#: Console/Project/Configure/Parameter/SetMaintenance.php:62
+#: Console/Project/Configure/Parameter/SetMaintenance.php:65
 msgid "Invalid answer"
 msgstr "Invalid answer"
 
@@ -538,7 +670,7 @@ msgstr "Invalid answer"
 #: Console/Project/Controller/Create/Block.php:13
 #: Console/Project/Controller/Create/Cli.php:13
 #: Console/Project/Controller/Create/Form.php:28
-#: Console/Project/Controller/Create/Web.php:13 Console/Project/Create.php:41
+#: Console/Project/Controller/Create/Web.php:13 Console/Project/Create.php:33
 msgid "**** Help invoked ****"
 msgstr "**** Help invoked ****"
 
@@ -788,7 +920,7 @@ msgstr "Using model \"%s\""
 msgid "Creating form for entity \"%s\""
 msgstr "Creating form for entity \"%s\""
 
-#: Console/Project/Controller/Create/Form.php:70 Console/Project/Create.php:139
+#: Console/Project/Controller/Create/Form.php:70 Console/Project/Create.php:158
 #, php-format
 msgid "In folder \"%s\""
 msgstr "In folder \"%s\""
@@ -846,6 +978,10 @@ msgstr "Select a model namespace:"
 msgid "Please select an existing model."
 msgstr "Please select an existing model."
 
+#: Console/Project/Controller/Create/Form.php:225
+msgid "Model namespace does not contain any valid entity."
+msgstr "Model namespace does not contain any valid entity."
+
 #: Console/Project/Controller/Create/Form.php:241
 msgid "Select one of the following entities:"
 msgstr "Select one of the following entities:"
@@ -874,23 +1010,27 @@ msgstr "Entering folder \"%s\""
 msgid "Type folder in which to place your new controllers:"
 msgstr "Type folder in which to place your new controllers:"
 
-#: Console/Project/Create.php:42
-msgid "One CLI option handled:"
-msgstr "One CLI option handled:"
-
-#: Console/Project/Create.php:43
+#: Console/Project/Create.php:35
 msgid ""
-"\"--project\": the project name to create (in camel case and no special "
+"· \"--project\": the project name to create (in camel case and no special "
 "chars)"
 msgstr ""
-"\"--project\": the project name to create (in camel case and no special "
+"· \"--project\": the project name to create (in camel case and no special "
 "chars)"
 
-#: Console/Project/Create.php:47
+#: Console/Project/Create.php:36
+msgid ""
+"· \"--host\": if passed, it will automatically bind this project to a "
+"hostname"
+msgstr ""
+"· \"--host\": if passed, it will automatically bind this project to a "
+"hostname"
+
+#: Console/Project/Create.php:63
 msgid "Entering project creator"
 msgstr "Entering project creator"
 
-#: Console/Project/Create.php:57
+#: Console/Project/Create.php:76
 msgid ""
 "Type your project name (in camel cases, no spaces, no special chars, no "
 "accents and not starting with a number)"
@@ -898,16 +1038,16 @@ msgstr ""
 "Type your project name (in camel cases, no spaces, no special chars, no "
 "accents and not starting with a number)"
 
-#: Console/Project/Create.php:60
+#: Console/Project/Create.php:79
 msgid "Invalid namespace format."
 msgstr "Invalid namespace format."
 
-#: Console/Project/Create.php:64
+#: Console/Project/Create.php:83
 #, php-format
 msgid "Creating project \"%s\"..."
 msgstr "Creating project \"%s\"..."
 
-#: Console/Project/Create.php:75
+#: Console/Project/Create.php:94
 msgid ""
 "When you create controllers, this will also create the corresponding view "
 "(unless you specify not to create the view with the controller)."
@@ -915,7 +1055,7 @@ msgstr ""
 "When you create controllers, this will also create the corresponding view "
 "(unless you specify not to create the view with the controller)."
 
-#: Console/Project/Create.php:76
+#: Console/Project/Create.php:95
 msgid ""
 "The HTML format corresponds to a classic view of displaying a Web page "
 "(creation of a \".phtml\" file with HTML and PHP tags)."
@@ -923,7 +1063,7 @@ msgstr ""
 "The HTML format corresponds to a classic view of displaying a Web page "
 "(creation of a \".phtml\" file with HTML and PHP tags)."
 
-#: Console/Project/Create.php:77
+#: Console/Project/Create.php:96
 msgid ""
 "The HTML_NO_LAYOUT format corresponds to a view called in AJAX without the "
 "general \"layout\" (without the large <html> tag, without the <head> tag and "
@@ -935,7 +1075,7 @@ msgstr ""
 "therefore, without the JS and CSS sources which are not useful during a "
 "response AJAX)."
 
-#: Console/Project/Create.php:78
+#: Console/Project/Create.php:97
 msgid ""
 "JSON and XML formats correspond to sending data and are useful for a REST "
 "API."
@@ -943,7 +1083,7 @@ msgstr ""
 "JSON and XML formats correspond to sending data and are useful for a REST "
 "API."
 
-#: Console/Project/Create.php:79
+#: Console/Project/Create.php:98
 msgid ""
 "Other formats should generally not be used as the default template. When in "
 "doubt, choose 1."
@@ -951,44 +1091,44 @@ msgstr ""
 "Other formats should generally not be used as the default template. When in "
 "doubt, choose 1."
 
-#: Console/Project/Create.php:80
+#: Console/Project/Create.php:99
 msgid "Choose your default template format:"
 msgstr "Choose your default template format:"
 
-#: Console/Project/Create.php:109
+#: Console/Project/Create.php:128
 msgid "Project folder already exists. Do you want to continue? [yN]"
 msgstr "Project folder already exists. Do you want to continue? [y, N]"
 
-#: Console/Project/Create.php:124
+#: Console/Project/Create.php:143
 msgid "Do you want to set project host? [yN]"
 msgstr "Do you want to set project host name or IP? [y, N]"
 
-#: Console/Project/Create.php:141
+#: Console/Project/Create.php:160
 #, php-format
 msgid "Working on %s"
 msgstr "Working on %s"
 
-#: Console/Project/Create.php:209 FragTale/Service/Filesystem.php:90
+#: Console/Project/Create.php:228 FragTale/Service/Filesystem.php:90
 #, php-format
 msgid "File \"%s\" already exists"
 msgstr "File \"%s\" already exists"
 
-#: Console/Project/Create.php:212 Console/Project/Create.php:228
+#: Console/Project/Create.php:231
 #, php-format
 msgid "Created file: %s"
 msgstr "Created file: %s"
 
-#: Console/Project/Create.php:214 Console/Project/Create.php:230
+#: Console/Project/Create.php:233
 #, php-format
 msgid "Could not create file: %s"
 msgstr "Could not create file: %s"
 
-#: Console/Project/Model.php:29
+#: Console/Project/Model.php:39
 #, php-format
 msgid "Model mapping for project \"%s\""
 msgstr "Model mapping for project \"%s\""
 
-#: Console/Project/Model.php:34
+#: Console/Project/Model.php:41
 msgid ""
 "This controller automatically maps database tables to build all classes and "
 "entities that simply correspond to the relational database structure"
@@ -996,13 +1136,13 @@ msgstr ""
 "This controller automatically maps database tables to build all classes and "
 "entities that simply correspond to the relational database structure"
 
-#: Console/Project/Model.php:59
+#: Console/Project/Model.php:68
 msgid ""
 "You have not setup yet your database credentials. This is a pre-requisite."
 msgstr ""
 "You have not setup yet your database credentials. This is a pre-requisite."
 
-#: Console/Project/Model.php:70
+#: Console/Project/Model.php:79
 msgid ""
 "Your database configurations does not contain any SQL type connector (mysql, "
 "psql...)."
@@ -1010,26 +1150,26 @@ msgstr ""
 "Your database configurations does not contain any SQL type connector (mysql, "
 "psql...)."
 
-#: Console/Project/Model.php:82
+#: Console/Project/Model.php:91
 msgid "Choose connectorId in the list below"
 msgstr "Choose connectorId in the list below"
 
-#: Console/Project/Model.php:87
+#: Console/Project/Model.php:96
 #, php-format
 msgid "Confirm model mapping \"%1s\" from database \"%2s\": [yN]"
 msgstr "Confirm model mapping \"%1s\" from database \"%2s\": [y, N]"
 
-#: Console/Project/Model.php:88 Console/Project/Model.php:183
-#: Console/Project/Model.php:200 Console/Project/Model.php:216
-#: Console/Project/Model/ImportDataset.php:39
+#: Console/Project/Model.php:97 Console/Project/Model.php:192
+#: Console/Project/Model.php:209 Console/Project/Model.php:225
+#: Console/Project/Model/ImportDataset.php:42
 msgid "Process interrupted"
 msgstr "Process interrupted"
 
-#: Console/Project/Model.php:98
+#: Console/Project/Model.php:107
 msgid "OK, mapping database..."
 msgstr "OK, mapping database..."
 
-#: Console/Project/Model.php:102
+#: Console/Project/Model.php:111
 msgid ""
 "Parameter \"database\" (name) is required in selected configuration. You "
 "have to set this value. Please check your configuration file and mention a "
@@ -1039,31 +1179,31 @@ msgstr ""
 "have to set this value. Please check your configuration file and mention a "
 "database name."
 
-#: Console/Project/Model.php:119
+#: Console/Project/Model.php:128
 msgid "No information retrieved"
 msgstr "No information retrieved"
 
-#: Console/Project/Model.php:125
+#: Console/Project/Model.php:134
 #, php-format
 msgid "No columns found for table \"%s\""
 msgstr "No columns found for table \"%s\""
 
-#: Console/Project/Model.php:139
+#: Console/Project/Model.php:148
 #, php-format
 msgid "Exporting table \"%1s\" structure into \"%2s\""
 msgstr "Exporting table \"%1s\" structure into \"%2s\""
 
-#: Console/Project/Model.php:143
+#: Console/Project/Model.php:152
 #, php-format
 msgid "Creating constant class containg colum names into \"%s\""
 msgstr "Creating constant class containing column names into \"%s\""
 
-#: Console/Project/Model.php:188
+#: Console/Project/Model.php:197
 #, php-format
 msgid "Creating model super abstract class \"%s\""
 msgstr "Creating model super abstract class \"%s\""
 
-#: Console/Project/Model.php:276
+#: Console/Project/Model.php:285
 msgid ""
 "Please, select one of these models to remap it or leave empty to create new "
 "model:"
@@ -1071,63 +1211,63 @@ msgstr ""
 "Please, select one of these models to remap it or leave empty to create new "
 "model:"
 
-#: Console/Project/Model.php:276
+#: Console/Project/Model.php:285
 msgid "Please, select one of these models:"
 msgstr "Please, select one of these models:"
 
-#: Console/Project/Model.php:284
+#: Console/Project/Model.php:293
 msgid "Type your new model name:"
 msgstr "Type your new model name:"
 
-#: Console/Project/Model.php:289
+#: Console/Project/Model.php:298
 msgid "Failed to parse your model name. Special chars are not allowed."
 msgstr "Invalid model name. Be careful not to enter special chars."
 
-#: Console/Project/Model/ImportDataset.php:24
+#: Console/Project/Model/ImportDataset.php:25
 #, php-format
 msgid "Insert or update your custom dataset \"%s\""
 msgstr "Insert or update your custom dataset \"%s\""
 
-#: Console/Project/Model/ImportDataset.php:26
-msgid ""
-"This controller automatically upserts data into specified table defined from "
-"your model."
-msgstr ""
-"This controller automatically upserts data into specified table defined from "
-"your model."
-
-#: Console/Project/Model/ImportDataset.php:27
-msgid ""
-"An entity folder must contain a file prefixed by \"D_\" and containing "
-"specified data to import into the database."
-msgstr ""
-"An entity folder must contain a file prefixed by \"D_\" and containing "
-"specified data to import into the database."
-
 #: Console/Project/Model/ImportDataset.php:28
 msgid ""
+"This controller automatically upserts data into specified table defined from "
+"your model."
+msgstr ""
+"This controller automatically upserts data into specified table defined from "
+"your model."
+
+#: Console/Project/Model/ImportDataset.php:29
+msgid ""
+"An entity folder must contain a file prefixed by \"D_\" and containing "
+"specified data to import into the database."
+msgstr ""
+"An entity folder must contain a file prefixed by \"D_\" and containing "
+"specified data to import into the database."
+
+#: Console/Project/Model/ImportDataset.php:30
+msgid ""
 "An array $definition must have been set into the \"Dataset\" class in the "
 "constructor. Definition is what this process import."
 msgstr ""
 "An array $definition must have been set into the \"Dataset\" class in the "
 "constructor. Definition is what this process import."
 
-#: Console/Project/Model/ImportDataset.php:38
+#: Console/Project/Model/ImportDataset.php:41
 msgid ""
 "Confirm dataset import from your project models into your database: [yN]"
 msgstr ""
 "Confirm dataset import from your project models into your database: [y, N]"
 
-#: Console/Project/Model/ImportDataset.php:74
+#: Console/Project/Model/ImportDataset.php:77
 #, php-format
 msgid "Working on Dataset %s"
 msgstr "Working on Dataset %s"
 
-#: Console/Project/Model/ImportDataset.php:81
+#: Console/Project/Model/ImportDataset.php:84
 msgid "Result: "
 msgstr "Result: "
 
-#: Console/Project/Model/ImportDataset.php:85
+#: Console/Project/Model/ImportDataset.php:88
 #, php-format
 msgid ""
 "Class %s is not an instance of Dataset. It cannot be used to import "
@@ -1136,7 +1276,7 @@ msgstr ""
 "Class %s is not an instance of Dataset. It cannot be used to import "
 "definition."
 
-#: Console/Project/Model/ImportDataset.php:100
+#: Console/Project/Model/ImportDataset.php:103
 msgid "Upserting: "
 msgstr "Upserting: "
 
@@ -1189,11 +1329,11 @@ msgstr ""
 msgid "· \"Module\": offers a list of modules to install."
 msgstr "· \"Module\": offers a list of modules to install."
 
-#: Console/Setup/CliApplication.php:40
+#: Console/Setup/CliApplication.php:31
 msgid "Here, you can setup your CLI application with 2 sections:"
 msgstr "Here, you can setup your CLI application with 2 sections:"
 
-#: Console/Setup/CliApplication.php:41
+#: Console/Setup/CliApplication.php:32
 msgid ""
 "· \"Locale\": choose one of the supported languages and define encoding "
 "being used by your system (usually, \"UTF-8\" or \"utf8\")."
@@ -1201,19 +1341,19 @@ msgstr ""
 "· \"Locale\": choose one of the supported languages and define encoding "
 "being used by your system (usually, \"UTF-8\" or \"utf8\")."
 
-#: Console/Setup/CliApplication.php:42
+#: Console/Setup/CliApplication.php:33
 msgid ""
 "To know your system locale, just type in console following command: locale"
 msgstr ""
 "To know your system locale, just type in console following command: locale"
 
-#: Console/Setup/CliApplication.php:43
+#: Console/Setup/CliApplication.php:34
 msgid ""
 "· \"Parameter\": you can setup custom parameters that you'll have to handle."
 msgstr ""
 "· \"Parameter\": you can setup custom parameters that you'll have to handle."
 
-#: Console/Setup/CliApplication.php:44
+#: Console/Setup/CliApplication.php:35
 msgid ""
 "Here, the configuration file involved is \"resources/configuration/"
 "application.json\"."
@@ -1221,11 +1361,11 @@ msgstr ""
 "Here, the configuration file involved is \"resources/configuration/"
 "application.json\"."
 
-#: Console/Setup/CliApplication.php:61
+#: Console/Setup/CliApplication.php:52
 msgid "OK, check configuration file:"
 msgstr "OK, check configuration file:"
 
-#: Console/Setup/CliApplication.php:63 Console/Setup/Hosts.php:96
+#: Console/Setup/CliApplication.php:54 Console/Setup/Hosts.php:153
 msgid "No modification made"
 msgstr "No modification made"
 
@@ -1323,8 +1463,8 @@ msgstr "Here, you can setup your servers:"
 
 #: Console/Setup/Etc.php:19 Console/Setup/Etc.php:21
 #, php-format
-msgid "· \"%s\": You can add a configuration file into \"sites-availables\"."
-msgstr "· \"%s\": You can add a configuration file into \"sites-availables\"."
+msgid "· \"%s\": You can add a configuration file into \"sites-available\"."
+msgstr "· \"%s\": You can add a configuration file into \"sites-available\"."
 
 #: Console/Setup/Etc.php:20
 msgid ""
@@ -1334,7 +1474,104 @@ msgstr ""
 "· \"Hosts\": You can add a domain bound to 127.0.0.1 in your \"/etc/hosts\" "
 "file (only for Linux distributions)."
 
-#: Console/Setup/Etc/Hosts.php:17
+#: Console/Setup/Etc/Apache.php:66 Console/Setup/Etc/Nginx.php:66
+#, php-format
+msgid "Invalid given PHP version \"%s\""
+msgstr "Invalid given PHP version \"%s\""
+
+#: Console/Setup/Etc/Apache.php:78 Console/Setup/Etc/Nginx.php:78
+msgid "Basic virtual host configuration deployment."
+msgstr "Basic virtual host configuration deployment."
+
+#: Console/Setup/Etc/Apache.php:79
+msgid ""
+"Apache2 must have been installed with its PHP module for Apache, using PHP-"
+"FPM!"
+msgstr ""
+"Apache2 must have been installed with its PHP module for Apache, using PHP-"
+"FPM!"
+
+#: Console/Setup/Etc/Apache.php:84 Console/Setup/Etc/Nginx.php:84
+msgid ""
+"· \"--root\": absolute path of document root. If not passed, it will use the "
+"public folder of this application"
+msgstr ""
+"· \"--root\": absolute path of document root. If not passed, it will use the "
+"public folder of this application"
+
+#: Console/Setup/Etc/Apache.php:85 Console/Setup/Etc/Nginx.php:85
+msgid ""
+"· \"--php-version\": for example, \"8.3\". If not specified, it will use the "
+"PHP version of the current executed PHP binary."
+msgstr ""
+"· \"--php-version\": for example, \"8.3\". If not specified, it will use the "
+"PHP version of the current executed PHP binary."
+
+#: Console/Setup/Etc/Apache.php:86
+msgid ""
+"· \"--dest\": destination folder where the apache configuration will be "
+"placed (default is \"/etc/apache2/sites-available\")"
+msgstr ""
+"· \"--dest\": destination folder where the apache configuration will be "
+"placed (default is \"/etc/apache2/sites-available\")"
+
+#: Console/Setup/Etc/Apache.php:97
+msgid "Type Apache2 \"sites-available\" absolute path:"
+msgstr "Type Apache2 \"sites-available\" absolute path:"
+
+#: Console/Setup/Etc/Apache.php:101 Console/Setup/Etc/Nginx.php:101
+#, php-format
+msgid "Destination folder \"%s\" does not exist or is not accessible."
+msgstr "Destination folder \"%s\" does not exist or is not accessible."
+
+#: Console/Setup/Etc/Apache.php:108 Console/Setup/Etc/Nginx.php:108
+msgid "Type the server name (host):"
+msgstr "Type the server name (host):"
+
+#: Console/Setup/Etc/Apache.php:109 Console/Setup/Etc/Nginx.php:109
+msgid "Server name cannot be empty!"
+msgstr "Server name cannot be empty!"
+
+#: Console/Setup/Etc/Apache.php:114 Console/Setup/Etc/Nginx.php:114
+#, php-format
+msgid "File \"%s\" already exists and will not be overwritten."
+msgstr "File \"%s\" already exists and will not be overwritten."
+
+#: Console/Setup/Etc/Apache.php:119 Console/Setup/Etc/Nginx.php:119
+msgid ""
+"You are setting up \"localhost\" that should already have been configured by "
+"default. Check any configuration conflict."
+msgstr ""
+"You are setting up \"localhost\" that should already have been configured by "
+"default. Check any configuration conflict."
+
+#: Console/Setup/Etc/Apache.php:123 Console/Setup/Etc/Nginx.php:123
+msgid "Type the server document root:"
+msgstr "Type the server document root:"
+
+#: Console/Setup/Etc/Apache.php:127 Console/Setup/Etc/Nginx.php:127
+#, php-format
+msgid "Document root \"%s\" does not exist or is not accessible."
+msgstr "Document root \"%s\" does not exist or is not accessible."
+
+#: Console/Setup/Etc/Apache.php:135 Console/Setup/Etc/Nginx.php:135
+msgid "Type PHP version:"
+msgstr "Type PHP version:"
+
+#: Console/Setup/Etc/Apache.php:144
+#, php-format
+msgid "Required file is missing: %s."
+msgstr "Required file is missing: %s."
+
+#: Console/Setup/Etc/Apache.php:161
+msgid "You must enable your new Apache host and restart your web server:"
+msgstr "You must enable your new Apache host and restart your web server:"
+
+#: Console/Setup/Etc/Hosts.php:32
+msgid "· \"--host\": host name to append to /etc/hosts file"
+msgstr "· \"--host\": host name to append to /etc/hosts file"
+
+#: Console/Setup/Etc/Hosts.php:37
 msgid ""
 "Accessing your \"/etc/hosts\" file in write mode (only for Linux "
 "distributions)..."
@@ -1342,11 +1579,7 @@ msgstr ""
 "Accessing your \"/etc/hosts\" file in write mode (only for Linux "
 "distributions)..."
 
-#: Console/Setup/Etc/Hosts.php:18
-msgid "You must be root or sudoer."
-msgstr "You must be \"root\" or \"sudoer\"."
-
-#: Console/Setup/Etc/Hosts.php:19
+#: Console/Setup/Etc/Hosts.php:38
 msgid ""
 "Modifying this file is only for local machines to use custom virtual hosts. "
 "Do not use it in production."
@@ -1354,59 +1587,90 @@ msgstr ""
 "Modifying this file is only for local machines to use custom virtual hosts. "
 "Do not use it in production."
 
-#: Console/Setup/Etc/Hosts.php:20
+#: Console/Setup/Etc/Hosts.php:39
 msgid "This application appends new domain bound to 127.0.0.1 localhost"
 msgstr "This application appends new domain bound to 127.0.0.1 localhost"
 
-#: Console/Setup/Etc/Hosts.php:21
+#: Console/Setup/Etc/Hosts.php:40
 msgid "Backup your file before..."
 msgstr "Backup your file before..."
 
-#: Console/Setup/Etc/Hosts.php:37
+#: Console/Setup/Etc/Hosts.php:57
 msgid "Here are your current hosts:"
 msgstr "Here is your current hosts configuration:"
 
-#: Console/Setup/Etc/Hosts.php:38
+#: Console/Setup/Etc/Hosts.php:62
 msgid "Type a new custom domain to append: (Ctrl+C to exit)"
 msgstr "Type a new custom domain to append to that line: (Ctrl+C to exit)"
 
-#: Console/Setup/Etc/Hosts.php:42
+#: Console/Setup/Etc/Hosts.php:77
+msgid "Hostname is already registered! Nothing to do."
+msgstr "Hostname is already registered! Nothing to do."
+
+#: Console/Setup/Etc/Hosts.php:84
 msgid "Your new file content:"
 msgstr "Your new file content:"
 
-#: Console/Setup/Etc/Hosts.php:43
+#: Console/Setup/Etc/Hosts.php:86
 msgid "Confirm registration [yN]"
 msgstr "Confirm registration [yN]"
 
-#: Console/Setup/Etc/Hosts.php:47
+#: Console/Setup/Etc/Hosts.php:90
 msgid "OK, file written."
 msgstr "OK, file overwritten."
 
-#: Console/Setup/Etc/Hosts.php:50
+#: Console/Setup/Etc/Hosts.php:93
 msgid "Could not find line for 127.0.0.1"
 msgstr "Could not find line for 127.0.0.1"
 
-#: Console/Setup/Hosts.php:23
-msgid "Entering hosts management"
-msgstr "Entering hosts management"
+#: Console/Setup/Etc/Nginx.php:79
+msgid "Nginx must have been installed with PHP-FPM!"
+msgstr "Nginx must have been installed with PHP-FPM!"
 
-#: Console/Setup/Hosts.php:25
+#: Console/Setup/Etc/Nginx.php:86
+msgid ""
+"· \"--dest\": destination folder where the nginx configuration will be "
+"placed (default is \"/etc/nginx/sites-available\")"
+msgstr ""
+"· \"--dest\": destination folder where the nginx configuration will be "
+"placed (default is \"/etc/nginx/sites-available\")"
+
+#: Console/Setup/Etc/Nginx.php:97
+msgid "Type Nginx \"sites-available\" absolute path:"
+msgstr "Type Nginx \"sites-available\" absolute path:"
+
+#: Console/Setup/Etc/Nginx.php:144
+#, php-format
+msgid "Required file is missing: %s. Exiting."
+msgstr "Required file is missing: %s. Exiting."
+
+#: Console/Setup/Etc/Nginx.php:159
+msgid ""
+"You must enable your new Nginx host and restart your web server. For example:"
+msgstr ""
+"You must enable your new Nginx host and restart your web server. For example:"
+
+#: Console/Setup/Hosts.php:50 Console/Setup/Hosts.php:59
 msgid "Here, you can bind one host (domain or IP) to one project."
 msgstr "Here, you can bind one host (domain or IP) to one project."
 
-#: Console/Setup/Hosts.php:26
+#: Console/Setup/Hosts.php:51 Console/Setup/Hosts.php:60
 msgid "This is needed to route a host to a specific project."
 msgstr "This is needed to route a host to a specific project."
 
-#: Console/Setup/Hosts.php:27
+#: Console/Setup/Hosts.php:52 Console/Setup/Hosts.php:61
 msgid "One project can handle multiple hosts."
 msgstr "One project can handle multiple hosts."
 
-#: Console/Setup/Hosts.php:28
+#: Console/Setup/Hosts.php:53 Console/Setup/Hosts.php:62
 msgid "But, one host is bound to only one project."
 msgstr "But, one host is bound to only one project."
 
-#: Console/Setup/Hosts.php:41
+#: Console/Setup/Hosts.php:57
+msgid "Entering hosts management"
+msgstr "Entering hosts management"
+
+#: Console/Setup/Hosts.php:75
 msgid ""
 "There is no project created yet. Please, create project fisrt by launching "
 "command: ./fragtale2 Console/Project/Create"
@@ -1414,67 +1678,75 @@ msgstr ""
 "There is no project created yet. Please, create project first by launching "
 "command: ./fragtale2 Console/Project/Create"
 
-#: Console/Setup/Hosts.php:48
+#: Console/Setup/Hosts.php:87
+#, php-format
+msgid "Given project \"%s\" does not exist!"
+msgstr "Given project \"%s\" does not exist!"
+
+#: Console/Setup/Hosts.php:96 Console/Setup/Hosts.php:100
+#: Console/Setup/Hosts.php:125 Console/Setup/Hosts.php:144
+#, php-format
+msgid "Selected project \"%1s\" bound to host \"%2s\""
+msgstr "Selected project \"%1s\" bound to host \"%2s\""
+
+#: Console/Setup/Hosts.php:96 Console/Setup/Hosts.php:100
+#: Console/Setup/Hosts.php:125 Console/Setup/Hosts.php:131
+msgid "OK"
+msgstr "OK"
+
+#: Console/Setup/Hosts.php:98 Console/Setup/Hosts.php:123
+#: Console/Setup/Hosts.php:142
+msgid "Please select project to bind to:"
+msgstr "Please select project to bind to:"
+
+#: Console/Setup/Hosts.php:105
 msgid "(add new)"
 msgstr "(add new)"
 
-#: Console/Setup/Hosts.php:54
+#: Console/Setup/Hosts.php:110
 msgid "Below is the list of existing configured hosts."
 msgstr "Below is the list of existing configured hosts."
 
-#: Console/Setup/Hosts.php:54
+#: Console/Setup/Hosts.php:110
 msgid ""
 "If you select \"1\", you'll create new domain to bind to an existing project."
 msgstr ""
 "If you select \"1\", you'll create new domain to bind to an existing project."
 
-#: Console/Setup/Hosts.php:54
+#: Console/Setup/Hosts.php:110
 msgid "Other choice allows you to modify or delete a host and project binding."
 msgstr ""
 "Other numbers allow you to modify or delete a host and project binding."
 
-#: Console/Setup/Hosts.php:55
+#: Console/Setup/Hosts.php:111
 msgid "host --> project"
 msgstr "Choose \"host --> project\":"
 
-#: Console/Setup/Hosts.php:62
+#: Console/Setup/Hosts.php:118
 msgid "Choose action"
 msgstr "Choose an action"
 
-#: Console/Setup/Hosts.php:63 Console/Setup/Hosts.php:66
+#: Console/Setup/Hosts.php:119 Console/Setup/Hosts.php:122
 msgid "Update"
 msgstr "Update"
 
-#: Console/Setup/Hosts.php:64 Console/Setup/Hosts.php:72
+#: Console/Setup/Hosts.php:120 Console/Setup/Hosts.php:128
 msgid "Delete"
 msgstr "Delete"
 
-#: Console/Setup/Hosts.php:67 Console/Setup/Hosts.php:86
-msgid "Please select project to bind to:"
-msgstr "Please select project to bind to:"
-
-#: Console/Setup/Hosts.php:69 Console/Setup/Hosts.php:88
-#, php-format
-msgid "Selected project \"%1s\" bound to host \"%2s\""
-msgstr "Selected project \"%1s\" bound to host \"%2s\""
-
-#: Console/Setup/Hosts.php:69 Console/Setup/Hosts.php:75
-msgid "OK"
-msgstr "OK"
-
-#: Console/Setup/Hosts.php:73
+#: Console/Setup/Hosts.php:129
 msgid "Confirm deletion"
 msgstr "Confirm deletion"
 
-#: Console/Setup/Hosts.php:84
+#: Console/Setup/Hosts.php:140
 msgid "Host configuration file is empty."
 msgstr "Host configuration file is empty."
 
-#: Console/Setup/Hosts.php:85
+#: Console/Setup/Hosts.php:141
 msgid "Please, type a domain name or an IP to bind to an existing project."
 msgstr "Please, type a domain name or an IP to bind to an existing project."
 
-#: Console/Setup/Hosts.php:94
+#: Console/Setup/Hosts.php:151
 msgid "OK, hosts file modified"
 msgstr "OK, hosts file modified"
 
@@ -2070,6 +2342,16 @@ msgstr ""
 #, php-format
 msgid "Using env '%s'"
 msgstr "Using env '%s'"
+
+#: FragTale/Service/Project.php:501
+#, php-format
+msgid "Project \"%s\" does not exist!"
+msgstr "Project \"%s\" does not exist!"
+
+#: FragTale/Service/Project.php:503
+#, php-format
+msgid "Keeping project \"%s\"."
+msgstr "Keeping project \"%s\"."
 
 #: FragTale/Service/Project.php:510
 msgid "Missing required configuration file in your project!"

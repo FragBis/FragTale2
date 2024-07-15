@@ -17,13 +17,15 @@ use Console\Setup\CliApplication\Parameter;
  */
 class Environment extends Configure {
 	protected function executeOnTop(): void {
-		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project "%s" environments setup' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
-			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
-			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+		if ($this->isHelpInvoked ())
+			return;
+
+		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project "%s" environments setup' ), $this->getProjectName () ), Cli::COLOR_YELLOW );
 	}
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$choices = [ 
 				1 => dgettext ( 'core', 'Edit or create environment: define which database connector to use as default, choose your locale and enable debug mode.' ),
 				2 => dgettext ( 'core', 'Bind a hostname to a project is not enough. You should also bind an environment to a hostname.' )

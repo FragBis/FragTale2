@@ -13,21 +13,13 @@ use Console\Setup\CliApplication\Parameter as CliParamController;
  *        
  */
 class Parameter extends Configure {
-	/**
-	 *
-	 * {@inheritdoc}
-	 * @see \Console\Project\Configure::executeOnTop()
-	 */
 	protected function executeOnTop(): void {
 		// Do not execute parent function
 	}
-
-	/**
-	 *
-	 * {@inheritdoc}
-	 * @see \Console\Project\Configure::executeOnConsole()
-	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project "%s" parameters setup' ), $this->getProjectName () ), Cli::COLOR_YELLOW );
 
 		$Parameters = $this->getProjectAppConfig ()->findByKey ( 'parameters' );
@@ -36,14 +28,5 @@ class Parameter extends Configure {
 			$this->getProjectAppConfig ()->upsert ( 'parameters', $Parameters );
 		}
 		(new CliParamController ())->setupParameters ( $Parameters );
-	}
-
-	/**
-	 *
-	 * {@inheritdoc}
-	 * @see \Console\Project\Configure::executeOnBottom()
-	 */
-	protected function executeOnBottom(): void {
-		parent::executeOnBottom ();
 	}
 }

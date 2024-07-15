@@ -8,6 +8,9 @@ use FragTale\Service\Cli;
 
 class SetMaintenance extends Parameter {
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$StrService = $this->getSuperServices ()->getLocalizeService ();
 
 		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project "%s" maintenance parameter setup' ), $this->getProjectName () ), Cli::COLOR_YELLOW );

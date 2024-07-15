@@ -222,7 +222,7 @@ class Form extends Create {
 				foreach ( $entities as $folder )
 					$Entities->upsert ( basename ( $folder ), $folder );
 			} else {
-				$this->CliService->printError ( degettext ( 'core', 'Model namespace does not contain any valid entity.' ) );
+				$this->CliService->printError ( dgettext ( 'core', 'Model namespace does not contain any valid entity.' ) );
 				return null;
 			}
 

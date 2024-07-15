@@ -17,6 +17,15 @@ class Model extends Project {
 	 */
 	function __construct() {
 		parent::__construct ();
+
+		if ($this->isHelpInvoked ()) {
+			$this->CliService->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
+				->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
+				->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
+				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+			return;
+		}
+
 		$this->setOrPromptProjectName ();
 	}
 
@@ -26,19 +35,19 @@ class Model extends Project {
 	 * @see \Console\Project::executeOnTop()
 	 */
 	protected function executeOnTop(): void {
-		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Model mapping for project "%s"' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
-			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_LCYAN )
-			->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
-			->print ( '' )
-			->printInColor ( dgettext ( 'core', 'This controller automatically maps database tables to build all classes and entities that simply correspond to the relational database structure' ), Cli::COLOR_LCYAN )
-			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+		if ($this->getProjectName ())
+			$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Model mapping for project "%s"' ), $this->getProjectName () ), Cli::COLOR_YELLOW )->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+
+		$this->CliService->printInColor ( dgettext ( 'core', 'This controller automatically maps database tables to build all classes and entities that simply correspond to the relational database structure' ), Cli::COLOR_LCYAN )->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 	}
 
 	/**
 	 * Instructions executed only if application is launched via CLI
 	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$FsService = $this->getSuperServices ()->getFilesystemService ();
 
 		# Prompt model

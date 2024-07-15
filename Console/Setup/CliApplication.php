@@ -24,15 +24,6 @@ class CliApplication extends Setup {
 	/**
 	 *
 	 * {@inheritdoc}
-	 * @see \Console\Setup::executeOnTop()
-	 */
-	protected function executeOnTop(): void {
-		parent::executeOnTop ();
-	}
-
-	/**
-	 *
-	 * {@inheritdoc}
 	 * @see \Console\Setup::executeOnConsole()
 	 */
 	protected function executeOnConsole(): void {

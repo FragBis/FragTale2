@@ -498,9 +498,9 @@ class Project extends AbstractService {
 			// Check if configuration project folder exists
 			$projectDir = sprintf ( CustomProjectPattern::PATH, $projectName );
 			if (! is_dir ( $projectDir )) {
-				$this->getSuperServices ()->getCliService ()->printError ( sprintf ( degettext ( 'core', 'Project "%s" does not exist!' ), $projectName ) );
+				$this->getSuperServices ()->getCliService ()->printError ( sprintf ( dgettext ( 'core', 'Project "%s" does not exist!' ), $projectName ) );
 				if (! empty ( $this->name ))
-					$this->getSuperServices ()->getCliService ()->printError ( sprintf ( degettext ( 'core', 'Keeping project "%s".' ), $projectName ) );
+					$this->getSuperServices ()->getCliService ()->printError ( sprintf ( dgettext ( 'core', 'Keeping project "%s".' ), $projectName ) );
 				return $this;
 			}
 			// Check configuration file exists

@@ -19,11 +19,11 @@ class Database extends Configure {
 	 * @see \Console\Project\Configure::executeOnTop()
 	 */
 	protected function executeOnTop(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project "%s" database configuration:' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
-			->print ( '' )
 			->printInColor ( dgettext ( 'core', "You'll have to choose one configuration among the list of connector IDs" ), Cli::COLOR_CYAN )
 			->printInColor ( dgettext ( 'core', "Then, enter credentials step-by-step" ), Cli::COLOR_CYAN )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
@@ -35,6 +35,9 @@ class Database extends Configure {
 	 * @see \Console\Project\Configure::executeOnConsole()
 	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		if (! ($Databases = $this->getProjectAppConfig ()->findByKey ( 'databases' )))
 			$this->setProjectAppConfig ( true );
 		if ($Databases = $this->getProjectAppConfig ()->findByKey ( 'databases' ))

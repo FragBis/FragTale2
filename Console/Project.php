@@ -37,11 +37,11 @@ class Project extends Console {
 		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Entering project management space' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
 			->printInColor ( dgettext ( 'core', 'You have 4 sections:' ), Cli::COLOR_LCYAN )
-			->print ( '	' . dgettext ( 'core', '· "Configure": offers 3 actions to configure your project databases, environments and custom parameters' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "Controller": you can create a new controller' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "Create": allows you to create a new project from scratch' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "Model": map your database tables and relations (ORM)' ), Cli::COLOR_CYAN )
-			->print ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+			->print ( '	' . dgettext ( 'core', '· "Configure": offers 3 actions to configure your project databases, environments and custom parameters' ) )
+			->print ( '	' . dgettext ( 'core', '· "Controller": you can create a new controller' ) )
+			->print ( '	' . dgettext ( 'core', '· "Create": allows you to create a new project from scratch' ) )
+			->print ( '	' . dgettext ( 'core', '· "Model": map your database tables and relations (ORM)' ) )
+			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 	}
 
 	/**
@@ -57,6 +57,9 @@ class Project extends Console {
 	 * Save project settings changes
 	 */
 	protected function executeOnBottom(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		if ($this->getProjectAppConfig () && $this->getProjectAppConfig ()->modified ()) {
 			try {
 				$this->getProjectAppConfig ()->save ();

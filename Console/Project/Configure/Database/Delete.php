@@ -7,15 +7,19 @@ use FragTale\Service\Cli;
 
 class Delete extends Database {
 	protected function executeOnTop(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Delete a database connector from project "%s"' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
 			->printInColor ( dgettext ( 'core', "You'll have to choose one configuration among the list of connector IDs" ), Cli::COLOR_CYAN )
 			->printInColor ( dgettext ( 'core', "This will definitely remove this configuration from your file" ), Cli::COLOR_CYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
-			->printInColor ( '	' . dgettext ( 'core', '"--project": The project name (if not passed, application will prompt you to select an existing project)' ), Cli::COLOR_CYAN )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 	}
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$StrService = $this->getSuperServices ()->getLocalizeService ();
 		$DatabaseSettings = $this->getProjectAppConfig ()->findByKey ( 'databases' );
 		$continue = true;

@@ -21,13 +21,13 @@ class ImportDataset extends Model {
 	 * @see \Console\Project\Model::executeOnTop()
 	 */
 	protected function executeOnTop(): void {
-		$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Insert or update your custom dataset "%s"' ), $this->getProjectName () ), Cli::COLOR_YELLOW )
-			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
+		if ($this->getProjectName ())
+			$this->CliService->printInColor ( sprintf ( dgettext ( 'core', 'Insert or update your custom dataset "%s"' ), $this->getProjectName () ), Cli::COLOR_YELLOW );
+
+		$this->CliService->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
 			->printInColor ( dgettext ( 'core', 'This controller automatically upserts data into specified table defined from your model.' ), Cli::COLOR_LCYAN )
 			->printInColor ( '	' . dgettext ( 'core', 'An entity folder must contain a file prefixed by "D_" and containing specified data to import into the database.' ), Cli::COLOR_CYAN )
 			->printInColor ( '	' . dgettext ( 'core', 'An array $definition must have been set into the "Dataset" class in the constructor. Definition is what this process import.' ), Cli::COLOR_CYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_LCYAN )
-			->printInColor ( '	' . dgettext ( 'core', '"--project": The project name (if not passed, application will prompt you to select an existing project)' ), Cli::COLOR_CYAN )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 	}
 
@@ -35,6 +35,9 @@ class ImportDataset extends Model {
 	 * Instructions executed only if application is launched via CLI
 	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		if (! $this->getSuperServices ()->getLocalizeService ()->meansYes ( $this->CliService->prompt ( dgettext ( 'core', 'Confirm dataset import from your project models into your database: [yN]' ) ) )) {
 			$this->CliService->printWarning ( dgettext ( 'core', 'Process interrupted' ) );
 			return;

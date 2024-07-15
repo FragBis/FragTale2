@@ -43,9 +43,48 @@ I created this PHP framework to match the way I see object oriented development.
 * For MySQL, Postgresql or Oracle (or eventually MS SQL Server Express for Linux), PDO will do the job. You might have to install anyway the PHP client (for example "apt install php8.3-mysql"). For now, FragTale 2.1 **ORM** only supports MySQL.
 * You might want to install XDebug with your favorite IDE (PHP Storm, Eclipse, Netbeans etc.): see last section below
 
-## Installation overview
+## Quickest way to install
 
-We'll see the installation approach on **Ubuntu**, in Command-Line Interface (CLI), using DEB package manager. We'll take PHP8.3 for these examples.
+It performs on Linux Debian-like, but it can be adapted to other Linux distributions. We'll take PHP8.3 for these examples.
+
+You can eventually execute following commands in a bash script in sudo, assuming you want to run Nginx:
+
+```bash
+# Enter "root" mode (admin or sudoer):
+sudo su
+
+add-apt-repository ppa:ondrej/php
+apt install php8.3 php8.3-cli php8.3-fpm php8.3-mongodb php8.3-mysql
+
+update-alternatives --set php /usr/bin/php8.3
+
+
+# To install MongoDB server, see: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+apt install git nginx mysql-server
+
+cd /var/www
+git clone git@github.com:FragBis/FragTale2.git
+cd FragTale2
+chmod -R 755 *
+
+# Replace [mycustomhostname.com] and [MyCustomProject] by your host name and your project name
+# Pass optiion "--force" if you don't want to answer to few prompts. 
+./fragtale2 Console/Install --host [mycustomhostname.com] --project [MyCustomProject] --server NGINX [--force]
+# If you don't mind to answer prompts (recommended for first use), just type:
+# ./fragtale2 Console/Install
+
+service php8.3-fpm start
+service nginx start
+
+
+```
+
+Then go to section **"General application setup"**
+
+
+## Installation overview and more explanations
+
+We'll see the installation approach on **Ubuntu**, in Command-Line Interface (CLI), using DEB package manager.
 
 *CLI:*
 

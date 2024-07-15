@@ -17,6 +17,15 @@ class Configure extends Project {
 	 */
 	function __construct() {
 		parent::__construct ();
+
+		if ($this->isHelpInvoked ()) {
+			$this->CliService->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
+				->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
+				->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
+				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+			return;
+		}
+
 		$this->setOrPromptProjectName ();
 	}
 
@@ -26,12 +35,12 @@ class Configure extends Project {
 	 * @see \FragTale\Application\Controller::executeOnTop()
 	 */
 	protected function executeOnTop(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$title = sprintf ( dgettext ( 'core', 'Setting up project "%s"' ), $this->getProjectName () );
 		$this->CliService->printInColor ( $title, Cli::COLOR_YELLOW )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
-			->printInColor ( dgettext ( 'core', 'CLI option:' ), Cli::COLOR_CYAN )
-			->print ( '	' . dgettext ( 'core', '· "--project": The project name (if not passed, application will prompt you to select an existing project)' ) )
-			->print ( '', true, false )
 			->printInColor ( dgettext ( 'core', 'You have 3 actions:' ), Cli::COLOR_CYAN )
 			->print ( '	' . dgettext ( 'core', '· "Database": setup your database credentials (SQL & MongoDB)' ) )
 			->print ( '	' . dgettext ( 'core', '· "Environment": setup your environments, basically corresponding to "production" and "development"' ) )
@@ -43,6 +52,9 @@ class Configure extends Project {
 	 * launchSubController
 	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$StrService = $this->getSuperServices ()->getLocalizeService ();
 		$continue = true;
 		while ( $continue ) {

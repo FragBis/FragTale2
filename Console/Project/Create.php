@@ -17,6 +17,7 @@ use Console\Setup\Hosts;
  *        
  */
 class Create extends Project {
+	private ?string $hostname = null;
 
 	/**
 	 *
@@ -28,7 +29,26 @@ class Create extends Project {
 	 */
 	function __construct() {
 		parent::__construct ();
+		if ($this->isHelpInvoked ()) {
+			$this->CliService->printInColor ( dgettext ( 'core', '**** Help invoked ****' ), Cli::COLOR_LCYAN )
+				->printInColor ( dgettext ( 'core', 'CLI arguments:' ), Cli::COLOR_LCYAN )
+				->print ( '	' . dgettext ( 'core', '· "--project": the project name to create (in camel case and no special chars)' ) )
+				->print ( '	' . dgettext ( 'core', '· "--host": if passed, it will automatically bind this project to a hostname' ) )
+				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
+			return;
+		}
 		$this->ProjectTree = (new DataCollection ( json_decode ( file_get_contents ( CorePath::PATTERN_PROJECT_TREE_FILE ), true ) ));
+	}
+
+	/**
+	 * Set host name from another controller before running this one (see Console\Install).
+	 *
+	 * @param string $hostname
+	 * @return self
+	 */
+	public function setHostname(?string $hostname): self {
+		$this->hostname = $hostname;
+		return $this;
 	}
 
 	/**
@@ -37,12 +57,8 @@ class Create extends Project {
 	 * @see \Console\Project::executeOnTop()
 	 */
 	protected function executeOnTop(): void {
-		if ($this->isHelpInvoked ()) {
-			$this->CliService->printInColor ( dgettext ( 'core', '**** Help invoked ****' ), Cli::COLOR_LCYAN )
-				->printInColor ( dgettext ( 'core', 'One CLI option handled:' ), Cli::COLOR_LCYAN )
-				->printInColor ( '	' . dgettext ( 'core', '"--project": the project name to create (in camel case and no special chars)' ), Cli::COLOR_CYAN )
-				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
-		}
+		if ($this->isHelpInvoked ())
+			return;
 
 		$this->CliService->printInColor ( dgettext ( 'core', 'Entering project creator' ), Cli::COLOR_YELLOW );
 	}
@@ -53,6 +69,9 @@ class Create extends Project {
 	 * @see \Console\Project::executeOnConsole()
 	 */
 	protected function executeOnConsole(): void {
+		if ($this->isHelpInvoked ())
+			return;
+
 		$LocalizeService = $this->getSuperServices ()->getLocalizeService ();
 		if (! ($projectName = $this->CliService->getOpt ( 'project' )) && ! ($projectName = $this->CliService->prompt ( dgettext ( 'core', 'Type your project name (in camel cases, no spaces, no special chars, no accents and not starting with a number)' ) )))
 			return;
@@ -121,8 +140,8 @@ class Create extends Project {
 		$this->setProjectAppConfig ();
 
 		// Setup host
-		if ($LocalizeService->meansYes ( $this->CliService->prompt ( dgettext ( 'core', 'Do you want to set project host? [yN]' ), dgettext ( 'core', 'n {means no}' ) ) ))
-			(new Hosts ())->run ();
+		if (( int ) $this->CliService->getOpt ( 'force' ) || $LocalizeService->meansYes ( $this->CliService->prompt ( dgettext ( 'core', 'Do you want to set project host? [yN]' ), dgettext ( 'core', 'n {means no}' ) ) ))
+			(new Hosts ())->setHostname ( $this->hostname )->setProjectname ( $projectName )->run ();
 
 		// Setup project
 		(new Configure ())->run ();
@@ -224,12 +243,7 @@ class Create extends Project {
 			}
 
 			$tplContent = str_replace ( $replacingKeys, $outputParams, file_get_contents ( $tplFile ) );
-			if (file_put_contents ( $targetFile, $tplContent ))
-				$this->CliService->printSuccess ( sprintf ( dgettext ( 'core', 'Created file: %s' ), $targetFile ) );
-			else {
-				$this->CliService->printError ( sprintf ( dgettext ( 'core', 'Could not create file: %s' ), $targetFile ) );
-				return false;
-			}
+			return $this->getSuperServices ()->getFilesystemService ()->createFile ( $targetFile, $tplContent );
 		}
 		return true;
 	}

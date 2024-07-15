@@ -26,7 +26,7 @@ trait LoggerTrait {
 	final protected function _log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
 		$prepend = date ( '[Y-m-d H:i:s] ' );
 		$oldmask = umask ( 0 );
-		if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, 775, true )))
+		if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, '0775', true )))
 			$folder = CorePath::LOG_DIR;
 
 		$filePrefix = IS_CLI ? 'cli_' . $filePrefix : 'http_' . $filePrefix;
