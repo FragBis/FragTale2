@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-07-15 04:23+0200\n"
-"PO-Revision-Date: 2024-07-15 04:23+0200\n"
+"POT-Creation-Date: 2024-07-15 22:01+0200\n"
+"PO-Revision-Date: 2024-07-15 22:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -203,7 +203,7 @@ msgid "Do you want to append this hostname to your \"/etc/hosts\" file? [yN]"
 msgstr ""
 "Voulez-vous ajouter ce nom d'hôte à votre fichier \"/etc/hosts\" ? [oui, NON]"
 
-#: Console/Install.php:61 Console/Install.php:73 Console/Install.php:98
+#: Console/Install.php:61 Console/Install.php:73 Console/Install.php:103
 #: Console/Project/Configure/Database/Delete.php:28
 #: Console/Project/Configure/Database/Delete.php:32
 #: Console/Project/Configure/Environment.php:117 Console/Project/Create.php:128
@@ -239,7 +239,7 @@ msgstr ""
 "Le projet \"%s\" n'existe pas ou ne possède pas la structure nécessaire pour "
 "faire fonctionner un site Web !"
 
-#: Console/Install.php:98
+#: Console/Install.php:103
 msgid ""
 "You have to bind your new host to an existing project. Do you want to create "
 "a new project? [yN]"
@@ -247,7 +247,7 @@ msgstr ""
 "Vous devez associer votre nouveau nom d'hôte à un projet existant. Voulez-"
 "vous en créer un nouveau ? [oui, NON]"
 
-#: Console/Install.php:101
+#: Console/Install.php:106
 msgid ""
 "You should \"chown\" your project folder to be the owner if you want to "
 "modify files."
@@ -256,27 +256,27 @@ msgstr ""
 "répertoire projet afin d'en être le propriétaire et de pouvoir y modifier "
 "les fichiers (en principe, le projet appartient actuellement à \"root\")."
 
-#: Console/Install.php:102
+#: Console/Install.php:107
 msgid "You can let \"root\" to be owner of the FragTale2 framework."
 msgstr ""
 "Vous pouvez laisser \"root\" être le propriétaire de tous les fichiers du "
 "framework FragTale2."
 
-#: Console/Install.php:103
+#: Console/Install.php:108
 msgid "You can use GIT and version your project folder."
 msgstr ""
 "Vous pouvez utiliser GIT et versionner vos répertoires de projet (Project/"
 "{MonProjet})."
 
-#: Console/Install.php:104
+#: Console/Install.php:109
 msgid "Do not include FragTale2 framework in your version control."
 msgstr "N'incluez pas le framework FragTale2 dans vos propres projets GIT."
 
-#: Console/Install.php:109
+#: Console/Install.php:114
 msgid "You can now exit \"root\" or \"sudo\" mode."
 msgstr "Vous pouvez sortir du mode \"root\" ou \"sudoer\"."
 
-#: Console/Install.php:110
+#: Console/Install.php:115
 msgid ""
 "You'll have to bind your host to one of your project environment, but "
 "default is \"production\"."
@@ -284,9 +284,9 @@ msgstr ""
 "Vous devez associer votre hôte à l'un de vos environnements de projet, mais "
 "par défaut c'est \"production\"."
 
-#: Console/Install.php:111
-msgid "Execute following command:"
-msgstr "Exécutez la commande suivante :"
+#: Console/Install.php:116
+msgid "If not done yet, execute following command:"
+msgstr "Si ce n'est déjà fait, exécutez la commande suivante :"
 
 #: Console/Project.php:37
 #, php-format

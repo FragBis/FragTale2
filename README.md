@@ -47,21 +47,29 @@ I created this PHP framework to match the way I see object oriented development.
 
 It performs on Linux Debian-like, but it can be adapted to other Linux distributions. We'll take PHP8.3 for these examples.
 
-You can eventually execute following commands in a bash script in sudo,
+We'll see the installation approach on **Ubuntu**, in Command-Line Interface (CLI), using DEB package manager.
+
+You can eventually execute following commands in a bash script in sudo, in a virtual machine or in a container,
 assuming you want to run Nginx (and you should be able to comment or uncomment what you need):
 
 ```bash
-# Enter "root" mode (admin or sudoer):
-sudo su
+#!/bin/bash
 
+## Execute those commands in root or sudo:
+## PHP repository for Ubuntu:
 add-apt-repository ppa:ondrej/php
-apt install php8.3 php8.3-cli php8.3-fpm php8.3-mongodb php8.3-mysql
-
-update-alternatives --set php /usr/bin/php8.3
+## PHP repository (Sury) for Debian: see https://gist.github.com/Razuuu/f646c3be44c5ba3b9c8e38b0a856d7b4
 
 ## To install MongoDB server, see: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
-## Installing NGINX and MySQL servers + GIT
-apt install git nginx mysql-server
+## Installing GIT, PHP, NGINX and MySQL servers
+apt install git php8.3 php8.3-cli php8.3-fpm php8.3-mongodb php8.3-mysql nginx mysql-server
+
+## Use PHP8.3 in CLI
+update-alternatives --set php /usr/bin/php8.3
+
+## Start services
+service php8.3-fpm start
+service nginx start
 
 ## You can change /var/www by any path you want
 cd /var/www
@@ -70,19 +78,20 @@ cd FragTale2
 # Stable branch
 git checkout fragtale2.1
 
+## Preparing to execute framework installation process.
 ## Declare some variables:
 ## Replace "mycustomhostname.com" and "MyCustomProject" by your host name and your project name
 HOST_NAME="mycustomhostname.com"
 PROJECT_NAME="MyCustomProject"
+## Replace NGINX by APACHE if you want to use Apache2 anyway
 WEB_SERVER_APP="NGINX"
 NGINX_DEST_SITES_AVAILABLE="/etc/nginx/sites-available"
-NGINX_DEST_SITES_ENABLE="/etc/nginx/sites-enable"
+NGINX_DEST_SITES_ENABLE="/etc/nginx/sites-enabled"
 
-## Launch deployment process (comment or type one of these 2 commands):
 ## If you don't mind to answer prompts (recommended for first use), just type:
 ./fragtale2 Console/Install
 ## Or, to prevent most of prompts, pass these options:
-./fragtale2 Console/Install --host $HOST_NAME --project $PROJECT_NAME --server $WEB_SERVER_APP --dest $NGINX_DEST_SITES_AVAILABLE --force
+# ./fragtale2 Console/Install --host $HOST_NAME --project $PROJECT_NAME --server $WEB_SERVER_APP --dest $NGINX_DEST_SITES_AVAILABLE --force
 
 ## Handle directory read/write access on "logs" and "Project" folders:
 ## You will need to let "www-data" own "logs" directory:
@@ -103,14 +112,10 @@ chown -R $SUDO_USER:$USER_PRI_GP Project
 ## You will have to protect all your configuration files the same way.
 
 ## For NGINX, create a symlink to enable "mycustomhostname.com" configuration file:
-ln -s "${NGINX_DEST_SITES_AVAILABLE}/${HOST_NAME}" "${NGINX_DEST_SITES_ENABLE}/"
-## If you've chosen APACHE, type this:
-# a2ensite $HOST_NAME
+ln -s "${NGINX_DEST_SITES_AVAILABLE}/${HOST_NAME}" "${NGINX_DEST_SITES_ENABLE}/${HOST_NAME}"
 
-service php8.3-fpm start
-service nginx start
-## Or for APACHE:
-# service apache2 start
+service php8.3-fpm restart
+service nginx restart
 ```
 
 Then go to section **"General application setup"**
@@ -118,7 +123,7 @@ Then go to section **"General application setup"**
 
 ## Installation overview and more explanations
 
-We'll see the installation approach on **Ubuntu**, in Command-Line Interface (CLI), using DEB package manager.
+Still on **Ubuntu**.
 
 *CLI:*
 
@@ -221,47 +226,21 @@ Obviously, you'll have to choose between NGINX and APACHE. Although I recommend 
 
 ```bash
 apt install nginx
-# Copy a base configuration file in "sites-available".
-./fragtale2 Console/Setup/Etc/Nginx
+# Create a base configuration file in "sites-available".
+./fragtale2 Console/Setup/Etc/Nginx --host [mycustomhostname.com]
 # Create a symlink to enable [mycustomhostname.com] configuration file
-ln -s /etc/nginx/sites-available/[mycustomhostname.com] /etc/nginx/sites-enable/
+ln -s /etc/nginx/sites-available/[mycustomhostname.com] /etc/nginx/sites-enabled/[mycustomhostname.com]
 # Then reload nginx conf
 nginx -s reload
 # Or start nginx if not done yet
 service nginx start
+service php8.3-fpm restart
 ```
 
-*Configuration file: /etc/nginx/sites-available/default*
+*Configuration file created: /etc/nginx/sites-available/[mycustomhostname.com]*
 
 ```conf
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-
-	# SSL configuration
-	# listen 443 ssl default_server;
-	# listen [::]:443 ssl default_server;
-	# include snippets/snakeoil.conf
-	
-	# Here, "root" folder is /var/www/html by default
-	root /var/www/html;
-	index index.php index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		try_files $uri $uri/ =404;
-	}
-	location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-	}
-	location ~ /\.ht {
-		deny all;
-	}
-}
-
 # "Virtual Host" configuration for [mycustomhostname.com]
-#
-# You can move this section into a different file under /etc/nginx/sites-available and symlink that into /etc/nginx/sites-enabled.
 server {
 	listen 80;
 	listen [::]:80;
@@ -281,56 +260,25 @@ server {
 }
 ```
 
-*CLI (root):*
-
-```bash
-```
-
-*Note:* you may have issues starting NGINX if you placed the framework in a custom location like */home/[username]/www* for example. You'll have to set permissions on your directory to allow *www-data* to read it.
-
-In that case, you could do the following:
-
-```bash
-# Add "www-data" to your group
-gpasswd -a www-data [usergroupname]
-service nginx restart
-```
-
-You can see section **"File permissions"** for few more explanations on how to set file and directory permissions.
-
 
 ### Using APACHE2
 
 ```bash
+# Install
 apt install apache2 libapache2-mod-php8.3
+# Enable required apache modules
 a2enmod rewrite
 a2enmod deflate
+# Create configuration file
+./fragtale2 Console/Setup/Etc/Apache --host [mycustomhostname.com]
+# Enable new host conf
+a2ensite [mycustomhostname.com]
+# Start or restart services
 service apache2 start
 service php8.3-fpm restart
 ```
 
-To simplify, we will act as if we want to deploy only one site, the default one.
-We'll show only settings to change and which ones are needed.
-
-*Configuration file: /etc/apache2/sites-available/000.default.conf*
-
-```conf
-DocumentRoot [/var/www/FragTale2]/public 
-<Directory [/var/www/FragTale2]/public>
-	AllowOverride All
-	Require all granted
-</Directory>
-# "AllowOverride All" is needed to take account of the ".htaccess" file.
-# Rewrite rules are defined in "public/.htaccess".
-```
-
-Of course, you should create another VirtualHost configuration file if you have other websites. But mind that FragTale2 framework can handle and route multiple sites, so it can be used to **centralize multiple projects as a default web server system**.
-
-*Reload the Apache configuration in console:*
-
-```bash
-service apache2 reload
-```
+*Configuration file created: /etc/apache2/sites-available/[mycustomhostname.com].conf*
 
 
 ## General application setup
@@ -367,7 +315,9 @@ chmod +x fragtale2
 
 Your site now should work for *http://[mycustomhostname.com]*
 
-Check file *[/var/www/FragTale2]/Project/[MyCustomProject]/resources/configuration/project.json*. You can edit this file manually, but pay attention not to break the JSON format because it can crash your application. Usually, backup your configuration file.
+Check file *[/var/www/FragTale2]/Project/[MyCustomProject]/resources/configuration/project.json*.
+You can edit this file manually, but pay attention not to break the JSON format because it can crash your application.
+Usually, backup your configuration files.
 
 
 ## File permissions
@@ -377,14 +327,15 @@ File permissions in Linux is managed most of time by a combination of *chmod* an
 Allow *www-data* (the web server user) to write in *logs* directory:
 
 ```bash
-# You can give the ownership to "www-data" only on this directory:
+# You can give the ownership to "www-data" only on "logs" directory:
 chown -R www-data:www-data [/var/www/FragTale2]/logs
 chmod -R 644 [/var/www/FragTale2]/logs
 ```
 
 **In development environment:**
 
-As you have executed the commands above as root, you have created the folder of your project as root. To be able to edit your files, give you the ownership of the *Project* folder:
+As you have executed the commands above as root, you have created the folder of your project as root.
+To be able to edit your files, give you the ownership of the *Project* folder:
 
 ```bash
 chown -R [username]:[groupname] [/var/www/FragTale2]/Project

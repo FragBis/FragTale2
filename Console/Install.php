@@ -113,7 +113,7 @@ class Install extends Setup {
 
 		$this->CliService->printSuccess ( dgettext ( 'core', 'You can now exit "root" or "sudo" mode.' ) )
 			->printWarning ( dgettext ( 'core', "You'll have to bind your host to one of your project environment, but default is \"production\"." ) )
-			->printInColor ( dgettext ( 'core', 'Execute following command:' ), Cli::COLOR_LCYAN )
+			->printInColor ( dgettext ( 'core', 'If not done yet, execute following command:' ), Cli::COLOR_LCYAN )
 			->print ( '$ ./fragtale2 Console/Project/Configure/Environment' );
 	}
 }
