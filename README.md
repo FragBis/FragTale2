@@ -103,7 +103,7 @@ chown -R $SUDO_USER:$USER_PRI_GP Project
 ## You will have to protect all your configuration files the same way.
 
 ## For NGINX, create a symlink to enable "mycustomhostname.com" configuration file:
-ln -s "${NGINX_DEST_SITES_AVAILABLE}/${HOST_NAME}" $NGINX_DEST_SITES_ENABLE
+ln -s "${NGINX_DEST_SITES_AVAILABLE}/${HOST_NAME}" "${NGINX_DEST_SITES_ENABLE}/"
 ## If you've chosen APACHE, type this:
 # a2ensite $HOST_NAME
 
