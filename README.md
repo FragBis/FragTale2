@@ -65,7 +65,6 @@ apt install git nginx mysql-server
 cd /var/www
 git clone git@github.com:FragBis/FragTale2.git
 cd FragTale2
-chmod -R 755 *
 
 # Replace [mycustomhostname.com] and [MyCustomProject] by your host name and your project name
 # Pass optiion "--force" if you don't want to answer to few prompts. 
