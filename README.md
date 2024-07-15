@@ -47,7 +47,8 @@ I created this PHP framework to match the way I see object oriented development.
 
 It performs on Linux Debian-like, but it can be adapted to other Linux distributions. We'll take PHP8.3 for these examples.
 
-You can eventually execute following commands in a bash script in sudo, assuming you want to run Nginx:
+You can eventually execute following commands in a bash script in sudo,
+assuming you want to run Nginx (and you should be able to comment or uncomment what you need):
 
 ```bash
 # Enter "root" mode (admin or sudoer):
@@ -58,24 +59,56 @@ apt install php8.3 php8.3-cli php8.3-fpm php8.3-mongodb php8.3-mysql
 
 update-alternatives --set php /usr/bin/php8.3
 
-
-# To install MongoDB server, see: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+## To install MongoDB server, see: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+## Installing NGINX and MySQL servers + GIT
 apt install git nginx mysql-server
 
+## You can change /var/www by any path you want
 cd /var/www
 git clone git@github.com:FragBis/FragTale2.git
 cd FragTale2
 
-# Replace [mycustomhostname.com] and [MyCustomProject] by your host name and your project name
-# Pass optiion "--force" if you don't want to answer to few prompts. 
-./fragtale2 Console/Install --host [mycustomhostname.com] --project [MyCustomProject] --server NGINX [--force]
-# If you don't mind to answer prompts (recommended for first use), just type:
-# ./fragtale2 Console/Install
+## Declare some variables:
+## Replace "mycustomhostname.com" and "MyCustomProject" by your host name and your project name
+HOST_NAME="mycustomhostname.com"
+PROJECT_NAME="MyCustomProject"
+WEB_SERVER_APP="NGINX"
+NGINX_DEST_SITES_AVAILABLE="/etc/nginx/sites-available"
+NGINX_DEST_SITES_ENABLE="/etc/nginx/sites-enable"
+
+## Launch deployment process (comment or type one of these 2 commands):
+## If you don't mind to answer prompts (recommended for first use), just type:
+./fragtale2 Console/Install
+## Or, to prevent most of prompts, pass these options:
+./fragtale2 Console/Install --host $HOST_NAME --project $PROJECT_NAME --server $WEB_SERVER_APP --dest $NGINX_DEST_SITES_AVAILABLE --force
+
+## Handle directory read/write access on "logs" and "Project" folders:
+## You will need to let "www-data" own "logs" directory:
+chown -R www-data:www-data logs
+## "www-data" is the web server "Linux user" for NGINX and APACHE. It belongs to group "www-data" as well.
+## In my opinion, you should add your Linux user to "www-data" (as primary) group and chmod 775 logs
+## You will be able to write in logs dir during CRON processes ($SUDO_USER is the user that launched sudo):
+usermod -g www-data $SUDO_USER
+## Or if you don't want to belong to www-data as primary group, type:
+# usermod -a -G www-data $SUDO_USER
+## Then "chmod" allowing users from same group to write into logs directory:
+chmod 775 logs
+
+## Get your primary group:
+USER_PRI_GP=`groups $SUDO_USER | awk '{print $3}'`
+## You will have to own "Project" folder in DEVELOPMENT environment only
+chown -R $SUDO_USER:$USER_PRI_GP Project
+## You will have to protect all your configuration files the same way.
+
+## For NGINX, create a symlink to enable "mycustomhostname.com" configuration file:
+ln -s "${NGINX_DEST_SITES_AVAILABLE}/${HOST_NAME}" $NGINX_DEST_SITES_ENABLE
+## If you've chosen APACHE, type this:
+# a2ensite $HOST_NAME
 
 service php8.3-fpm start
 service nginx start
-
-
+## Or for APACHE:
+# service apache2 start
 ```
 
 Then go to section **"General application setup"**
@@ -129,7 +162,6 @@ git clone git@github.com:FragBis/FragTale2.git
 # Of course, you can rename this folder.
 
 cd FragTale2
-chmod -R 755 *
 ```
 
 Check that PHP option **short_open_tag** is enabled.
@@ -170,6 +202,12 @@ You will replace [mycustomhostname.com] by anything you want, of course without 
 127.0.0.1	localhost [mycustomhostname.com]
 ```
 
+You can do this with this command (in root):
+
+```bash
+./fragtale2 Console/Setup/Etc/Hosts
+```
+
 Obviously, you'll have to choose between NGINX and APACHE. Although I recommend NGINX, keep APACHE if you have already deployed websites with it.
 
 
@@ -179,6 +217,14 @@ Obviously, you'll have to choose between NGINX and APACHE. Although I recommend 
 
 ```bash
 apt install nginx
+# Copy a base configuration file in "sites-available".
+./fragtale2 Console/Setup/Etc/Nginx
+# Create a symlink to enable [mycustomhostname.com] configuration file
+ln -s /etc/nginx/sites-available/[mycustomhostname.com] /etc/nginx/sites-enable/
+# Then reload nginx conf
+nginx -s reload
+# Or start nginx if not done yet
+service nginx start
 ```
 
 *Configuration file: /etc/nginx/sites-available/default*
@@ -231,12 +277,9 @@ server {
 }
 ```
 
-*CLI:*
+*CLI (root):*
 
 ```bash
-nginx -s reload
-# Or start nginx if not done yet
-service nginx start
 ```
 
 *Note:* you may have issues starting NGINX if you placed the framework in a custom location like */home/[username]/www* for example. You'll have to set permissions on your directory to allow *www-data* to read it.

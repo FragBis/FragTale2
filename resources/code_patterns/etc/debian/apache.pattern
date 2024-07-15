@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+        ServerName /*server_name*/
+        DocumentRoot /*root*/
+        <Directory /*root*/>
+                AllowOverride All
+                Require all granted
+        </Directory>
+        <IfModule mod_fcgid.c>
+                Options +ExecCGI
+                FcgidConnectTimeout 20
+                AddType application/x-httpd-php .php
+                AddHandler application/x-httpd-php .php
+                Alias /php/*php_int*/-fcgi /usr/lib/cgi-bin/php/*php_int*/-fcgi
+                ProxyPassMatch " ^/(.*\.php(/.*)?)$" "unix:listen = /var/run/php/php/*php_version*/-fpm_example.com.sock|fcgi://localhost/"
+        </IfModule>
+</VirtualHost>

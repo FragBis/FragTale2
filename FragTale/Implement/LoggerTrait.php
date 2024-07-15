@@ -20,18 +20,25 @@ trait LoggerTrait {
 	 *
 	 * @param string $message
 	 * @param string $folder
+	 *        	Leave empty to use default directories. By default, new folders are created with permissions 0775
 	 * @param string $filePrefix
 	 * @return self
 	 */
 	final protected function _log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
 		$prepend = date ( '[Y-m-d H:i:s] ' );
-		$oldmask = umask ( 0 );
-		if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, '0775', true )))
-			$folder = CorePath::LOG_DIR;
-
-		$filePrefix = IS_CLI ? 'cli_' . $filePrefix : 'http_' . $filePrefix;
-		$logFile = $folder . '/' . $filePrefix . date ( 'Y-m' ) . '.log';
+		$prevmask = null;
+		if (function_exists ( 'umask' ))
+			$prevmask = umask ( 0 );
 		try {
+			if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, '0775', true ))) {
+				$folder = CorePath::LOG_DIR . '/' . (IS_HTTP_REQUEST ? 'web' : 'cli');
+				if (! is_dir ( $folder ))
+					mkdir ( $folder, '0775', true );
+			}
+			if (function_exists ( 'umask' ) && $prevmask)
+				umask ( $prevmask );
+
+			$logFile = $folder . '/' . ( string ) $filePrefix . date ( 'Y-m' ) . '.log';
 			if (is_writable ( $folder ) && ((file_exists ( $logFile ) && is_writable ( $logFile )) || ! file_exists ( $logFile )))
 				file_put_contents ( $logFile, $prepend . $message . "\n", FILE_APPEND );
 			else {
@@ -39,21 +46,24 @@ trait LoggerTrait {
 				if (! file_exists ( $fallbackfile ) || is_writable ( $fallbackfile )) {
 					file_put_contents ( $fallbackfile, $prepend . "[Unwritable file: $logFile]\n", FILE_APPEND );
 					file_put_contents ( $fallbackfile, $prepend . $message . "\n", FILE_APPEND );
-				}
+				} else
+					throw new \Exception ( sprintf ( 'In LoggerTrait::_log(), permission denied on %s', $fallbackfile ) );
 			}
 		} catch ( \Exception $Exc ) {
+			if (function_exists ( 'umask' ) && $prevmask)
+				umask ( $prevmask );
 			throw $Exc;
 		}
-		umask ( $oldmask );
 		return $this;
 	}
 
 	/**
 	 * Default public function to log errors or events.
-	 * Can be overwritten.
+	 * This function can be overwritten in inherited and implemented classes.
 	 *
 	 * @param string $message
 	 * @param string $folder
+	 *        	Leave empty to use default directories. By default, new folders are created with permissions 0775
 	 * @param string $filePrefix
 	 * @return self
 	 */

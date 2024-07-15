@@ -1,0 +1,32 @@
+<?php
+
+namespace Project\/*projectName*/\Library\AbstractClass;
+
+/**
+ * This is just a class to declare some core sentences that failed to be translated via gettext
+ */
+abstract class CustomGettextTranslations {
+	/**
+	 * Get all custom translations.
+	 * You can add more translations here.
+	 *
+	 * @return array
+	 */
+	public static function getExpressions(): array {
+		return [ 
+				'Yes' => _ ( 'Yes' ),
+				'No' => _ ( 'No' )
+		];
+	}
+	/**
+	 * Find one translation
+	 *
+	 * @param string $expression
+	 *        	Most of time, english sentence
+	 * @return string The translated expression if declared
+	 */
+	public static function getExpression(string $expression): string {
+		$expressions = self::getExpressions ();
+		return ! empty ( $expressions [$expression] ) ? $expressions [$expression] : '';
+	}
+}
