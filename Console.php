@@ -41,6 +41,17 @@ abstract class Console extends Controller {
 	}
 
 	/**
+	 * Test if Linux user is root (superadmin).
+	 *
+	 * @return boolean
+	 */
+	protected function isUserRoot() {
+		// When "posix_getuid()" function does not exist, that means you are not on a Linux machine and probably on Windows, then it returns true in that case
+		// This is not particularly safe, but if you are not root and try to write a restricted file, you won't succeed anyway.
+		return ! function_exists ( 'posix_getuid' ) || (posix_getuid () === 0);
+	}
+
+	/**
 	 * Execute a selected sub controller.
 	 *
 	 * @return void
