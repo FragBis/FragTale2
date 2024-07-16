@@ -19,22 +19,28 @@ trait LoggerTrait {
 	 * Unchangeable.
 	 *
 	 * @param string $message
-	 * @param string $folder
-	 *        	Leave empty to use default directories. By default, new folders are created with permissions 0775
+	 * @param string $folderSuffix
+	 *        	Add a folder to the base log dir. Leave empty to use default directories. By default, new folders are created with permissions 0775
 	 * @param string $filePrefix
 	 * @return self
 	 */
-	final protected function _log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
+	final protected function _log(string $message, ?string $folderSuffix = null, ?string $filePrefix = null): self {
 		$prepend = date ( '[Y-m-d H:i:s] ' );
 		$prevmask = null;
 		if (function_exists ( 'umask' ))
 			$prevmask = umask ( 0 );
 		try {
-			if (! $folder || (! is_dir ( $folder ) && ! mkdir ( $folder, '0775', true ))) {
-				$folder = CorePath::LOG_DIR . '/' . (IS_HTTP_REQUEST ? 'web' : 'cli');
-				if (! is_dir ( $folder ))
-					mkdir ( $folder, '0775', true );
-			}
+			$folder = CorePath::LOG_DIR . '/' . (IS_HTTP_REQUEST ? 'web' : 'cli'); // Separate logs from HTTP requests and cli application to prevent permission conflicts
+			if (! file_exists ( $folder ))
+				mkdir ( $folder, 0775, true );
+			elseif (! is_dir ( $folder ))
+				throw new \Exception ( sprintf ( dgettext ( 'core', '%s already exists and is not a folder, trying to create log sub directory' ), $folder ) );
+			if ($filePrefix = trim ( ( string ) $folderSuffix ))
+				$folder .= "/$folderSuffix";
+			if (! file_exists ( $folder ))
+				mkdir ( $folder, 0775, true );
+			elseif (! is_dir ( $folder ))
+				throw new \Exception ( sprintf ( dgettext ( 'core', '%s already exists and is not a folder, trying to create log sub directory' ), $folder ) );
 			if (function_exists ( 'umask' ) && $prevmask)
 				umask ( $prevmask );
 
@@ -62,12 +68,12 @@ trait LoggerTrait {
 	 * This function can be overwritten in inherited and implemented classes.
 	 *
 	 * @param string $message
-	 * @param string $folder
-	 *        	Leave empty to use default directories. By default, new folders are created with permissions 0775
+	 * @param string $folderSuffix
+	 *        	Add a folder to the base log dir. Leave empty to use default directories. By default, new folders are created with permissions 0775
 	 * @param string $filePrefix
 	 * @return self
 	 */
-	public function log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
-		return $this->_log ( $message, $folder, $filePrefix );
+	public function log(string $message, ?string $folderSuffix = null, ?string $filePrefix = null): self {
+		return $this->_log ( $message, $folderSuffix, $filePrefix );
 	}
 }

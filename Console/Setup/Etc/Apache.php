@@ -13,19 +13,43 @@ use FragTale\Service\Filesystem;
  *        
  */
 class Apache extends Etc {
-	private const ETC_DEST_DIR = '/etc/apache2/sites-available';
+	private const SERVER_APP_NAME = 'Apache2';
 	private const CONF_PATTERN_FILE = CorePath::CODE_PATTERNS_DIR . '/etc/debian/apache.pattern';
-	private ?string $hostname = null;
-	private ?string $dest = null;
-	private ?string $root = null;
-	private ?string $phpv = null;
+	protected const ETC_DEST_DIR = '/etc/%s/sites-available';
+	protected ?string $hostname = null;
+	protected ?string $dest = null;
+	protected ?string $root = null;
+	protected ?string $phpv = null;
+
+	/**
+	 * Apache2
+	 *
+	 * @return self
+	 */
+	protected function getWebServerName(): string {
+		return self::SERVER_APP_NAME;
+	}
+	/**
+	 *
+	 * @return self
+	 */
+	protected function getConfPatternFile(): string {
+		return self::CONF_PATTERN_FILE;
+	}
+	/**
+	 *
+	 * @return self
+	 */
+	protected function getDefaultEtcDestinationDirectory(): string {
+		return sprintf ( self::ETC_DEST_DIR, strtolower ( $this->getWebServerName () ) );
+	}
 	/**
 	 * Set hostname from another controller before running this one (see Console\Install).
 	 *
 	 * @param string $hostname
 	 * @return self
 	 */
-	public function setHostname(?string $hostname): self {
+	protected function setHostname(?string $hostname): self {
 		$this->hostname = $hostname;
 		return $this;
 	}
@@ -36,7 +60,7 @@ class Apache extends Etc {
 	 *        	Absolute path
 	 * @return self
 	 */
-	public function setDestinationFolder(?string $dest): self {
+	protected function setDestinationFolder(?string $dest): self {
 		$this->dest = $dest;
 		return $this;
 	}
@@ -47,7 +71,7 @@ class Apache extends Etc {
 	 *        	Absolute path
 	 * @return self
 	 */
-	public function setDocumentRoot(?string $root): self {
+	protected function setDocumentRoot(?string $root): self {
 		$this->root = $root;
 		return $this;
 	}
@@ -58,32 +82,39 @@ class Apache extends Etc {
 	 *        	Like 8.3 (third number is not used, for example if you pass 8.3.9, it will only keep 8.3)
 	 * @return self
 	 */
-	public function setPhpVersion(?string $version): self {
+	protected function setPhpVersion(?string $version): self {
 		if (! $version)
 			return $this;
 		$expV = explode ( '.', $version );
-		if (count ( $expV ) < 2 || ! is_numeric ( $expV [0] ) || ! is_numeric ( $expV [1] ) || ( int ) $expV [0] !== 8) {
-			$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Invalid given PHP version "%s"' ), $version ) ) );
-			return $this;
-		}
-		$this->phpv = "{$expV[0]}.{$expV[1]}";
+		$phpShortVersion = "{$expV[0]}.{$expV[1]}";
+		$isInstalled = ! empty ( shell_exec ( "which php{$phpShortVersion}" ) );
+		if (! $isInstalled || count ( $expV ) < 2) {
+			$errMsg = sprintf ( dgettext ( 'core', 'Given PHP version "%s" does not correspond to a valid installed executable binary' ), $phpShortVersion );
+			throw new \Exception ( $errMsg );
+		} elseif ($phpShortVersion < '8.1')
+			$this->CliService->printWarning ( dgettext ( 'core', 'This framework could encounter issues with PHP versions < 8.1' ) );
+		$this->phpv = $phpShortVersion;
 		return $this;
 	}
+	/**
+	 * Executed for Apache2 and Nginx
+	 */
 	protected function executeOnConsole(): void {
 		if (! $this->isUserRoot ()) {
 			$this->CliService->printError ( dgettext ( 'core', 'You need to be root or sudoer.' ) );
 			return;
 		}
+		$text = $this->getWebServerName () === self::SERVER_APP_NAME ? dgettext ( 'core', 'Apache2 must have been installed with its PHP module for Apache, using PHP-FPM!' ) : dgettext ( 'core', 'Nginx must have been installed with PHP-FPM!' );
 		$this->CliService->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN )
 			->printInColor ( dgettext ( 'core', 'Basic virtual host configuration deployment.' ), Cli::COLOR_LCYAN )
-			->printWarning ( dgettext ( 'core', 'Apache2 must have been installed with its PHP module for Apache, using PHP-FPM!' ) )
+			->printWarning ( $text )
 			->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 		if ($this->isHelpInvoked ()) {
 			$this->CliService->printInColor ( dgettext ( 'core', 'CLI arguments:' ), Cli::COLOR_LCYAN )
 				->print ( dgettext ( 'core', '· "--host": server name' ), Cli::COLOR_LCYAN )
 				->print ( dgettext ( 'core', '· "--root": absolute path of document root. If not passed, it will use the public folder of this application' ), Cli::COLOR_LCYAN )
 				->print ( dgettext ( 'core', '· "--php-version": for example, "8.3". If not specified, it will use the PHP version of the current executed PHP binary.' ), Cli::COLOR_LCYAN )
-				->print ( dgettext ( 'core', '· "--dest": destination folder where the apache configuration will be placed (default is "/etc/apache2/sites-available")' ), Cli::COLOR_LCYAN )
+				->print ( sprintf ( dgettext ( 'core', '· "--dest": destination folder where the %s configuration will be placed (default is "%s")' ), $this->getWebServerName (), $this->getDefaultEtcDestinationDirectory () ), Cli::COLOR_LCYAN )
 				->print ( dgettext ( 'core', '· "--force": [0|1] If true, it will run all configuration processes with minimum prompts.' ) )
 				->printInColor ( dgettext ( 'core', '**********************' ), Cli::COLOR_LCYAN );
 			return;
@@ -94,9 +125,9 @@ class Apache extends Etc {
 			// Check destination folder exists
 			if (! $this->dest)
 				if (! ($this->dest = trim ( ( string ) $this->CliService->getOpt ( 'dest' ) )))
-					$this->dest = $force ? self::ETC_DEST_DIR : trim ( ( string ) $this->CliService->prompt ( dgettext ( 'core', 'Type Apache2 "sites-available" absolute path:' ), self::ETC_DEST_DIR ) );
+					$this->dest = $force ? $this->getDefaultEtcDestinationDirectory () : trim ( ( string ) $this->CliService->prompt ( sprintf ( dgettext ( 'core', 'Type %s "sites-available" absolute path:' ), $this->getWebServerName () ), $this->getDefaultEtcDestinationDirectory () ) );
 			if (! $this->dest)
-				$this->dest = self::ETC_DEST_DIR;
+				$this->dest = $this->getDefaultEtcDestinationDirectory ();
 			if (! is_dir ( $this->dest )) {
 				$this->CliService->printError ( sprintf ( dgettext ( 'core', 'Destination folder "%s" does not exist or is not accessible.' ), $this->dest ) );
 				return;
@@ -109,7 +140,9 @@ class Apache extends Etc {
 						$this->CliService->printError ( dgettext ( 'core', 'Server name cannot be empty!' ) );
 						return;
 					}
-			$confFilename = "{$this->dest}/{$this->hostname}.conf";
+			$confFilename = "{$this->dest}/{$this->hostname}";
+			if ($this->getWebServerName () === self::SERVER_APP_NAME)
+				$confFilename .= '.conf';
 			if (file_exists ( $confFilename )) {
 				$this->CliService->printError ( sprintf ( dgettext ( 'core', 'File "%s" already exists and will not be overwritten.' ), $confFilename ) );
 				return;
@@ -140,25 +173,40 @@ class Apache extends Etc {
 				$this->setPhpVersion ( PHP_VERSION );
 
 			// Then copy file to destination folder
-			if (! file_exists ( self::CONF_PATTERN_FILE )) {
-				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( new \Exception ( sprintf ( dgettext ( 'core', 'Required file is missing: %s.' ), self::CONF_PATTERN_FILE ) ) );
-				return;
-			}
+			if (! file_exists ( $this->getConfPatternFile () ))
+				throw new \Exception ( sprintf ( dgettext ( 'core', 'Required file is missing: %s.' ), $this->getConfPatternFile () ) );
 
-			$confContent = file_get_contents ( self::CONF_PATTERN_FILE );
-			$confContent = str_replace ( [ 
-					'/*server_name*/',
-					'/*root*/',
-					'/*php_version*/',
-					'/*php_int*/'
-			], [ 
-					$this->hostname,
-					$this->root,
-					$this->phpv,
-					explode ( '.', $this->phpv ) [0]
-			], $confContent );
-			if ($this->getSuperServices ()->getFilesystemService ()->createFile ( $confFilename, $confContent, Filesystem::FILE_OVERWRITE_KEEP ))
-				$this->CliService->printWarning ( dgettext ( 'core', 'You must enable your new Apache host and restart your web server:' ) )->print ( sprintf ( '$ a2ensite %s', $this->hostname ) )->print ( '$ service apache2 reload|restart' );
+			$confContent = file_get_contents ( $this->getConfPatternFile () );
+			if ($this->getWebServerName () === self::SERVER_APP_NAME)
+				$confContent = str_replace ( [ 
+						'/*server_name*/',
+						'/*root*/',
+						'/*php_version*/',
+						'/*php_int*/'
+				], [ 
+						$this->hostname,
+						$this->root,
+						$this->phpv,
+						explode ( '.', $this->phpv ) [0]
+				], $confContent );
+			else
+				$confContent = str_replace ( [ 
+						'/*server_name*/',
+						'/*root*/',
+						'/*php_version*/'
+				], [ 
+						$this->hostname,
+						$this->root,
+						$this->phpv
+				], $confContent );
+
+			if ($this->getSuperServices ()->getFilesystemService ()->createFile ( $confFilename, $confContent, Filesystem::FILE_OVERWRITE_KEEP )) {
+				$this->CliService->printWarning ( sprintf ( dgettext ( 'core', 'You must enable your new %s host and restart your web server:' ), $this->getWebServerName () ) );
+				if ($this->getWebServerName () === self::SERVER_APP_NAME)
+					$this->CliService->print ( sprintf ( '$ a2ensite %s', $this->hostname ) )->print ( '$ service apache2 reload|restart' );
+				else
+					$this->CliService->print ( sprintf ( '$ ln -s %s %s', $confFilename, dirname ( $this->dest ) . '/sites-enabled/' ) )->print ( '$ service nginx reload|restart' );
+			}
 		} catch ( \Exception $Exc ) {
 			$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( $Exc );
 		}

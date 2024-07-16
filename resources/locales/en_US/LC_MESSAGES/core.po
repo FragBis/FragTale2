@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fragtale\n"
-"POT-Creation-Date: 2024-07-15 04:23+0200\n"
-"PO-Revision-Date: 2024-07-15 04:23+0200\n"
+"POT-Creation-Date: 2024-07-17 00:21+0200\n"
+"PO-Revision-Date: 2024-07-17 00:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -94,8 +94,8 @@ msgid ""
 msgstr ""
 "#ROUTE_ERROR: Missing explicit controller argument in non-interactive Shell"
 
-#: Console/Install.php:30 Console/Setup/Etc/Apache.php:74
-#: Console/Setup/Etc/Hosts.php:27 Console/Setup/Etc/Nginx.php:74
+#: Console/Install.php:30 Console/Setup/Etc/Apache.php:104
+#: Console/Setup/Etc/Hosts.php:27
 msgid "You need to be root or sudoer."
 msgstr "You need to be root or sudoer."
 
@@ -120,25 +120,23 @@ msgstr "You need to be root or sudoer."
 #: Console/Setup/CliApplication.php:36
 #: Console/Setup/CliApplication/Parameter.php:31
 #: Console/Setup/CliApplication/Parameter.php:35 Console/Setup/Etc.php:17
-#: Console/Setup/Etc.php:22 Console/Setup/Etc/Apache.php:77
-#: Console/Setup/Etc/Apache.php:80 Console/Setup/Etc/Apache.php:88
+#: Console/Setup/Etc.php:22 Console/Setup/Etc/Apache.php:108
+#: Console/Setup/Etc/Apache.php:111 Console/Setup/Etc/Apache.php:119
 #: Console/Setup/Etc/Hosts.php:31 Console/Setup/Etc/Hosts.php:34
-#: Console/Setup/Etc/Nginx.php:77 Console/Setup/Etc/Nginx.php:80
-#: Console/Setup/Etc/Nginx.php:88 Console/Setup/Hosts.php:45
-#: Console/Setup/Hosts.php:49 Console/Setup/Hosts.php:54
-#: Console/Setup/Hosts.php:58 Console/Setup/Hosts.php:63
-#: Console/Setup/Module.php:25 Console/Setup/Module.php:27
+#: Console/Setup/Hosts.php:45 Console/Setup/Hosts.php:49
+#: Console/Setup/Hosts.php:54 Console/Setup/Hosts.php:58
+#: Console/Setup/Hosts.php:63 Console/Setup/Module.php:25
+#: Console/Setup/Module.php:27
 msgid "**********************"
 msgstr "**********************"
 
 #: Console/Install.php:35 Console/Project/Create.php:34
-#: Console/Setup/Etc/Apache.php:82 Console/Setup/Etc/Nginx.php:82
-#: Console/Setup/Hosts.php:46
+#: Console/Setup/Etc/Apache.php:113 Console/Setup/Hosts.php:46
 msgid "CLI arguments:"
 msgstr "CLI arguments:"
 
-#: Console/Install.php:36 Console/Setup/Etc/Apache.php:83
-#: Console/Setup/Etc/Nginx.php:83 Console/Setup/Hosts.php:47
+#: Console/Install.php:36 Console/Setup/Etc/Apache.php:114
+#: Console/Setup/Hosts.php:47
 msgid "· \"--host\": server name"
 msgstr "· \"--host\": server name"
 
@@ -150,8 +148,8 @@ msgstr "· \"--project\": project name to bind with host"
 msgid "· \"--server\": [Apache|Nginx]"
 msgstr "· \"--server\": [Apache|Nginx]"
 
-#: Console/Install.php:39 Console/Setup/Etc/Apache.php:87
-#: Console/Setup/Etc/Hosts.php:33 Console/Setup/Etc/Nginx.php:87
+#: Console/Install.php:39 Console/Setup/Etc/Apache.php:118
+#: Console/Setup/Etc/Hosts.php:33
 msgid ""
 "· \"--force\": [0|1] If true, it will run all configuration processes with "
 "minimum prompts."
@@ -195,7 +193,7 @@ msgstr "Hostname to setup: %s"
 msgid "Do you want to append this hostname to your \"/etc/hosts\" file? [yN]"
 msgstr "Do you want to append this hostname to your \"/etc/hosts\" file? [yN]"
 
-#: Console/Install.php:61 Console/Install.php:73 Console/Install.php:98
+#: Console/Install.php:61 Console/Install.php:73 Console/Install.php:103
 #: Console/Project/Configure/Database/Delete.php:28
 #: Console/Project/Configure/Database/Delete.php:32
 #: Console/Project/Configure/Environment.php:117 Console/Project/Create.php:128
@@ -231,7 +229,7 @@ msgstr ""
 "Project \"%s\" does not exist or does not match required structure to run a "
 "website!"
 
-#: Console/Install.php:98
+#: Console/Install.php:103
 msgid ""
 "You have to bind your new host to an existing project. Do you want to create "
 "a new project? [yN]"
@@ -239,7 +237,7 @@ msgstr ""
 "You have to bind your new host to an existing project. Do you want to create "
 "a new project? [yN]"
 
-#: Console/Install.php:101
+#: Console/Install.php:106
 msgid ""
 "You should \"chown\" your project folder to be the owner if you want to "
 "modify files."
@@ -247,23 +245,23 @@ msgstr ""
 "You should \"chown\" your project folder to be the owner if you want to "
 "modify files."
 
-#: Console/Install.php:102
+#: Console/Install.php:107
 msgid "You can let \"root\" to be owner of the FragTale2 framework."
 msgstr "You can let \"root\" to be owner of the FragTale2 framework."
 
-#: Console/Install.php:103
+#: Console/Install.php:108
 msgid "You can use GIT and version your project folder."
 msgstr "You can use GIT and version your project folder."
 
-#: Console/Install.php:104
+#: Console/Install.php:109
 msgid "Do not include FragTale2 framework in your version control."
 msgstr "Do not include FragTale2 framework in your version control."
 
-#: Console/Install.php:109
+#: Console/Install.php:114
 msgid "You can now exit \"root\" or \"sudo\" mode."
 msgstr "You can now exit \"root\" or \"sudo\" mode."
 
-#: Console/Install.php:110
+#: Console/Install.php:115
 msgid ""
 "You'll have to bind your host to one of your project environment, but "
 "default is \"production\"."
@@ -271,9 +269,9 @@ msgstr ""
 "You'll have to bind your host to one of your project environment, but "
 "default is \"production\"."
 
-#: Console/Install.php:111
-msgid "Execute following command:"
-msgstr "Execute following command:"
+#: Console/Install.php:116
+msgid "If not done yet, execute following command:"
+msgstr "If not done yet, execute following command:"
 
 #: Console/Project.php:37
 #, php-format
@@ -1474,24 +1472,36 @@ msgstr ""
 "· \"Hosts\": You can add a domain bound to 127.0.0.1 in your \"/etc/hosts\" "
 "file (only for Linux distributions)."
 
-#: Console/Setup/Etc/Apache.php:66 Console/Setup/Etc/Nginx.php:66
+#: Console/Setup/Etc/Apache.php:92
 #, php-format
-msgid "Invalid given PHP version \"%s\""
-msgstr "Invalid given PHP version \"%s\""
+msgid ""
+"Given PHP version \"%s\" does not correspond to a valid installed executable "
+"binary"
+msgstr ""
+"Given PHP version \"%s\" does not correspond to a valid installed executable "
+"binary"
 
-#: Console/Setup/Etc/Apache.php:78 Console/Setup/Etc/Nginx.php:78
+#: Console/Setup/Etc/Apache.php:95
+msgid "This framework could encounter issues with PHP versions < 8.1"
+msgstr "This framework could encounter issues with PHP versions < 8.1"
+
+#: Console/Setup/Etc/Apache.php:107
+msgid ""
+"Apache2 must have been installed with its PHP module for Apache, using PHP-"
+"FPM!"
+msgstr ""
+"Apache2 must have been installed with its PHP module for Apache, using PHP-"
+"FPM!"
+
+#: Console/Setup/Etc/Apache.php:107
+msgid "Nginx must have been installed with PHP-FPM!"
+msgstr "Nginx must have been installed with PHP-FPM!"
+
+#: Console/Setup/Etc/Apache.php:109
 msgid "Basic virtual host configuration deployment."
 msgstr "Basic virtual host configuration deployment."
 
-#: Console/Setup/Etc/Apache.php:79
-msgid ""
-"Apache2 must have been installed with its PHP module for Apache, using PHP-"
-"FPM!"
-msgstr ""
-"Apache2 must have been installed with its PHP module for Apache, using PHP-"
-"FPM!"
-
-#: Console/Setup/Etc/Apache.php:84 Console/Setup/Etc/Nginx.php:84
+#: Console/Setup/Etc/Apache.php:115
 msgid ""
 "· \"--root\": absolute path of document root. If not passed, it will use the "
 "public folder of this application"
@@ -1499,7 +1509,7 @@ msgstr ""
 "· \"--root\": absolute path of document root. If not passed, it will use the "
 "public folder of this application"
 
-#: Console/Setup/Etc/Apache.php:85 Console/Setup/Etc/Nginx.php:85
+#: Console/Setup/Etc/Apache.php:116
 msgid ""
 "· \"--php-version\": for example, \"8.3\". If not specified, it will use the "
 "PHP version of the current executed PHP binary."
@@ -1507,37 +1517,39 @@ msgstr ""
 "· \"--php-version\": for example, \"8.3\". If not specified, it will use the "
 "PHP version of the current executed PHP binary."
 
-#: Console/Setup/Etc/Apache.php:86
+#: Console/Setup/Etc/Apache.php:117
+#, php-format
 msgid ""
-"· \"--dest\": destination folder where the apache configuration will be "
-"placed (default is \"/etc/apache2/sites-available\")"
+"· \"--dest\": destination folder where the %s configuration will be placed "
+"(default is \"%s\")"
 msgstr ""
-"· \"--dest\": destination folder where the apache configuration will be "
-"placed (default is \"/etc/apache2/sites-available\")"
+"· \"--dest\": destination folder where the %s configuration will be placed "
+"(default is \"%s\")"
 
-#: Console/Setup/Etc/Apache.php:97
-msgid "Type Apache2 \"sites-available\" absolute path:"
-msgstr "Type Apache2 \"sites-available\" absolute path:"
+#: Console/Setup/Etc/Apache.php:128
+#, php-format
+msgid "Type %s \"sites-available\" absolute path:"
+msgstr "Type %s \"sites-available\" absolute path:"
 
-#: Console/Setup/Etc/Apache.php:101 Console/Setup/Etc/Nginx.php:101
+#: Console/Setup/Etc/Apache.php:132
 #, php-format
 msgid "Destination folder \"%s\" does not exist or is not accessible."
 msgstr "Destination folder \"%s\" does not exist or is not accessible."
 
-#: Console/Setup/Etc/Apache.php:108 Console/Setup/Etc/Nginx.php:108
+#: Console/Setup/Etc/Apache.php:139
 msgid "Type the server name (host):"
 msgstr "Type the server name (host):"
 
-#: Console/Setup/Etc/Apache.php:109 Console/Setup/Etc/Nginx.php:109
+#: Console/Setup/Etc/Apache.php:140
 msgid "Server name cannot be empty!"
 msgstr "Server name cannot be empty!"
 
-#: Console/Setup/Etc/Apache.php:114 Console/Setup/Etc/Nginx.php:114
+#: Console/Setup/Etc/Apache.php:147
 #, php-format
 msgid "File \"%s\" already exists and will not be overwritten."
 msgstr "File \"%s\" already exists and will not be overwritten."
 
-#: Console/Setup/Etc/Apache.php:119 Console/Setup/Etc/Nginx.php:119
+#: Console/Setup/Etc/Apache.php:152
 msgid ""
 "You are setting up \"localhost\" that should already have been configured by "
 "default. Check any configuration conflict."
@@ -1545,27 +1557,28 @@ msgstr ""
 "You are setting up \"localhost\" that should already have been configured by "
 "default. Check any configuration conflict."
 
-#: Console/Setup/Etc/Apache.php:123 Console/Setup/Etc/Nginx.php:123
+#: Console/Setup/Etc/Apache.php:156
 msgid "Type the server document root:"
 msgstr "Type the server document root:"
 
-#: Console/Setup/Etc/Apache.php:127 Console/Setup/Etc/Nginx.php:127
+#: Console/Setup/Etc/Apache.php:160
 #, php-format
 msgid "Document root \"%s\" does not exist or is not accessible."
 msgstr "Document root \"%s\" does not exist or is not accessible."
 
-#: Console/Setup/Etc/Apache.php:135 Console/Setup/Etc/Nginx.php:135
+#: Console/Setup/Etc/Apache.php:168
 msgid "Type PHP version:"
 msgstr "Type PHP version:"
 
-#: Console/Setup/Etc/Apache.php:144
+#: Console/Setup/Etc/Apache.php:177
 #, php-format
 msgid "Required file is missing: %s."
 msgstr "Required file is missing: %s."
 
-#: Console/Setup/Etc/Apache.php:161
-msgid "You must enable your new Apache host and restart your web server:"
-msgstr "You must enable your new Apache host and restart your web server:"
+#: Console/Setup/Etc/Apache.php:204
+#, php-format
+msgid "You must enable your new %s host and restart your web server:"
+msgstr "You must enable your new %s host and restart your web server:"
 
 #: Console/Setup/Etc/Hosts.php:32
 msgid "· \"--host\": host name to append to /etc/hosts file"
@@ -1622,33 +1635,6 @@ msgstr "OK, file overwritten."
 #: Console/Setup/Etc/Hosts.php:93
 msgid "Could not find line for 127.0.0.1"
 msgstr "Could not find line for 127.0.0.1"
-
-#: Console/Setup/Etc/Nginx.php:79
-msgid "Nginx must have been installed with PHP-FPM!"
-msgstr "Nginx must have been installed with PHP-FPM!"
-
-#: Console/Setup/Etc/Nginx.php:86
-msgid ""
-"· \"--dest\": destination folder where the nginx configuration will be "
-"placed (default is \"/etc/nginx/sites-available\")"
-msgstr ""
-"· \"--dest\": destination folder where the nginx configuration will be "
-"placed (default is \"/etc/nginx/sites-available\")"
-
-#: Console/Setup/Etc/Nginx.php:97
-msgid "Type Nginx \"sites-available\" absolute path:"
-msgstr "Type Nginx \"sites-available\" absolute path:"
-
-#: Console/Setup/Etc/Nginx.php:144
-#, php-format
-msgid "Required file is missing: %s. Exiting."
-msgstr "Required file is missing: %s. Exiting."
-
-#: Console/Setup/Etc/Nginx.php:159
-msgid ""
-"You must enable your new Nginx host and restart your web server. For example:"
-msgstr ""
-"You must enable your new Nginx host and restart your web server. For example:"
 
 #: Console/Setup/Hosts.php:50 Console/Setup/Hosts.php:59
 msgid "Here, you can bind one host (domain or IP) to one project."
@@ -2105,6 +2091,13 @@ msgstr "Data successfully updated."
 msgid "Nothing changed."
 msgstr "Nothing changed."
 
+#: FragTale/Implement/LoggerTrait.php:37 FragTale/Implement/LoggerTrait.php:43
+#, php-format
+msgid ""
+"%s already exists and is not a folder, trying to create log sub directory"
+msgstr ""
+"%s already exists and is not a folder, trying to create log sub directory"
+
 #: FragTale/Implement/QueryBuilder/FilterTrait.php:134
 #, php-format
 msgid "Operator \"%s\" expects its value to be an array of other filters."
@@ -2418,3 +2411,28 @@ msgstr "Footer"
 #: resources/templates/maintenance.phtml:1
 msgid "Site in construction..."
 msgstr "Site in construction..."
+
+#, php-format
+#~ msgid "Invalid given PHP version \"%s\""
+#~ msgstr "Invalid given PHP version \"%s\""
+
+#~ msgid ""
+#~ "· \"--dest\": destination folder where the apache configuration will be "
+#~ "placed (default is \"/etc/apache2/sites-available\")"
+#~ msgstr ""
+#~ "· \"--dest\": destination folder where the apache configuration will be "
+#~ "placed (default is \"/etc/apache2/sites-available\")"
+
+#~ msgid "Type Apache2 \"sites-available\" absolute path:"
+#~ msgstr "Type Apache2 \"sites-available\" absolute path:"
+
+#, php-format
+#~ msgid "Required file is missing: %s. Exiting."
+#~ msgstr "Required file is missing: %s. Exiting."
+
+#~ msgid ""
+#~ "You must enable your new Nginx host and restart your web server. For "
+#~ "example:"
+#~ msgstr ""
+#~ "You must enable your new Nginx host and restart your web server. For "
+#~ "example:"

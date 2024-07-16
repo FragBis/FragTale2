@@ -56,6 +56,7 @@ assuming you want to run Nginx (and you should be able to comment or uncomment w
 #!/bin/bash
 
 ## Execute those commands in root or sudo:
+# sudo su
 ## PHP repository for Ubuntu:
 add-apt-repository ppa:ondrej/php
 ## PHP repository (Sury) for Debian: see https://gist.github.com/Razuuu/f646c3be44c5ba3b9c8e38b0a856d7b4
@@ -118,7 +119,13 @@ service php8.3-fpm restart
 service nginx restart
 ```
 
-Then go to section **"General application setup"**
+*IMPORTANT NOTE!*
+If you experience a 404 accessing your site with your web browser, it might be caused by the fact that
+Nginx (www-data) must have at least "read" access to *ALL THE WAY* to your "document root" of your website.
+This often comes when you place your project in a custom location such as "/home/username/custom_folder".
+*Each part of the path must be readable by www-data*
+
+If installation succeeded, go to section **"General application setup"**
 
 
 ## Installation overview and more explanations
