@@ -18,7 +18,7 @@ class Nginx extends Apache {
 	 *
 	 * @return self
 	 */
-	protected function getWebServerName(): string {
+	public function getWebServerName(): string {
 		return self::SERVER_APP_NAME;
 	}
 	/**

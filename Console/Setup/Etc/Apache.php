@@ -26,7 +26,7 @@ class Apache extends Etc {
 	 *
 	 * @return self
 	 */
-	protected function getWebServerName(): string {
+	public function getWebServerName(): string {
 		return self::SERVER_APP_NAME;
 	}
 	/**
@@ -40,7 +40,7 @@ class Apache extends Etc {
 	 *
 	 * @return self
 	 */
-	protected function getDefaultEtcDestinationDirectory(): string {
+	public function getDefaultEtcDestinationDirectory(): string {
 		return sprintf ( self::ETC_DEST_DIR, strtolower ( $this->getWebServerName () ) );
 	}
 	/**
@@ -49,7 +49,7 @@ class Apache extends Etc {
 	 * @param string $hostname
 	 * @return self
 	 */
-	protected function setHostname(?string $hostname): self {
+	public function setHostname(?string $hostname): self {
 		$this->hostname = $hostname;
 		return $this;
 	}
@@ -60,7 +60,7 @@ class Apache extends Etc {
 	 *        	Absolute path
 	 * @return self
 	 */
-	protected function setDestinationFolder(?string $dest): self {
+	public function setDestinationFolder(?string $dest): self {
 		$this->dest = $dest;
 		return $this;
 	}
@@ -71,7 +71,7 @@ class Apache extends Etc {
 	 *        	Absolute path
 	 * @return self
 	 */
-	protected function setDocumentRoot(?string $root): self {
+	public function setDocumentRoot(?string $root): self {
 		$this->root = $root;
 		return $this;
 	}
@@ -82,7 +82,7 @@ class Apache extends Etc {
 	 *        	Like 8.3 (third number is not used, for example if you pass 8.3.9, it will only keep 8.3)
 	 * @return self
 	 */
-	protected function setPhpVersion(?string $version): self {
+	public function setPhpVersion(?string $version): self {
 		if (! $version)
 			return $this;
 		$expV = explode ( '.', $version );
