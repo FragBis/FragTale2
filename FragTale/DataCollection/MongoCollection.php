@@ -61,8 +61,10 @@ class MongoCollection extends DataCollection {
 	public function getServer(): string {
 		if (! $this->Source instanceof Manager) {
 			$message = dgettext ( 'core', 'You must set source to this MongoCollection to be able to query MongoDb server.' );
-			$this->log ( $message );
-			throw new \Exception ( $message );
+			if (IS_CLI)
+				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		} elseif (isset ( $this->Source->getServers () [0] )) {
 			$MongoServer = $this->Source->getServers () [0];
 			return $MongoServer->getHost () . ':' . $MongoServer->getPort ();
@@ -135,7 +137,7 @@ class MongoCollection extends DataCollection {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message );
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this->import ( null );
 		}
 
@@ -186,8 +188,10 @@ class MongoCollection extends DataCollection {
 		$message = null;
 		if (! $this->Source instanceof Manager) {
 			$message = dgettext ( 'core', 'You must set source to this MongoCollection to be able to upsert (save) data from MongoDb.' );
-			$this->log ( $message );
-			throw new \Exception ( $message );
+			if (IS_CLI)
+				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this;
 		}
 
@@ -251,13 +255,17 @@ class MongoCollection extends DataCollection {
 					$message = sprintf ( dgettext ( 'core', '%1s elements written (expected %2s) from collection %3s' ), $upres, $nbDiffs, $this->collectionName );
 					if ($DebugService->isActivated () && ! empty ( $WriteResult->getWriteErrors () ))
 						$message .= "\n" . print_r ( $WriteResult->getWriteErrors (), true );
-					$this->log ( $message );
+					if (IS_CLI)
+						throw new \Exception ( $message );
+					else
+						$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 				}
 			} elseif ($nbExpected !== $nbDiffs) {
 				$message = sprintf ( dgettext ( 'core', 'Something went wrong with Mongo Bulk Write. Diffs counted: %1s; Expected by bulk: %2s' ), $nbDiffs, $nbExpected );
-				$this->log ( $message );
-				if ($DebugService->isActivated ())
+				if (IS_CLI)
 					throw new \Exception ( $message );
+				else
+					$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			}
 		}
 		if ($DebugService->isActivated ()) {
@@ -294,8 +302,10 @@ class MongoCollection extends DataCollection {
 	public function deleteFromSource(array $filter, ?array $deleteOptions = null): self {
 		if (! $this->Source instanceof Manager) {
 			$message = dgettext ( 'core', 'You must set source to this MongoCollection to be able to delete data from MongoDb.' );
-			$this->log ( $message );
-			throw new \Exception ( $message );
+			if (IS_CLI)
+				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this;
 		}
 
@@ -347,8 +357,10 @@ class MongoCollection extends DataCollection {
 		$message = null;
 		if (! $this->Source instanceof Manager) {
 			$message = dgettext ( 'core', 'You must set source to this MongoCollection to be able to upsert one data into MongoDb.' );
-			$this->log ( $message );
-			throw new \Exception ( $message );
+			if (IS_CLI)
+				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this;
 		}
 
@@ -417,8 +429,10 @@ class MongoCollection extends DataCollection {
 		$message = null;
 		if (! $this->Source instanceof Manager) {
 			$message = dgettext ( 'core', 'You must set source to this MongoCollection to be able to upsert many data into MongoDb.' );
-			$this->log ( $message );
-			throw new \Exception ( $message );
+			if (IS_CLI)
+				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		}
 
 		global $Application;
@@ -478,13 +492,17 @@ class MongoCollection extends DataCollection {
 				$message = sprintf ( dgettext ( 'core', '%1s elements written (expected %2s) from collection %3s' ), $upres, $nbDocs, $this->collectionName );
 				if ($DebugService->isActivated () && ! empty ( $WriteResult->getWriteErrors () ))
 					$message .= "\n" . print_r ( $WriteResult->getWriteErrors (), true );
-				$this->log ( $message );
+				if (IS_CLI)
+					throw new \Exception ( $message );
+				else
+					$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			}
 		} else {
 			$message = sprintf ( dgettext ( 'core', 'Each rows from parameter $documents must contain an "_id".' ), $nbDocs, $nbExpected );
-			$this->log ( $message );
-			if ($DebugService->isActivated ())
+			if (IS_CLI)
 				throw new \Exception ( $message );
+			else
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		}
 
 		if ($DebugService->isActivated ())

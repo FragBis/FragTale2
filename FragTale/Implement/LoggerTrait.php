@@ -35,7 +35,7 @@ trait LoggerTrait {
 				mkdir ( $folder, 0775, true );
 			elseif (! is_dir ( $folder ))
 				throw new \Exception ( sprintf ( dgettext ( 'core', '%s already exists and is not a folder, trying to create log sub directory' ), $folder ) );
-			if ($filePrefix = trim ( ( string ) $folderSuffix ))
+			if ($folderSuffix = trim ( trim ( ( string ) $folderSuffix ), '/' ))
 				$folder .= "/$folderSuffix";
 			if (! file_exists ( $folder ))
 				mkdir ( $folder, 0775, true );

@@ -50,7 +50,7 @@ class XmlCollection extends DataCollection {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message );
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this->import ( null );
 		}
 		if ($xml = simplexml_load_file ( $this->source ))
@@ -60,7 +60,7 @@ class XmlCollection extends DataCollection {
 		if (IS_CLI)
 			throw new \Exception ( $message );
 		else
-			$this->log ( $message );
+			$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		return $this->import ( null );
 	}
 

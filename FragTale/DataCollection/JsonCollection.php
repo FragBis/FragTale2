@@ -60,7 +60,7 @@ class JsonCollection extends DataCollection {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message );
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 			return $this->import ( null );
 		}
 		return $this->import ( json_decode ( file_get_contents ( $this->source ), true ) );

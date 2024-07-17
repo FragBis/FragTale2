@@ -74,13 +74,13 @@ class AbstractService {
 	 * Default log directory is logs/{project_name}/{date `Ym`}
 	 *
 	 * @param string $message
-	 * @param string $folder
+	 * @param string $folderSuffix
 	 * @param string $filePrefix
 	 * @return self
 	 */
-	public function log(string $message, ?string $folder = null, ?string $filePrefix = null): self {
-		if (! $folder)
-			$folder = $this->getSuperServices ()->getProjectService ()->getDefaultLogsDir () . '/' . date ( 'Ym' );
-		return $this->_log ( $message, $folder, $filePrefix );
+	public function log(string $message, ?string $folderSuffix = null, ?string $filePrefix = null): self {
+		if (! $folderSuffix)
+			$folderSuffix = $this->getSuperServices ()->getProjectService ()->getName ();
+		return $this->_log ( $message, $folderSuffix, $filePrefix );
 	}
 }

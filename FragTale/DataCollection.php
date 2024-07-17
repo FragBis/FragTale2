@@ -611,7 +611,7 @@ class DataCollection implements Iterator {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message );
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		}
 		return $this;
 	}
@@ -629,7 +629,7 @@ class DataCollection implements Iterator {
 			if (IS_CLI)
 				throw new \Exception ( $message );
 			else
-				$this->log ( $message );
+				$this->log ( $_SERVER ['REQUEST_METHOD'] . ' ' . BASE_URL . $_SERVER ['REQUEST_URI'] . ": $message" );
 		}
 		return $this;
 	}

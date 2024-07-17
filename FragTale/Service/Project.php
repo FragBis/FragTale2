@@ -136,7 +136,7 @@ class Project extends AbstractService {
 	 * @return string
 	 */
 	final public function getDefaultLogsDir(): string {
-		return CorePath::LOG_DIR . '/' . $this->getName ();
+		return CorePath::LOG_DIR . (IS_CLI ? '/cli/' : '/web/') . $this->getName ();
 	}
 
 	/**
