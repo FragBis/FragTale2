@@ -50,6 +50,13 @@ class Project extends AbstractService {
 	protected DataCollection $Parameters;
 
 	/**
+	 * Locale properties
+	 *
+	 * @var DataCollection
+	 */
+	protected DataCollection $LocaleProps;
+
+	/**
 	 * Project name
 	 *
 	 * @var string
@@ -478,12 +485,11 @@ class Project extends AbstractService {
 	 * @return DataCollection
 	 */
 	final public function getLocaleAdditionalProperties(): DataCollection {
-		static $LocaleProps;
-		if (! isset ( $LocaleProps )) {
+		if (! isset ( $this->LocaleProps )) {
 			$locale = $this->getLocale ();
-			$LocaleProps = (new DataCollection ( Locale::getConstant ( $locale ) ))->upsert ( 'locale', $locale );
+			$this->LocaleProps = (new DataCollection ( Locale::getConstant ( $locale ) ))->upsert ( 'locale', $locale );
 		}
-		return $LocaleProps;
+		return $this->LocaleProps;
 	}
 
 	/**
@@ -517,6 +523,19 @@ class Project extends AbstractService {
 			}
 			$this->name = $projectName;
 		}
+		return $this->unsetAllSettings ();
+	}
+
+	/**
+	 * Unset all settings to refresh them.
+	 * It is automatically done when you set a new project name in CLI mode.
+	 * Theoretically, you can't change project name and settings in WEB mode.
+	 *
+	 * @return self
+	 */
+	final public function unsetAllSettings(): self {
+		unset ( $this->Settings, $this->EnvSettings, $this->DatabasesSettings, $this->Parameters, $this->LocaleProps );
+		unset ( $this->env, $this->defaultMongoConnectorID, $this->defaultSqlConnectorID );
 		return $this;
 	}
 }
