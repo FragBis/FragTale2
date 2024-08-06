@@ -4,6 +4,7 @@ namespace Console\Project\Controller\Create;
 
 use Console\Project\Controller\Create;
 use FragTale\Constant\Setup\ControllerType;
+use FragTale\Service\Cli;
 
 class Web extends Create {
 	/**

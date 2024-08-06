@@ -227,8 +227,8 @@ class Debug extends AbstractService {
 				'REQUEST_PARAMS' => $RequestService->getParams (),
 				'FRONT_MESSAGES' => $FrontMessageService->getMessages (),
 				'SESSION' => $SessionVars,
-				'ENV_SETTINGS' => $EnvSettings,
-				'PROJECT_LOCALE' => $ProjectService->getLocaleAdditionalProperties (),
+				'ENV_SETTINGS: ' . $ProjectService->getEnv () => $EnvSettings,
+				'PROJECT_LOCALE: ' . $ProjectService->getLocale () => $ProjectService->getLocaleAdditionalProperties (),
 				'_COOKIE' => $_COOKIE,
 				'_SERVER' => $_SERVER
 		] );
