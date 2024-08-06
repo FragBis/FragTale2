@@ -40,7 +40,7 @@ class Server extends AbstractService {
 	function getBaseUrl(): string {
 		if (defined ( 'BASE_URL' ) && is_string ( BASE_URL ))
 			return BASE_URL;
-		if (! IS_CLI) {
+		if (IS_HTTP_REQUEST) {
 			$host = $this->getHost ( true );
 			$port = ( int ) $this->getPort ();
 			$baseUrl = $host . (! in_array ( $port, [ 
@@ -54,5 +54,8 @@ class Server extends AbstractService {
 			->getProjectService ()
 			->getCustomParameters ()
 			->findByKey ( 'base_url' );
+	}
+	function getRemoteAddress(): string {
+		return isset ( $_SERVER ['REMOTE_ADDR'] ) ? $_SERVER ['REMOTE_ADDR'] : '';
 	}
 }

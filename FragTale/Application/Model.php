@@ -895,6 +895,31 @@ abstract class Model extends Application implements Iterator {
 	}
 
 	/**
+	 *
+	 * @return bool|NULL
+	 */
+	final public function hasLastTransactionError(): bool {
+		return $this->getLastTransactionStatus () === self::STATUS_ERROR;
+	}
+
+	/**
+	 *
+	 * @return bool|NULL
+	 */
+	final public function hasLastTransactionSucceeded(): bool {
+		return $this->getLastTransactionStatus () === self::STATUS_SUCCESS;
+	}
+
+	/**
+	 * Case when no row affected, for example, an update had no changes.
+	 *
+	 * @return bool|NULL
+	 */
+	final public function hasLastTransactionNoEffect(): bool {
+		return $this->getLastTransactionStatus () === self::STATUS_NEUTRAL;
+	}
+
+	/**
 	 * Check if column is autoincrement.
 	 *
 	 * @param string $columnName
@@ -1243,7 +1268,7 @@ abstract class Model extends Application implements Iterator {
 			$this->getSuperServices ()->getDebugService ()->setDebugInfo ( $this->lastTransactionKey . ' `' . $this->getTableName () . '`', $log, 'MODELS' );
 
 		if ($status === self::STATUS_ERROR) {
-			$query = str_replace ( "\n", "\n\t", $query );
+			$query = str_replace ( "\n", "\n\t", ( string ) $query );
 			$this->log ( "$context | $message\nQuery:\n\t$query\nCriterias: " . (new DataCollection ( $criterias )) );
 		}
 
