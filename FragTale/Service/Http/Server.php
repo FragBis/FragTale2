@@ -59,10 +59,10 @@ class Server extends AbstractService {
 		return $_SERVER ['REMOTE_ADDR'] ?? '';
 	}
 	/**
+	 * This function just returns few popular browser names and OS.
 	 * IMPORTANT: never trust the user agent because it is sent by the client.
-	 * Note: You can also use native PHP function "get_browser()" if you have configured "browscap" in php.ini file (for more details: https://www.php.net/manual/fr/function.get-browser.php)
-	 * Mind that lists of user agents always evolve. Most commonly, the value of $_SERVER['HTTP_USER_AGENT'] is sufficient.
-	 * This function just returns the most popular browser names and OS.
+	 * Note: Alternatively, you can use native PHP function "get_browser()" if you have configured "browscap" in php.ini file
+	 * (for more details: <a href="https://www.php.net/manual/fr/function.get-browser.php">https://www.php.net/manual/fr/function.get-browser.php</a>)
 	 *
 	 * @param bool $returnFullChain
 	 *        	If true, returns $_SERVER['HTTP_USER_AGENT'] as it is, if false (default), returns only browser name and OS.
@@ -88,23 +88,23 @@ class Server extends AbstractService {
 		elseif (stripos ( $userAgent, 'linux' ) !== false) {
 			$os = 'Linux';
 			if (stripos ( $userAgent, 'ubuntu' ) !== false)
-				$os .= ' (Ubuntu)';
+				$os .= ' Ubuntu';
 			elseif (stripos ( $userAgent, 'fedora' ) !== false)
-				$os .= ' (Fedora)';
+				$os .= ' Fedora';
 			elseif (stripos ( $userAgent, 'debian' ) !== false)
-				$os .= ' (Debian)';
+				$os .= ' Debian';
 			elseif (stripos ( $userAgent, 'arch' ) !== false)
-				$os .= ' (Arch)';
+				$os .= ' Arch';
 			elseif (stripos ( $userAgent, 'suse' ) !== false)
-				$os .= ' (Suse)';
+				$os .= ' Suse';
 			elseif (stripos ( $userAgent, 'centos' ) !== false)
-				$os .= ' (CentOS)';
+				$os .= ' CentOS';
 			elseif (stripos ( $userAgent, 'redhat' ) !== false)
-				$os .= ' (Redhat)';
+				$os .= ' Redhat';
 			elseif (stripos ( $userAgent, 'slackware' ) !== false)
-				$os .= ' (Slackware)';
+				$os .= ' Slackware';
 			elseif (stripos ( $userAgent, 'gentoo' ) !== false)
-				$os .= ' (Gentoo)';
+				$os .= ' Gentoo';
 		} elseif (stripos ( $userAgent, 'macintosh' ) !== false || stripos ( $userAgent, 'mac os' ) !== false)
 			$os = 'MacOS';
 		elseif (strpos ( $userAgent, 'Win' ) !== false)
@@ -129,7 +129,7 @@ class Server extends AbstractService {
 		elseif (stripos ( $userAgent, 'yabrowser' ) !== false || stripos ( $userAgent, 'yowser' ) !== false)
 			$browser = 'Yandex';
 		elseif (stripos ( $userAgent, 'miui' ) !== false)
-			$browser = 'Miui Browser';
+			$browser = 'Miui';
 		elseif (stripos ( $userAgent, 'chrome/' ) !== false)
 			$browser = 'Chrome';
 		elseif (stripos ( $userAgent, 'chromium/' ) !== false)
