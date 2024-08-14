@@ -203,6 +203,7 @@ class Project extends AbstractService {
 	}
 
 	/**
+	 * The blocks template dir (not the controllers)
 	 *
 	 * @return string
 	 */
