@@ -100,7 +100,7 @@ class SessionHandler extends Application implements \SessionHandlerInterface {
 	 * @return string
 	 */
 	protected function buildSearchedId($session_id): string {
-		return "$this->sessionName/$session_id";
+		return "{$this->sessionName}/{$session_id}";
 	}
 
 	/**
@@ -163,6 +163,21 @@ class SessionHandler extends Application implements \SessionHandlerInterface {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Remove all sessions having given criterias (filters)
+	 *
+	 * @param array $filters
+	 *        	Use MongoDB filters and operators
+	 * @return int Deleted count
+	 */
+	public function removeSessions(array $filters): int {
+		if (empty ( $filters ))
+			return 0;
+		$Bulk = new BulkWrite ();
+		$Bulk->delete ( $filters );
+		return $this->Mongo->executeBulkWrite ( "$this->dbName.$this->collectionName", $Bulk )->getDeletedCount ();
 	}
 
 	/**
