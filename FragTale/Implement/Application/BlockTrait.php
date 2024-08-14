@@ -30,16 +30,14 @@ trait BlockTrait {
 		if (class_exists ( $controllerClassName )) {
 			$Controller = new $controllerClassName ();
 			if ($Controller instanceof Controller) {
-				if ($TemplateVarsAndObjects instanceof DataCollection) {
+				if ($TemplateVarsAndObjects instanceof DataCollection)
 					$Controller->getTemplate ()->setVars ( $TemplateVarsAndObjects->clone () );
-				} elseif (is_iterable ( $TemplateVarsAndObjects ) && count ( $TemplateVarsAndObjects )) {
-					foreach ( $TemplateVarsAndObjects as $key => $value ) {
-						if (is_object ( $value ) && (! $value instanceof DataCollection))
+				elseif ($TemplateVarsAndObjects)
+					foreach ( $TemplateVarsAndObjects as $key => $value )
+						if (is_object ( $value ) && ! ($value instanceof DataCollection))
 							$Controller->getTemplate ()->setObject ( $key, $value );
 						else
 							$Controller->getTemplate ()->setVar ( $key, $value );
-					}
-				}
 				return $Controller->run ( true )->getContent ();
 			}
 		}
