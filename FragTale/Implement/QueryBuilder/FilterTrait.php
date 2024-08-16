@@ -181,7 +181,7 @@ trait FilterTrait {
 					} else
 						throw new \Exception ( sprintf ( dgettext ( 'core', 'Operator "%s" expects its value to be a single list (1 dimension array).' ), $operator ) );
 				}
-				return $operator . ' ' . SqlEncaps::IN_PARENTHESES ( $markedConds, ', ' );
+				return $operator . ' ' . SqlEncaps::IN_PARENTHESES ( $markedConds, ',' );
 			case SqlOperator::BETWEEN :
 			case SqlOperator::NOT_BETWEEN :
 				if (! is_array ( $conditions ) || count ( $conditions ) !== 2)

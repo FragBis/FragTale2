@@ -28,11 +28,19 @@ abstract class SqlEncaps {
 	 *
 	 * @param array $statements
 	 *        	Several SQL statements to encapsulate in parenthesis
-	 * @param string $sqlOperator
-	 *        	SQL statements are joined with the given operator. Default is "AND".
+	 * @param string $sqlOperatorOrSeparator
+	 *        	SQL statements are joined with the given operator or separator. Default is "AND".
 	 * @return string
 	 */
-	public static function IN_PARENTHESES(array $statements, string $sqlOperator = SqlOperator::AND): string {
-		return '(' . implode ( " $sqlOperator ", $statements ) . ')';
+	public static function IN_PARENTHESES(array $statements, string $sqlOperatorOrSeparator = SqlOperator::AND): string {
+		$trimmedSep = trim ( $sqlOperatorOrSeparator );
+		if (in_array ( $trimmedSep, [ 
+				'',
+				','
+		] ))
+			$sqlOperatorOrSeparator = "{$trimmedSep} ";
+		elseif (stripos ( $sqlOperatorOrSeparator, '"' ) === false && stripos ( $sqlOperatorOrSeparator, "'" ) === false)
+			$sqlOperatorOrSeparator = " {$trimmedSep} ";
+		return '(' . implode ( $sqlOperatorOrSeparator, $statements ) . ')';
 	}
 }
