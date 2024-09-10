@@ -45,7 +45,7 @@ abstract class Locale extends Constant {
 			'datetime_format' => 'd/m/Y H:i',
 			'datetime_sec_format' => 'd/m/Y H:i:s',
 			'long_date_format' => 'EEEE d MMMM y',
-			'long_datetime_format' => "'Le' EEEE d MMMM y 'à' HH:mm",
+			'long_datetime_format' => "EEEE d MMMM y 'à' HH:mm",
 			'decimal_separator' => ',',
 			'thousand_separator' => ' '
 	];
