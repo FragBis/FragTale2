@@ -538,6 +538,15 @@ class DataCollection implements Iterator {
 	}
 
 	/**
+	 * Convert full collection recursively as array
+	 *
+	 * @return array
+	 */
+	public function toArray(): array {
+		return $this->getData ( true );
+	}
+
+	/**
 	 * JSON output of iterable elements
 	 *
 	 * @return string
