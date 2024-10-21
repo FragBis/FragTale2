@@ -133,9 +133,9 @@ class Connector extends AbstractService {
 	}
 
 	/**
-	 * Returns instance of PDO connected to your default configured SQL database
+	 * Returns instance of \MongoDB\Driver\Manager connected to your default configured MongoDB database
 	 *
-	 * @return \PDO|NULL
+	 * @return Manager|NULL
 	 */
 	public function getDefaultMongoManager(): ?Manager {
 		if (! ($defaultConnectorId = $this->getSuperServices ()->getProjectService ()->getDefaultMongoConnectorID ()) && IS_CLI)
