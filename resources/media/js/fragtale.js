@@ -328,6 +328,12 @@ var FragTale = {
 		 */
 		defaultSuccessCallback: (HttpRequest) => {
 			let Layer = document.getElementById('FragTale-layer');
+			let layerToInclude = false;
+			if (!Layer) {
+				Layer = document.createElement('div');
+				Layer.id = 'FragTale-layer';
+				layerToInclude = true;
+			}
 			Layer.onclick = () => {
 				Layer.classList.add('FragTale-fadeOut');
 				setTimeout(() => Layer.remove(), 200);
@@ -342,14 +348,15 @@ var FragTale = {
 				switch (HttpRequest.responseType.toLowerCase()) {
 					case 'json':
 						if (typeof Response == 'object') {
+							let status = Response.status.toString().toLowerCase();
 							if (typeof Response.status !== 'undefined') {
-								if (Response.status.toLowerCase() === 'success')
+								if (status === 'success')
 									Popin.classList.add('FragTale-success');
-								else if (Response.status.toLowerCase() === 'error')
+								else if (status === 'error')
 									Popin.classList.add('FragTale-error');
 							}
 							if (typeof Response.message !== 'undefined' && Response.message) {
-								PopinText.append(Response.message);
+								PopinText.append(Response.message.toString());
 								Popin.appendChild(PopinText);
 							} else {
 								// No message to display, just close layer
@@ -357,7 +364,7 @@ var FragTale = {
 								Layer.remove();
 							}
 						} else if (typeof HttpRequest.responseText !== 'undefined') {
-							PopinText.append(HttpRequest.responseText);
+							PopinText.append(HttpRequest.responseText.toString());
 							Popin.appendChild(PopinText);
 						}
 						break;
@@ -371,6 +378,8 @@ var FragTale = {
 					default:
 						console.warn('Unhandled responseType: ' + HttpRequest.responseType, HttpRequest);
 				}
+				if (layerToInclude)
+					document.body.append(Layer);
 				Layer.appendChild(Popin);
 				Popin.classList.add('FragTale-fadeIn');
 				if (typeof Response.redirect !== 'undefined') {
