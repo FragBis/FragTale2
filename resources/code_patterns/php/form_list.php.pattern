@@ -39,9 +39,7 @@ class /*Class*/ extends WebController {
 		$nbDisplayedRows = ( int ) $RequestService->getParamValue ( 'nb_rows' );
 		if (! $nbDisplayedRows)
 			$nbDisplayedRows = 10;
-		$pageCount = ( int ) ($totalRows / $nbDisplayedRows);
-		if (($pageCount * $nbDisplayedRows) < $totalRows)
-			$pageCount ++;
+		$pageCount = ceil ($totalRows / $nbDisplayedRows);
 		if ($pageCount && $pageNum > $pageCount)
 			$pageNum = $pageCount;
 		$limMin = ($pageNum - 1) * $nbDisplayedRows;
