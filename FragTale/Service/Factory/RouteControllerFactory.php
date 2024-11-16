@@ -65,6 +65,7 @@ class RouteControllerFactory extends AbstractService {
 	 */
 	private function createMainCliController(): Controller {
 		$CliService = $this->getSuperServices ()->getCliService ();
+		$Controller = null;
 		$controllerClassName = '';
 		$route = trim ( ( string ) $CliService->getOpt ( '_route_index' ), '/' );
 		if (substr ( $route, - 4 ) === '.php')
@@ -139,6 +140,7 @@ class RouteControllerFactory extends AbstractService {
 		if (! ($route = strtolower ( trim ( ( string ) $RequestService->getParamValue ( '_route_index' ), '/' ) )))
 			$route = 'home';
 
+		$Controller = null;
 		$is404 = false;
 		$isMedia = (strpos ( $route, 'media/' ) === 0);
 		$route = $this->getSuperServices ()->getRouteService ()->convertUriToNamespace ( $route ); // TODO, if route index is null, anticipate use of module "Alias" that will allow bindings between controllers and custom URI
@@ -162,9 +164,9 @@ class RouteControllerFactory extends AbstractService {
 			} catch ( \Throwable $T ) {
 				$this->getSuperServices ()->getErrorHandlerService ()->catchThrowable ( $T );
 			}
-			if (! ($Controller instanceof Controller))
-				$is404 = true;
 		}
+		if (! ($Controller instanceof Controller))
+			$is404 = true;
 		if ($is404) {
 			// Create 404
 			$custom404Class = $ProjectService->getName () . '\\Page404'; // Try to instanciate the 404 project controller first
