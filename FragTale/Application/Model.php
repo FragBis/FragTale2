@@ -796,7 +796,7 @@ abstract class Model extends Application implements Iterator {
 	 */
 	public function getTotalRowCount(): ?int {
 		$count = 0;
-		$query = "SELECT COUNT(*) as nbRows FROM $this->tableName";
+		$query = "SELECT COUNT(*) as nbRows FROM `{$this->tableName}`";
 		try {
 			$Statement = $this->getPDO ()->prepare ( $query );
 			if ($Statement->execute ()) {
