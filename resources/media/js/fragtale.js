@@ -242,10 +242,10 @@ var FragTale = {
 			FormElement.querySelectorAll("input,select,textarea").forEach((Element) => {
 				switch (Element.type) {
 					case 'date':
-						InputVars[Element.name] = Element.valueAsDate;
+						InputVars[Element.name] = Element.valueAsDate ?? '';
 						break;
 					case 'number':
-						InputVars[Element.name] = Element.valueAsNumber;
+						InputVars[Element.name] = Element.valueAsNumber ?? 0;
 						break;
 					case 'checkbox':
 						if (Element.checked) {
