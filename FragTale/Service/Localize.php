@@ -158,7 +158,7 @@ class Localize extends AbstractService {
 		}
 		if ($nbDecimals === null) {
 			// decimal count
-			$decSepPos = strpos ( ( string ) $number, $decSep );
+			$decSepPos = strpos ( ( string ) $number, '.' );
 			if ($decSepPos !== false)
 				$nbDecimals = strlen ( substr ( ( string ) $number, $decSepPos + 1 ) );
 		}
