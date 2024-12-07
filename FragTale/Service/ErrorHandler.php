@@ -29,20 +29,7 @@ class ErrorHandler extends AbstractService {
 		$file = $Throwable->getFile ();
 		$line = $Throwable->getLine ();
 		$fullMessage = sprintf ( dgettext ( 'core', '%1s in "%2s" at line %3s: %4s' ), dgettext ( 'core', $type ), $file, $line, $message ) . "\n";
-		foreach ( $Throwable->getTrace () as $trace ) {
-			$fullMessage .= '	# ';
-			if (isset ( $trace ['file'] ))
-				$fullMessage .= '"' . $trace ['file'] . '" (' . $trace ['line'] . '): ';
-			if (isset ( $trace ['class'] ))
-				$fullMessage .= $trace ['class'];
-			if (isset ( $trace ['class'] ) && isset ( $trace ['function'] ))
-				$fullMessage .= '::';
-			if (isset ( $trace ['function'] ))
-				$fullMessage .= $trace ['function'];
-			if (isset ( $trace ['args'] ))
-				$fullMessage .= ', args: ' . print_r ( $trace ['args'], true );
-			$fullMessage .= "\n";
-		}
+		$fullMessage .= $Throwable->getTraceAsString () . "\n";
 		if (IS_CLI)
 			$this->getSuperServices ()->getCliService ()->printError ( $fullMessage );
 		else {
