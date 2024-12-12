@@ -36,14 +36,15 @@ $primaryKeys = $Entity->getPrimaryKey(); ?>
 	<table>
 		<thead>
 			<tr>
-<?php			foreach ($Data->findAt(0)->keys() as $columnName){ ?>
+<?php			foreach ($Data->findAt(0)->keys() as $ic => $columnName) {
+					$iorder = $ic + 1; ?>
 				<th style="cursor: pointer;"
 					onclick="
-						document.getElementById('paginator_order').value = '<?= $columnName ?>';
-						document.getElementById('paginator_direction').value = '<?= $columnName === $orderColumn && strtoupper($orderDirection) === 'ASC' ? 'DESC' : 'ASC' ?>';
+						document.getElementById('paginator_order').value = '<?= $iorder ?>';
+						document.getElementById('paginator_direction').value = '<?= $iorder == $orderColumn && strtoupper($orderDirection) === 'ASC' ? 'DESC' : 'ASC' ?>';
 						document.getElementById('<?= $formId ?>').submit();
 					">
-					<?= $columnName . ( $columnName === $orderColumn ? (strtoupper($orderDirection) === 'DESC' ? ' &darr;' : ' &uarr;' ) : '' ) ?>
+					<?= $columnName . ( $iorder == $orderColumn ? (strtoupper($orderDirection) === 'DESC' ? ' &darr;' : ' &uarr;' ) : '' ) ?>
 				</th>
 <?php			} ?>
 			</tr>
