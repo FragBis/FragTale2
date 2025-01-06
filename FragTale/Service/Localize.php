@@ -229,6 +229,7 @@ class Localize extends AbstractService {
 	 * Truncate string at max length given by 2nd argument.
 	 * Last word is not truncated as far as possible.
 	 * If passed $string length is higher than $length, returned value takes ... at the end.
+	 * IT ONLY SUPPORTS WRITINGS FROM LEFT TO RIGHT!
 	 *
 	 * @param string $string
 	 *        	The string to truncate
@@ -242,13 +243,19 @@ class Localize extends AbstractService {
 		if (! $string)
 			return '';
 		if (strlen ( $string ) <= $length)
-			return "$string";
-		$string = substr ( $string, 0, $length );
+			return $string;
 		if ($strict)
-			return "$string...";
-		$expr = explode ( ' ', $string );
-		if (count ( $expr ) > 1)
-			array_pop ( $expr );
-		return implode ( ' ', $expr ) . '...';
+			return substr ( trim ( $string ), 0, $length - 3 ) . '...';
+
+		$string = substr ( trim ( $string ), 0, $length );
+		while ( strlen ( $string ) >= $length ) {
+			$expr = explode ( ' ', $string );
+			if (count ( $expr ) > 1) {
+				array_pop ( $expr );
+				$string = trim ( implode ( ' ', $expr ) ) . '...';
+			} else
+				return substr ( trim ( implode ( ' ', $expr ) ), 0, $length - 3 ) . '...';
+		}
+		return $string;
 	}
 }
